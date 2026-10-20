@@ -1,7 +1,15 @@
 name: Release
 
-# Push a tag such as v1.0.0 to publish dist/*.zip as a GitHub release.
+# Two ways to publish a release with dist/*.zip attached:
+#  1. GitHub → Actions → Release → "Run workflow", enter a version such as v1.0.0.
+#  2. Push a tag such as v1.0.0.
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag, e.g. v1.0.0"
+        required: true
+        default: "v1.0.0"
   push:
     tags: ["v*"]
 
@@ -11,6 +19,8 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ github.event.inputs.version || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -26,6 +36,15 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/*.zip \
-            --title "Tibbo Skills $GITHUB_REF_NAME" \
-            --notes "Install both packages. See the README for instructions and CHANGELOG.md for what changed."
+          cat > notes.md <<EOF
+          Install **both** packages — \`appblocks\` uses the TPS checker from \`tibbo-firmware\`.
+
+          - **Claude apps:** Customize → Skills → + → Create skill → Upload a skill → upload \`tibbo-firmware.zip\`, then \`appblocks.zip\`.
+          - **Claude Code:** \`/plugin marketplace add ${GITHUB_REPOSITORY}\`, then \`/plugin install tibbo-skills@scancode\`.
+
+          See [README](https://github.com/${GITHUB_REPOSITORY}#readme) and [CHANGELOG](https://github.com/${GITHUB_REPOSITORY}/blob/main/CHANGELOG.md).
+          EOF
+          gh release create "$VERSION" dist/*.zip \
+            --target "$GITHUB_SHA" \
+            --title "Tibbo Skills $VERSION" \
+            --notes-file notes.md

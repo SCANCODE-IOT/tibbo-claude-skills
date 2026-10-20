@@ -38,7 +38,8 @@ Rules for the content:
 
 ## Releasing (maintainers)
 
-Update the version in `.claude-plugin/marketplace.json` and `CHANGELOG.md`, then push a tag:
+Update the version in `.claude-plugin/marketplace.json` and `CHANGELOG.md`, commit, then either
+open **Actions → Release → Run workflow** and enter the version (for example `v1.1.0`), or push a tag:
 
 ```bash
 git tag v1.1.0 && git push origin v1.1.0
@@ -78,5 +79,5 @@ The *Release* workflow runs the tests and attaches `tibbo-firmware.zip` and `app
 
 ## Выпуск версии (для сопровождающих)
 
-Обновите версию в `.claude-plugin/marketplace.json` и `CHANGELOG.md`, затем отправьте тег `vX.Y.Z` (см. команду выше):
+Обновите версию в `.claude-plugin/marketplace.json` и `CHANGELOG.md`, затем откройте **Actions → Release → Run workflow** и введите версию (например `v1.1.0`) или отправьте тег (см. команду выше):
 workflow *Release* прогонит тесты и приложит к релизу `tibbo-firmware.zip` и `appblocks.zip`.
