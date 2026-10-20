@@ -1,0 +1,3 @@
+{"board": "TPP3W(G2)",
+ "slots": {"S1": "10", "S2": "18", "S3": "05", "S4": "21", "S5": "13", "S9": "23", "S27": "03_1"},
+ "power": {"vin": 24, "ext5v_ma": 0}, "poe_jumpers": "2-3", "buzzer": true, "ambient_c": 45}

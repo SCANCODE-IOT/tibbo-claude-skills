@@ -1,0 +1,92 @@
+# Формат проекта AppBlocks (экспорт JSON)
+
+Источник: два проекта, которые Tibbo выложила на GitHub вместе с PDF-распечатками из редактора
+(`tibbotech/modbus-mqtt-gateway-appblocks`, `tibbotech/modbus-gateway-appblocks`; копии в `examples/`).
+Официальной спецификации формата нет — всё ниже выведено из этих файлов. Поля и типы, которых нет в примерах,
+бери из свежего экспорта пользователя, а не придумывай.
+
+## 1. Верхний уровень
+
+```json
+{
+  "id": "6a7027cef9549288e8b5f72b",      // id проекта в AppBlocks (24 hex, как ObjectId MongoDB)
+  "name": "ModbusMQTTGateway",
+  "device": "TPP2W(G2)",                  // платформа = имя папки Platforms в TIDE
+  "description": "...", "shortDescription": "",
+  "version": "0.1.19",                    // версия формата/редактора — не меняй
+  "runtime": "zephyr",                    // "tios" (Tibbo BASIC, TiOS) | "zephyr" | "micropython"; через API device может быть объектом {platform, name}
+  "featureFlags": [{"id": "<ID>", "name": "MQTT Enabled", "enabled": true}],
+  "featureFlagMap": {"<flag ID>": ["<ID элемента>", ...]},   // какие feature/узлы включает флаг
+  "features": [ {"id": "<тип>", "settings": {"ID": "<ID>", ...}}, ... ]
+}
+```
+
+**Всё содержимое — плоский список `features`.** Тип — поле `id`, уникальный идентификатор — `settings.ID`.
+Вложенные списки (переменные, таймеры, таблицы, настройки STG, кейсы switch, аргументы узлов) имеют ту же
+форму `{"id": "<тип>", "settings": {"ID": ...}}`.
+
+**ID**: `Date.now()` в base36 + случайный base36-хвост, 16–20 символов, напр. `mruc2f3etssfz14s8m`.
+Новые ID — `python3 scripts/ab_tool.py ids 10`. ID должны быть уникальны во всём файле.
+
+## 2. Группы feature
+
+| Группа | Типы | Что важно |
+|---|---|---|
+| Плата и сборка | `boardsetting` (POE, 5VDIRECT, TPB, DIN, POWERADAPTER, ASM, WIFIANTENNA, GPRSANTENNA), `general` (DEVICE_NAME, FIRMWAREVERSION, TIMEZONE, LOGGING) | POE="1" ↔ перемычки PoE; 5VDIRECT="1" ↔ питание 5 В на клеммы платы |
+| Tibbit | `tibbit_NN` с `SOCKET` (номер сокета без «S»), `TIBBIT` ("05", "33"…), `PLATFORM`, + свои поля (у #05: NAME, MODE, BAUD, FLOWCONTROL, PARITY, BITS, TXBUF, RXBUF; у #33: PF) | Широкие (C2/M2/H2) записываются по первому сокету: #20 в SOCKET "2" = S2+S4 |
+| Беспроводное | `wireless_module` (MODULE: "WA2000C"), `wifi` (MODE, DHCP, WAP, WSEC, WPW…), `wln`, `bt`, `cell` | |
+| Сеть и сервисы | `net`, `dhcp`, `dns`, `sntp`, `http`, `httpserver`, `socket` (SOCKETS), `mqtt`, `cgg` (облако AggreGate), `modbus`, `modbus_master`, `modbus_slave`, `snmp_agent`, `smtp_client`, `mbedtls` | У сервисов `ENABLED` "0"/"1" |
+| Интерфейсы | `web_dashboard`, `luis` (настройка через BLE/веб), `lcd`, `lcd_graph`, `display_lib`, `ds_man` | |
+| Данные | `global_vars` (VARS → `variable`: VARNAME, DATATYPE float/string/datetime…, DEFAULT), `stg` (SETTINGS → `stg_setting`: SETTINGID, STORAGE E/R, DATATYPE, DEFAULT), `tbl` (TABLES → `tbl_table` → FIELDS `tbl_field`), `timers` (TIMERS → `timer`), `commands` (COMMANDS → `command`), `cron`, `fd`, `files`, `flash_devices` | |
+| Связки | `linked_setting` (FEATURE = ID Tibbit/сервиса, SETTINGID = его поле, LINKEDSETTING = ID `stg_setting`) | Поле feature берётся из настройки STG (меняется с веба/BLE) |
+| Расширения | `custom_features` → `custom_feature` → CODE_BLOCKS (`LOCATION`: напр. `PRJ_CONF_OVERRIDES`, код Zephyr Kconfig/C), `custom_feature_id` | Свой код внутри проекта |
+| Служебные | `filenum`, `sock`, `time`, `datetime`, `stgcmd_lib`, `mqtt_lib`, `peripheral_wiring` (LAYOUT_DATA), `datasheet_pages` (PAGES — markdown страниц datasheet) | Не трогай без нужды |
+
+## 3. Логика: узлы и связи
+
+Узел — feature `node_<тип>` с общими полями:
+`ID, DISPLAY_NAME, FEATURE, X, Y (позиция в редакторе), GROUP (ID node_group или ""), INPUTS, OUTPUTS, ARGUMENTS`
+плюс свои поля (TIMER, VARIABLE, TABLE, COMMAND… — это **ID** соответствующих элементов).
+
+`ARGUMENTS` — список `node_argument {ID, TARGETPARAM, ARGVALUE}`. В `ARGVALUE` можно подставлять:
+- `{{$<ID>}}` — значение переменной/настройки STG по её ID (`{{$mruc3avst0no8wlazw}}`);
+- `{{$<ИМЯ>}}` — параметр события или поле найденной записи: `{{$response_data}}`, `{{$rows}}`,
+  `{{$time_now}}`, `{{$pressed_time}}`, `{{$boot_reason}}`, `{{$ipaddress}}`, поля таблицы `{{$DEVICE_ID}}`, `{{$VALUE}}`;
+- выражения: `{{$id}}+1`, `{{$a}} * {{$b}}`, конкатенация `{{$x}}/{{$y}}`.
+
+Связь — feature `node_link`:
+```json
+{"id": "node_link", "settings": {"ID": "...", "SOURCE": "", "SOURCE_FEATURE": "<ID узла-источника>",
+ "SOURCE_PORT": "boot", "TARGET": "", "TARGET_FEATURE": "<ID узла-приёмника>", "TARGET_PORT": "timer_start", "ARGUMENTS": []}}
+```
+Порты каждого типа — `references/catalog.md`. У `node_switch` выходной порт = **ID кейса** из CASES.
+`node_system` (один на проект) объявляет порты в INPUTS/OUTPUTS: выходы `boot`, `on_sys_timer`; входы `sys.halt`, `sys.reboot`.
+
+Типичный приём из примеров — «команды» как подпрограммы: `node_command_trigger(COMMAND=X)` вызывает,
+`node_command_triggered(COMMAND=X)` — точка входа. Так строятся циклы опроса (POLL_NEXT → … → POLL_END → POLL_NEXT).
+
+## 4. Правила правки и генерации
+
+1. Начинай с экспорта пользователя (или примера) и меняй его, а не пиши проект с нуля: так сохраняются
+   служебные feature, версия формата и runtime.
+2. Каждый новый элемент — новый ID (`ab_tool.py ids`). Не копируй ID из другого проекта.
+3. Ссылки (`GROUP`, `TIMER`, `VARIABLE`, `TABLE`, `COMMAND`, `SOCKET`, `SERIAL_PORT`, `{{$ID}}`, `LINKEDSETTING`)
+   должны указывать на существующие ID.
+4. Порты бери только из catalog.md или из того же типа узла в экспорте пользователя.
+5. Новый Tibbit = `tibbit_NN` с SOCKET/TIBBIT/PLATFORM:"" и полями по образцу того же Tibbit в любом экспорте;
+   если образца нет — добавь Tibbit в редакторе AppBlocks, а не угадывай поля.
+6. Позиции X/Y: новые узлы ставь правее источника (+300…350 по X), в той же GROUP.
+7. После правки: `ab_tool.py check` (0 ошибок) → `ab_tool.py tps … --out cfg.json` + `tps_check.py check cfg.json --svg board.svg` для железа →
+   `ab_tool.py flow` для картинки → импорт в AppBlocks и проверка в редакторе.
+8. **Ссылки по ID есть не только в узлах.** Панели и сервисы хранят ID других элементов во вложенных списках:
+   `web_dashboard` → GROUPS → `luis_item.SETTINGID` (ID `stg_setting`), WIDGETS → `button_widget.VARIABLE`
+   (ID **команды**), TABLES → `console_table_item.TABLE` (ID `tbl_table`); то же бывает в `luis`, `ds_man`, `lcd_menu`, `cgg`.
+   Если при переделке проекта удаляешь или пересоздаёшь настройку, команду или таблицу — **сохрани её старый ID**
+   (или пройди по всему дереву и замени старый ID новым), иначе редактор покажет «Setting is not defined»,
+   «Connected Setting is not set», «Same setting cannot be exposed more than once» (несколько пунктов с одинаковой
+   битой ссылкой), «Command is not set». `ab_tool.py check` ищет такие ссылки по всему файлу.
+9. **Числовые поля имеют минимумы редактора**: `global_vars.INTERVAL` (Update Interval) ≥ 1. Значения вне пределов
+   редактор показывает в Problems, хотя сервер генерации кода их принимает — успешный `ab_api.py code` не доказывает,
+   что проект чистый.
+10. **Импорт сгенерированного файла в AppBlocks не проверен** (нет доступа к редактору при сборке скилла).
+   Перед первым использованием попроси пользователя импортировать маленькую правку и подтвердить.

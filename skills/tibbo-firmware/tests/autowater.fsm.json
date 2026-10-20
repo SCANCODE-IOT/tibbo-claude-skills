@@ -1,0 +1,17 @@
+{"title": "Автополив — конечный автомат (тик on_sys_timer = 0,5 с)",
+ "states": [
+  {"id": "START", "note": "набор 8 исправных замеров", "outputs": "насос выкл · LED B-~", "kind": "init"},
+  {"id": "IDLE",  "note": "ждём, пока почва высохнет", "outputs": "насос выкл · G-------~"},
+  {"id": "WATER", "note": "полив", "outputs": "насос ВКЛ · GGGG~", "kind": "active"},
+  {"id": "SOAK",  "note": "вода впитывается", "outputs": "насос выкл · G-G-------~"},
+  {"id": "FAULT", "note": "насос заблокирован", "outputs": "R-R-~*", "kind": "fault"}
+ ],
+ "transitions": [
+  {"from": "START", "to": "IDLE",  "label": "8 замеров"},
+  {"from": "IDLE",  "to": "WATER", "label": "влажн. < DRY / MD"},
+  {"from": "WATER", "to": "SOAK",  "label": "≥ WET / MXON / MD"},
+  {"from": "SOAK",  "to": "IDLE",  "label": "прошло SOAK мин"},
+  {"from": "SOAK",  "to": "WATER", "label": "MD — ручной полив"},
+  {"from": "*",     "to": "FAULT", "label": "датчик вне 200…4500 мВ ×6 / MXFL таймаутов / ошибка настроек"},
+  {"from": "FAULT", "to": "START", "label": "MD ≥ 3 с"}
+ ]}

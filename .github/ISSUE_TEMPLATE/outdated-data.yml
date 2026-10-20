@@ -1,0 +1,14 @@
+name: Outdated data
+description: A new Tibbit, platform, library version or AppBlocks node is missing or described incorrectly
+labels: ["data"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What is missing or outdated
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: Link to docs.tibbo.com, github.com/tibbotech or appblocks.io

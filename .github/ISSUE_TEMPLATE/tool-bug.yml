@@ -1,0 +1,25 @@
+name: Tool bug
+description: tps_check.py, state_diagram.py, ab_tool.py or ab_api.py fails or reports something wrong
+labels: ["bug"]
+body:
+  - type: input
+    id: command
+    attributes:
+      label: Command
+      placeholder: python3 scripts/tps_check.py check cfg.json --svg board.svg
+    validations: { required: true }
+  - type: textarea
+    id: output
+    attributes:
+      label: Output or error
+      render: text
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: "3.12"

@@ -1,0 +1,31 @@
+name: Wrong answer
+description: Claude gave wrong firmware, a wrong Tibbit layout or a wrong AppBlocks change while using the skills
+labels: ["wrong answer"]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill
+      options: [tibbo-firmware, appblocks, both / not sure]
+    validations: { required: true }
+  - type: input
+    id: platform
+    attributes:
+      label: Platform or board
+      placeholder: TPP3W(G2), TPP2W(G3), DS1102W, EM2000W...
+  - type: textarea
+    id: prompt
+    attributes:
+      label: What you asked
+    validations: { required: true }
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What was wrong
+      description: The wrong part of the answer and what is actually correct (TIDE message, device behaviour, documentation link).
+    validations: { required: true }
+  - type: textarea
+    id: files
+    attributes:
+      label: Files
+      description: Code, cfg.json or AppBlocks export. Remove passwords, API keys and device keys first.

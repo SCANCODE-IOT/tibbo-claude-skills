@@ -1,0 +1,37 @@
+Tibbo Skills for Claude
+Copyright (c) 2026 Scancode
+
+The MIT License in LICENSE covers the original work of Scancode in this
+repository: the skill instructions (SKILL.md), the documentation, and the
+scripts in skills/*/scripts and tools/.
+
+Third-party material
+--------------------
+
+Parts of this repository are derived from publicly available materials of
+Tibbo Technology Inc. and remain the property of their respective owners.
+They are included to let Claude give accurate answers about Tibbo products:
+
+* skills/tibbo-firmware/references/ and skills/tibbo-firmware/data/
+  API names, signatures, constants, platform and library descriptions and
+  the Tibbit catalog, extracted from https://github.com/tibbotech and
+  summarised from https://docs.tibbo.com.
+
+* skills/appblocks/references/
+  Node, port and field catalogs and API notes compiled from
+  https://appblocks.io, its documentation and example projects.
+
+* skills/appblocks/examples/
+  Example AppBlocks projects published by Tibbo Technology on
+  https://appblocks.io and https://github.com/tibbotech.
+
+Where the original materials carry their own license, that license applies
+to the derived content. If you are a rights holder and want any of this
+material changed or removed, please open an issue.
+
+Trademarks
+----------
+
+Tibbo, Tibbit, TiOS, TIDE and AppBlocks are trademarks of Tibbo Technology
+Inc. Claude is a trademark of Anthropic PBC. This project is not affiliated
+with or endorsed by either company unless stated otherwise.

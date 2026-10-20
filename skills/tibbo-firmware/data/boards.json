@@ -1,0 +1,1998 @@
+{
+ "TPP2W": {
+  "family": "TPP2",
+  "gen": 1,
+  "board_5v_ma": 300,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12
+  ],
+  "rf_socket": 13,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ]
+  ],
+  "poe": {
+   "m1": 11,
+   "m2": [
+    9,
+    11
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB2",
+   "TPB2L"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S13": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ },
+ "TPP2N": {
+  "family": "TPP2",
+  "gen": 1,
+  "board_5v_ma": 300,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12
+  ],
+  "rf_socket": 13,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ]
+  ],
+  "poe": {
+   "m1": 11,
+   "m2": [
+    9,
+    11
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB2",
+   "TPB2L"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S13": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ },
+ "TPP2W(G2)": {
+  "family": "TPP2",
+  "gen": 2,
+  "board_5v_ma": 140,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12
+  ],
+  "rf_socket": 13,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ]
+  ],
+  "poe": {
+   "m1": 11,
+   "m2": [
+    9,
+    11
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB2",
+   "TPB2L"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S13": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ },
+ "TPP2W(G3)": {
+  "family": "TPP2",
+  "gen": 3,
+  "board_5v_ma": 140,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12
+  ],
+  "rf_socket": 13,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ]
+  ],
+  "poe": {
+   "m1": 11,
+   "m2": [
+    9,
+    11
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB2",
+   "TPB2L"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S13": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ },
+ "TPP3W": {
+  "family": "TPP3",
+  "gen": 1,
+  "board_5v_ma": 300,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11,
+   13,
+   15,
+   17,
+   19,
+   21,
+   23,
+   25,
+   27
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12,
+   14,
+   16,
+   18,
+   20,
+   22,
+   24,
+   26,
+   28
+  ],
+  "rf_socket": 29,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ],
+   [
+    13,
+    14,
+    15,
+    16
+   ],
+   [
+    17,
+    18,
+    19,
+    20
+   ],
+   [
+    21,
+    22,
+    23,
+    24
+   ],
+   [
+    25,
+    26,
+    27,
+    28
+   ]
+  ],
+  "poe": {
+   "m1": 27,
+   "m2": [
+    25,
+    27
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB3"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_36",
+     "B": "PL_IO_NUM_37",
+     "C": "PL_IO_NUM_6",
+     "D": "PL_IO_NUM_22_INT6"
+    },
+    "uart": null,
+    "int": 6,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S13": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S14"
+   },
+   "S15": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_38",
+     "B": "PL_IO_NUM_39",
+     "C": "PL_IO_NUM_7",
+     "D": "PL_IO_NUM_23_INT7"
+    },
+    "uart": null,
+    "int": 7,
+    "adc": false,
+    "c_pair": "S16"
+   },
+   "S17": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_24",
+     "B": "PL_IO_NUM_25",
+     "C": "PL_IO_NUM_26",
+     "D": "PL_IO_NUM_27"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S18"
+   },
+   "S19": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_28",
+     "B": "PL_IO_NUM_29",
+     "C": "PL_IO_NUM_30",
+     "D": "PL_IO_NUM_31"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S20"
+   },
+   "S21": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_40",
+     "B": "PL_IO_NUM_41",
+     "C": "PL_IO_NUM_42",
+     "D": "PL_IO_NUM_43"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S22"
+   },
+   "S23": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_54",
+     "B": "PL_IO_NUM_55"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S24"
+   },
+   "S25": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_44"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S26"
+   },
+   "S27": {
+    "type": "M",
+    "lines": {},
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S28"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S14": {
+    "type": "C",
+    "m_pair": "S13"
+   },
+   "S16": {
+    "type": "C",
+    "m_pair": "S15"
+   },
+   "S18": {
+    "type": "C",
+    "m_pair": "S17"
+   },
+   "S20": {
+    "type": "C",
+    "m_pair": "S19"
+   },
+   "S22": {
+    "type": "C",
+    "m_pair": "S21"
+   },
+   "S24": {
+    "type": "C",
+    "m_pair": "S23"
+   },
+   "S26": {
+    "type": "C",
+    "m_pair": "S25"
+   },
+   "S28": {
+    "type": "C",
+    "m_pair": "S27"
+   },
+   "S29": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ },
+ "TPP3N": {
+  "family": "TPP3",
+  "gen": 1,
+  "board_5v_ma": 300,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11,
+   13,
+   15,
+   17,
+   19,
+   21,
+   23,
+   25,
+   27
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12,
+   14,
+   16,
+   18,
+   20,
+   22,
+   24,
+   26,
+   28
+  ],
+  "rf_socket": 29,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ],
+   [
+    13,
+    14,
+    15,
+    16
+   ],
+   [
+    17,
+    18,
+    19,
+    20
+   ],
+   [
+    21,
+    22,
+    23,
+    24
+   ],
+   [
+    25,
+    26,
+    27,
+    28
+   ]
+  ],
+  "poe": {
+   "m1": 27,
+   "m2": [
+    25,
+    27
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB3"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_36",
+     "B": "PL_IO_NUM_37",
+     "C": "PL_IO_NUM_6",
+     "D": "PL_IO_NUM_22_INT6"
+    },
+    "uart": null,
+    "int": 6,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S13": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S14"
+   },
+   "S15": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_38",
+     "B": "PL_IO_NUM_39",
+     "C": "PL_IO_NUM_7",
+     "D": "PL_IO_NUM_23_INT7"
+    },
+    "uart": null,
+    "int": 7,
+    "adc": false,
+    "c_pair": "S16"
+   },
+   "S17": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_24",
+     "B": "PL_IO_NUM_25",
+     "C": "PL_IO_NUM_26",
+     "D": "PL_IO_NUM_27"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S18"
+   },
+   "S19": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_28",
+     "B": "PL_IO_NUM_29",
+     "C": "PL_IO_NUM_30",
+     "D": "PL_IO_NUM_31"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S20"
+   },
+   "S21": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_40",
+     "B": "PL_IO_NUM_41",
+     "C": "PL_IO_NUM_42",
+     "D": "PL_IO_NUM_43"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S22"
+   },
+   "S23": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_54",
+     "B": "PL_IO_NUM_55"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S24"
+   },
+   "S25": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_44"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S26"
+   },
+   "S27": {
+    "type": "M",
+    "lines": {},
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S28"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S14": {
+    "type": "C",
+    "m_pair": "S13"
+   },
+   "S16": {
+    "type": "C",
+    "m_pair": "S15"
+   },
+   "S18": {
+    "type": "C",
+    "m_pair": "S17"
+   },
+   "S20": {
+    "type": "C",
+    "m_pair": "S19"
+   },
+   "S22": {
+    "type": "C",
+    "m_pair": "S21"
+   },
+   "S24": {
+    "type": "C",
+    "m_pair": "S23"
+   },
+   "S26": {
+    "type": "C",
+    "m_pair": "S25"
+   },
+   "S28": {
+    "type": "C",
+    "m_pair": "S27"
+   },
+   "S29": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ },
+ "TPP3W(G2)": {
+  "family": "TPP3",
+  "gen": 2,
+  "board_5v_ma": 140,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11,
+   13,
+   15,
+   17,
+   19,
+   21,
+   23,
+   25,
+   27
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12,
+   14,
+   16,
+   18,
+   20,
+   22,
+   24,
+   26,
+   28
+  ],
+  "rf_socket": 29,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ],
+   [
+    13,
+    14,
+    15,
+    16
+   ],
+   [
+    17,
+    18,
+    19,
+    20
+   ],
+   [
+    21,
+    22,
+    23,
+    24
+   ],
+   [
+    25,
+    26,
+    27,
+    28
+   ]
+  ],
+  "poe": {
+   "m1": 27,
+   "m2": [
+    25,
+    27
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB3"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_36",
+     "B": "PL_IO_NUM_37",
+     "C": "PL_IO_NUM_6",
+     "D": "PL_IO_NUM_22_INT6"
+    },
+    "uart": null,
+    "int": 6,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S13": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S14"
+   },
+   "S15": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_38",
+     "B": "PL_IO_NUM_39",
+     "C": "PL_IO_NUM_7",
+     "D": "PL_IO_NUM_23_INT7"
+    },
+    "uart": null,
+    "int": 7,
+    "adc": false,
+    "c_pair": "S16"
+   },
+   "S17": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_24",
+     "B": "PL_IO_NUM_25",
+     "C": "PL_IO_NUM_26",
+     "D": "PL_IO_NUM_27"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S18"
+   },
+   "S19": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_28",
+     "B": "PL_IO_NUM_29",
+     "C": "PL_IO_NUM_30",
+     "D": "PL_IO_NUM_31"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S20"
+   },
+   "S21": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_40",
+     "B": "PL_IO_NUM_41",
+     "C": "PL_IO_NUM_42",
+     "D": "PL_IO_NUM_43"
+    },
+    "uart": null,
+    "int": null,
+    "adc": true,
+    "c_pair": "S22"
+   },
+   "S23": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_54",
+     "B": "PL_IO_NUM_55"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S24"
+   },
+   "S25": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_44"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S26"
+   },
+   "S27": {
+    "type": "M",
+    "lines": {},
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S28"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S14": {
+    "type": "C",
+    "m_pair": "S13"
+   },
+   "S16": {
+    "type": "C",
+    "m_pair": "S15"
+   },
+   "S18": {
+    "type": "C",
+    "m_pair": "S17"
+   },
+   "S20": {
+    "type": "C",
+    "m_pair": "S19"
+   },
+   "S22": {
+    "type": "C",
+    "m_pair": "S21"
+   },
+   "S24": {
+    "type": "C",
+    "m_pair": "S23"
+   },
+   "S26": {
+    "type": "C",
+    "m_pair": "S25"
+   },
+   "S28": {
+    "type": "C",
+    "m_pair": "S27"
+   },
+   "S29": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ },
+ "TPP3W(G3)": {
+  "family": "TPP3",
+  "gen": 3,
+  "board_5v_ma": 140,
+  "buzzer_ma": 50,
+  "wa2000_ma": 300,
+  "onboard_supply": null,
+  "m_sockets": [
+   1,
+   3,
+   5,
+   7,
+   9,
+   11,
+   13,
+   15,
+   17,
+   19,
+   21,
+   23,
+   25,
+   27
+  ],
+  "c_sockets": [
+   2,
+   4,
+   6,
+   8,
+   10,
+   12,
+   14,
+   16,
+   18,
+   20,
+   22,
+   24,
+   26,
+   28
+  ],
+  "rf_socket": 29,
+  "tiles": [
+   [
+    1,
+    2,
+    3,
+    4
+   ],
+   [
+    5,
+    6,
+    7,
+    8
+   ],
+   [
+    9,
+    10,
+    11,
+    12
+   ],
+   [
+    13,
+    14,
+    15,
+    16
+   ],
+   [
+    17,
+    18,
+    19,
+    20
+   ],
+   [
+    21,
+    22,
+    23,
+    24
+   ],
+   [
+    25,
+    26,
+    27,
+    28
+   ]
+  ],
+  "poe": {
+   "m1": 27,
+   "m2": [
+    25,
+    27
+   ],
+   "jumpers": "1-2"
+  },
+  "enclosures": [
+   "TPB3"
+  ],
+  "sockets": {
+   "S1": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_9_TX0",
+     "B": "PL_IO_NUM_8_RX0",
+     "C": "PL_IO_NUM_0",
+     "D": "PL_IO_NUM_16_INT0"
+    },
+    "uart": 0,
+    "int": 0,
+    "adc": false,
+    "c_pair": "S2"
+   },
+   "S3": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_32",
+     "B": "PL_IO_NUM_33",
+     "C": "PL_IO_NUM_4",
+     "D": "PL_IO_NUM_20_INT4"
+    },
+    "uart": null,
+    "int": 4,
+    "adc": false,
+    "c_pair": "S4"
+   },
+   "S5": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_11_TX1",
+     "B": "PL_IO_NUM_10_RX1",
+     "C": "PL_IO_NUM_1",
+     "D": "PL_IO_NUM_17_INT1"
+    },
+    "uart": 1,
+    "int": 1,
+    "adc": false,
+    "c_pair": "S6"
+   },
+   "S7": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_34",
+     "B": "PL_IO_NUM_35",
+     "C": "PL_IO_NUM_5",
+     "D": "PL_IO_NUM_21_INT5"
+    },
+    "uart": null,
+    "int": 5,
+    "adc": false,
+    "c_pair": "S8"
+   },
+   "S9": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_13_TX2",
+     "B": "PL_IO_NUM_12_RX2",
+     "C": "PL_IO_NUM_2",
+     "D": "PL_IO_NUM_18_INT2"
+    },
+    "uart": 2,
+    "int": 2,
+    "adc": false,
+    "c_pair": "S10"
+   },
+   "S11": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_36",
+     "B": "PL_IO_NUM_37",
+     "C": "PL_IO_NUM_6",
+     "D": "PL_IO_NUM_22_INT6"
+    },
+    "uart": null,
+    "int": 6,
+    "adc": false,
+    "c_pair": "S12"
+   },
+   "S13": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_15_TX3",
+     "B": "PL_IO_NUM_14_RX3",
+     "C": "PL_IO_NUM_3",
+     "D": "PL_IO_NUM_19_INT3"
+    },
+    "uart": 3,
+    "int": 3,
+    "adc": false,
+    "c_pair": "S14"
+   },
+   "S15": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_38",
+     "B": "PL_IO_NUM_39",
+     "C": "PL_IO_NUM_7",
+     "D": "PL_IO_NUM_23_INT7"
+    },
+    "uart": null,
+    "int": 7,
+    "adc": false,
+    "c_pair": "S16"
+   },
+   "S17": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_24",
+     "B": "PL_IO_NUM_25",
+     "C": "PL_IO_NUM_26",
+     "D": "PL_IO_NUM_27"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S18"
+   },
+   "S19": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_28",
+     "B": "PL_IO_NUM_29",
+     "C": "PL_IO_NUM_30",
+     "D": "PL_IO_NUM_31"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S20"
+   },
+   "S21": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_40",
+     "B": "PL_IO_NUM_41",
+     "C": "PL_IO_NUM_42",
+     "D": "PL_IO_NUM_43"
+    },
+    "uart": null,
+    "int": null,
+    "adc": true,
+    "c_pair": "S22"
+   },
+   "S23": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_54",
+     "B": "PL_IO_NUM_55"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S24"
+   },
+   "S25": {
+    "type": "M",
+    "lines": {
+     "A": "PL_IO_NUM_44"
+    },
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S26"
+   },
+   "S27": {
+    "type": "M",
+    "lines": {},
+    "uart": null,
+    "int": null,
+    "adc": false,
+    "c_pair": "S28"
+   },
+   "S2": {
+    "type": "C",
+    "m_pair": "S1"
+   },
+   "S4": {
+    "type": "C",
+    "m_pair": "S3"
+   },
+   "S6": {
+    "type": "C",
+    "m_pair": "S5"
+   },
+   "S8": {
+    "type": "C",
+    "m_pair": "S7"
+   },
+   "S10": {
+    "type": "C",
+    "m_pair": "S9"
+   },
+   "S12": {
+    "type": "C",
+    "m_pair": "S11"
+   },
+   "S14": {
+    "type": "C",
+    "m_pair": "S13"
+   },
+   "S16": {
+    "type": "C",
+    "m_pair": "S15"
+   },
+   "S18": {
+    "type": "C",
+    "m_pair": "S17"
+   },
+   "S20": {
+    "type": "C",
+    "m_pair": "S19"
+   },
+   "S22": {
+    "type": "C",
+    "m_pair": "S21"
+   },
+   "S24": {
+    "type": "C",
+    "m_pair": "S23"
+   },
+   "S26": {
+    "type": "C",
+    "m_pair": "S25"
+   },
+   "S28": {
+    "type": "C",
+    "m_pair": "S27"
+   },
+   "S29": {
+    "type": "C",
+    "only": [
+     "37"
+    ]
+   }
+  }
+ }
+}

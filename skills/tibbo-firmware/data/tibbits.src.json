@@ -1,0 +1,4371 @@
+[
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21",
+                "49"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "empty",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "LN1",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 1"
+                },
+                {
+                    "id": "LN2",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 2"
+                },
+                {
+                    "id": "LN3",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 3"
+                },
+                {
+                    "id": "LN4",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 4"
+                }
+            ]
+        },
+        "good": {
+            "model": "00_1",
+            "name": "Four direct I/O lines",
+            "description": "Four directly exposed I/O lines of the microcontroller.",
+            "id": "tibbit_00_1_B",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR",
+                "DIRECT I/O",
+                "LINES"
+            ]
+        },
+        "spec": {
+            "io": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "empty",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "LN1",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 1"
+                },
+                {
+                    "id": "LN2",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 2"
+                },
+                {
+                    "id": "LN3",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 3"
+                },
+                {
+                    "id": "LN4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "00_2",
+            "name": "Three direct I/O lines and ground",
+            "description": "Three directly exposed I/O lines of the microcontroller plus the ground line.",
+            "id": "tibbit_00_2_B",
+            "for_sale": 1,
+            "desc_svg": [
+                "THREE DIRECT",
+                "I/O LINES",
+                "AND GROUND"
+            ]
+        },
+        "spec": {
+            "io": 3
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21",
+                "28",
+                "29",
+                "30",
+                "35",
+                "36",
+                "38",
+                "39_1",
+                "39_2",
+                "39_3",
+                "39_4",
+                "41"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "empty",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "LN1",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 1"
+                },
+                {
+                    "id": "LN2",
+                    "requirement": 1,
+                    "message": " You will have no control of the I/O line 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "00_3",
+            "name": "Two direct I/O lines, +5V power, ground",
+            "description": "Two directly exposed I/O lines of the microcontroller plus the +5V output and ground lines.",
+            "id": "tibbit_00_3_B",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO DIRECT",
+                "I/O LINES,",
+                "5VDC, GROUND"
+            ]
+        },
+        "spec": {
+            "io": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [
+                "serial",
+                "interrupt"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 1,
+                    "message": " No control of the TX line"
+                },
+                {
+                    "id": "RX",
+                    "requirement": 1,
+                    "message": " No control of the RX line"
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " No control of the RTS line"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " No control of the CTS line"
+                }
+            ]
+        },
+        "good": {
+            "model": "01",
+            "name": "Four-line RS232 port",
+            "description": "Simple RS232 port with only TX, RX, RTS, and CTS lines.",
+            "id": "tibbit_01_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR-LINE",
+                "RS232",
+                "PORT"
+            ]
+        },
+        "spec": {
+            "serial": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "40"
+                }
+            ],
+            "form": "M2S",
+            "category": "io",
+            "requires": [
+                "serial"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 1,
+                    "message": " You will have no control of the TX line"
+                },
+                {
+                    "id": "RX",
+                    "requirement": 1,
+                    "message": " You will have no control of the RX line"
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " You will have no control of the RTS line"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " You will have no control of the CTS line"
+                },
+                {
+                    "id": "FD/-HD",
+                    "requirement": 1,
+                    "message": " You will have no control of the FD/HD line, this Tibbit will operate in the full-duplex mode only"
+                },
+                {
+                    "id": "-232/422&485",
+                    "requirement": 1,
+                    "message": " You will have no control of the 232/422-485 line, this Tibbit will operate in the RS232 mode only"
+                },
+                {
+                    "id": "DTR",
+                    "requirement": 1,
+                    "message": " You will have no control of the DTR line"
+                },
+                {
+                    "id": "DSR",
+                    "requirement": 1,
+                    "message": " You will have no control of the CTS line"
+                }
+            ]
+        },
+        "good": {
+            "model": "02",
+            "name": "RS232/422/485 port",
+            "description": "Universal RS232/422/485 port with electronic mode selection.",
+            "id": "tibbit_02_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "UNIVERSAL",
+                "RS232/422/",
+                "485 PORT"
+            ]
+        },
+        "spec": {
+            "serial": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "60"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "RL1",
+                    "requirement": 1,
+                    "message": " You will have no control of the relay 1"
+                },
+                {
+                    "id": "RL2",
+                    "requirement": 1,
+                    "message": " You will have no control of the relay 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "03_1",
+            "name": "Two low-power relays (configuration 1)",
+            "description": "Two mechanical low-power relays with independent normally opened terminals.",
+            "id": "tibbit_03_1_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO LOW-",
+                "POWER RELAYS",
+                "(INDEPENDENT)"
+            ]
+        },
+        "spec": {
+            "relay": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "60"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "RL1",
+                    "requirement": 1,
+                    "message": " You will have no control of the relay 1"
+                },
+                {
+                    "id": "RL2",
+                    "requirement": 1,
+                    "message": " You will have no control of the relay 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "03_2",
+            "name": "Two low-power relays (configuration 2)",
+            "description": "Two mechanical low-power relays with joined middle (common) terminals. Relay 1 has normally closed and normally opened terminals. Relay 2 only has the normally opened terminal exposed.",
+            "id": "tibbit_03_2_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO LOW-",
+                "POWER RELAYS",
+                "(JOINED COMMON)"
+            ]
+        },
+        "spec": {
+            "relay": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "30"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "04_1",
+            "name": "Two isolated inputs",
+            "description": "Two optically isolated inputs with independent terminals. Inputs are fully isolated from system ground.",
+            "id": "tibbit_04_1_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO OPTO-",
+                "ISOLATED INPUTS",
+                "(INDEPENDENT)"
+            ]
+        },
+        "spec": {
+            "input": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "35"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "IN3",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 3"
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "04_2",
+            "name": "Three isolated inputs, common (-)",
+            "description": "Three optically isolated inputs with common (-). Inputs are fully isolated from system ground.",
+            "id": "tibbit_04_2_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "THREE OPTO-",
+                "ISOLATED INPUTS",
+                "(COMMON -)"
+            ]
+        },
+        "spec": {
+            "input": 3
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "35"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "IN3",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 3"
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "04_3",
+            "name": "Three isolated inputs, common (+)",
+            "description": "Three optically isolated inputs with common (+). Inputs are fully isolated from system ground.",
+            "id": "tibbit_04_3_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "THREE OPTO-",
+                "ISOLATED INPUTS",
+                "(COMMON +)"
+            ]
+        },
+        "spec": {
+            "input": 3
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "40"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "IN3",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 3"
+                },
+                {
+                    "id": "IN4",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 4"
+                }
+            ]
+        },
+        "good": {
+            "model": "04_4",
+            "name": "Four opto-inputs, common ground",
+            "description": "Four opto-couple inputs with the '-' terminal connected to the system ground, independent '+' terminals.",
+            "id": "tibbit_04_4_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR OPTO-",
+                "INPUTS",
+                "(COMMON GND)"
+            ]
+        },
+        "spec": {
+            "input": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "30"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "04_5",
+            "name": "Two 24V isolated inputs",
+            "description": "Two optically isolated inputs with independent terminals. Inputs are fully isolated from system ground.",
+            "id": "tibbit_04_5_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO 24V OPTO-",
+                "ISOLATED INPUTS",
+                "(INDEPENDENT)"
+            ]
+        },
+        "spec": {
+            "input": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "35"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "IN3",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 3"
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "04_6",
+            "name": "Three 24V isolated inputs, common (-)",
+            "description": "Three optically isolated inputs with common (-). Inputs are fully isolated from system ground.",
+            "id": "tibbit_04_6_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "THREE 24V",
+                "OPTO-INPUTS",
+                "(COMMON -)"
+            ]
+        },
+        "spec": {
+            "input": 3
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "35"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "IN3",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 3"
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "04_7",
+            "name": "Three 24V isolated inputs, common (+)",
+            "description": "Three optically isolated inputs with common (+). Inputs are fully isolated from system ground.",
+            "id": "tibbit_04_7_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "THREE 24V",
+                "OPTO-INPUTS",
+                "(COMMON +)"
+            ]
+        },
+        "spec": {
+            "input": 3
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "40"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "IN1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "IN2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "IN3",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 3"
+                },
+                {
+                    "id": "IN4",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 4"
+                }
+            ]
+        },
+        "good": {
+            "model": "04_8",
+            "name": "Four 24V isolated inputs, common ground",
+            "description": "Four opto-couple inputs with the '-' terminal connected to the system ground, independent '+' terminals.",
+            "id": "tibbit_04_8_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR 24V",
+                "OPTO-INPUTS",
+                "(COMM. GND)"
+            ]
+        },
+        "spec": {
+            "input": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "15"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [
+                "serial"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 1,
+                    "message": " You will have no control of the TX line"
+                },
+                {
+                    "id": "RX",
+                    "requirement": 1,
+                    "message": " You will have no control of the RX line"
+                },
+                {
+                    "id": "DIR",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "05",
+            "name": "RS485 port",
+            "description": "RS485 port with full-duplex or half-duplex operation (provides 5V output).",
+            "id": "tibbit_05_b",
+            "for_sale": 1,
+            "desc_svg": [
+                "RS485 PORT",
+                "HALF-/FULL-",
+                "DUPLEX"
+            ]
+        },
+        "spec": {
+            "serial": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "140"
+                }
+            ],
+            "form": "M2T",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "RL1",
+                    "requirement": 1,
+                    "message": " You will have no control of the relay 1"
+                },
+                {
+                    "id": "RL2",
+                    "requirement": 1,
+                    "message": " You will have no control of the relay 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "5",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "6",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "7",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "8",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "06",
+            "name": "Two high-power relays",
+            "description": "Two mechanical high-power relays with normally opened and normally closed terminals.",
+            "id": "tibbit_06_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO",
+                "HIGH-POWER",
+                "(RELAYS)"
+            ]
+        },
+        "spec": {
+            "relay": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "25"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "RL1",
+                    "requirement": 1,
+                    "message": " You will have no control of the SSR 1"
+                },
+                {
+                    "id": "RL2",
+                    "requirement": 1,
+                    "message": " You will have no control of the SSR 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "07",
+            "name": "Two solid state relays",
+            "description": "Two solid state normally opened relays.",
+            "id": "tibbit_07_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO",
+                "SOLID STATE",
+                "RELAYS"
+            ]
+        },
+        "spec": {
+            "relay": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [
+                "serial",
+                "interrupt"
+            ],
+            "lines": [
+                {
+                    "id": "OUT",
+                    "requirement": 1,
+                    "message": " You will have no control of the open collector output"
+                },
+                {
+                    "id": "W1",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "CTRL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "W0&1",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "08",
+            "name": "Wiegand and clock/data reader port",
+            "description": "Wiegand and clock/data reader port plus one open collector output.",
+            "id": "tibbit_08_C",
+            "for_sale": 1,
+            "desc_svg": [
+                "CLOCK/DATA",
+                "& WIEGAND",
+                "PORT"
+            ]
+        },
+        "spec": {
+            "wiegand_clockdata": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "18"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": true,
+                    "value": "700"
+                }
+            ],
+            "form": "M1S",
+            "category": "power",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SDWN",
+                    "requirement": 1,
+                    "message": " You will have no control of the shutdown line, power supply will always be enabled"
+                },
+                {
+                    "id": "2",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "09",
+            "name": "Low-power 5V supply, 12V input",
+            "description": "Low-power non-isolated power supply with 5V output, 9-18V input range, shutdown control.",
+            "id": "tibbit_09_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "+12V (NOM.) IN",
+                "+5V OUT LOW-POWER",
+                "REGULATOR"
+            ]
+        },
+        "spec": {
+            "power": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "18"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": true,
+                    "value": "1100"
+                }
+            ],
+            "form": "M1T",
+            "category": "power",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SDWN",
+                    "requirement": 1,
+                    "message": " You will have no control of the shutdown line, power supply will always be enabled"
+                },
+                {
+                    "id": "2",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "10",
+            "name": "Medium-power 5V supply, 12V input",
+            "description": "Medium-power non-isolated power supply with 5V output, 9-18V input range, and shutdown control.",
+            "id": "tibbit_10_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "+12V (NOM.) IN",
+                "+5V OUT MEDIUM-",
+                "POWER REGULATOR"
+            ]
+        },
+        "spec": {
+            "power": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "50"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "OUT1",
+                    "requirement": 1,
+                    "message": " You will have no control of the output 1"
+                },
+                {
+                    "id": "OUT2",
+                    "requirement": 1,
+                    "message": " You will have no control of the output 2"
+                },
+                {
+                    "id": "OUT3",
+                    "requirement": 1,
+                    "message": " You will have no control of the output 3"
+                },
+                {
+                    "id": "OUT4",
+                    "requirement": 1,
+                    "message": " You will have no control of the output 4"
+                }
+            ]
+        },
+        "good": {
+            "model": "11",
+            "name": "Four open collector outputs",
+            "description": "Four open collector outputs.",
+            "id": "tibbit_11_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR",
+                "OPEN-COLL.",
+                "OUTPUTS"
+            ]
+        },
+        "spec": {
+            "output": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "230"
+                },
+                {
+                    "voltage": "+15V",
+                    "supply": true,
+                    "value": "15"
+                },
+                {
+                    "voltage": "-15V",
+                    "supply": true,
+                    "value": "15"
+                }
+            ],
+            "form": "M1S",
+            "category": "power",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SDWN",
+                    "requirement": 1,
+                    "message": " You will have no control of the shutdown line, power supply will always be enabled"
+                },
+                {
+                    "id": "2",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "12",
+            "name": "Low-power +15/-15V power supply, 5V input",
+            "description": "Low-power non-isolated power supply with +15/-15V output, 5V input, shutdown control.",
+            "id": "tibbit_12_b",
+            "for_sale": 1,
+            "desc_svg": [
+                "+5V (NOM.)",
+                "IN +/-15V OUT",
+                "REGULATOR"
+            ]
+        },
+        "spec": {
+            "power": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "66"
+                },
+                {
+                    "voltage": "+15V",
+                    "supply": false,
+                    "value": "9"
+                },
+                {
+                    "voltage": "-15V",
+                    "supply": false,
+                    "value": "4"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "13",
+            "name": "Four-channel ADC",
+            "description": "Four-channel ADC with -10V ~ +10V range.",
+            "id": "tibbit_13_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR-",
+                "CHANNEL",
+                "ADC"
+            ]
+        },
+        "spec": {
+            "adc": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "56"
+                },
+                {
+                    "voltage": "+15V",
+                    "supply": false,
+                    "value": "4"
+                },
+                {
+                    "voltage": "-15V",
+                    "supply": false,
+                    "value": "4"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "LOAD",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "BUSY",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "14",
+            "name": "Four-channel DAC",
+            "description": "Four-channel DAC with -10V ~ +10V range.",
+            "id": "tibbit_14_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR-",
+                "CHANNEL",
+                "DAC"
+            ]
+        },
+        "spec": {
+            "dac": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "H1",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "RL1",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "2",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "15",
+            "name": "High-voltage AC solid state relay",
+            "description": "High-voltage AC solid state normally opened relay.",
+            "id": "tibbit_15_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "HIGH-VOLTAGE",
+                "AC SOLID",
+                "STATE RELAY"
+            ]
+        },
+        "spec": {
+            "relay": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RST",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "INT",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "16",
+            "name": "Three PWMs with open collector outputs",
+            "description": "Three PWMs with open collector outputs.",
+            "id": "tibbit_16_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "THREE PWM",
+                "CH. (OPEN",
+                "COLLECTOR)"
+            ]
+        },
+        "spec": {
+            "pwm": 3
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RST",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "INT",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "17",
+            "name": "Three PWMs with power outputs",
+            "description": "Three PWMs with power outputs (the power must be supplied externally).",
+            "id": "tibbit_17_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "THREE PWM",
+                "CH. (VOLTAGE",
+                "OUTPUT)"
+            ]
+        },
+        "spec": {
+            "pwm": 3
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "09",
+                "10",
+                "25",
+                "33"
+            ],
+            "power": [],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "18",
+            "name": "Power input",
+            "description": "Power jack and two terminal blocks.",
+            "id": "tibbit_18_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "P-JACK &",
+                "2 T.B."
+            ]
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_1",
+                "00_2",
+                "00_3",
+                "01",
+                "02",
+                "03_1",
+                "03_2",
+                "04_1",
+                "04_2",
+                "04_3",
+                "04_4",
+                "04_5",
+                "04_6",
+                "04_7",
+                "04_8",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "16",
+                "17",
+                "22",
+                "23",
+                "25",
+                "26",
+                "31",
+                "33",
+                "40_1",
+                "40_2",
+                "40_3",
+                "40_4",
+                "42",
+                "51",
+                "52",
+                "53",
+                "54",
+                "57",
+                "58",
+                "59"
+            ],
+            "power": [],
+            "form": "C2",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "19",
+            "name": "DB9M connector",
+            "description": "DB9M connector.",
+            "id": "tibbit_19_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "DB9M CONNECTOR"
+            ]
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_1",
+                "00_2",
+                "00_3",
+                "01",
+                "02",
+                "03_1",
+                "03_2",
+                "04_1",
+                "04_2",
+                "04_3",
+                "04_4",
+                "04_5",
+                "04_6",
+                "04_7",
+                "04_8",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "12",
+                "13",
+                "14",
+                "16",
+                "17",
+                "22",
+                "23",
+                "25",
+                "26",
+                "31",
+                "33",
+                "40_1",
+                "40_2",
+                "40_3",
+                "40_4",
+                "42",
+                "51",
+                "52",
+                "53",
+                "54",
+                "57",
+                "58",
+                "59"
+            ],
+            "power": [],
+            "form": "C2",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "20",
+            "name": "Nine terminal blocks",
+            "description": "Nine terminal blocks.",
+            "id": "tibbit_20_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "9 TERMINAL BLOCKS"
+            ]
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_1",
+                "00_2",
+                "00_3",
+                "01",
+                "03_1",
+                "03_2",
+                "04_1",
+                "04_2",
+                "04_3",
+                "04_4",
+                "04_5",
+                "04_6",
+                "04_7",
+                "04_8",
+                "05",
+                "06",
+                "07",
+                "08",
+                "09",
+                "10",
+                "11",
+                "13",
+                "14",
+                "16",
+                "17",
+                "22",
+                "23",
+                "25",
+                "26",
+                "31",
+                "33",
+                "40_1",
+                "40_2",
+                "40_3",
+                "40_4",
+                "42",
+                "51",
+                "53",
+                "54",
+                "57",
+                "58",
+                "59"
+            ],
+            "power": [],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "21",
+            "name": "Four terminal blocks",
+            "description": "Four terminal blocks.",
+            "id": "tibbit_21_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "4 TERMINAL",
+                "BLOCKS"
+            ]
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [
+                "interrupt"
+            ],
+            "lines": [
+                {
+                    "id": "CSL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RST",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "INT",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "22",
+            "name": "RTD Temperature Meter",
+            "description": "RTD temperature meter.",
+            "id": "tibbit_22_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "RTD",
+                "TEMPERATURE",
+                "METER"
+            ]
+        },
+        "spec": {
+            "rtd": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": true,
+                    "value": "1300"
+                }
+            ],
+            "form": "M2T",
+            "category": "power",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SDWN",
+                    "requirement": 1,
+                    "message": " You will have no control of the shutdown line, power supply will always be enabled"
+                },
+                {
+                    "id": "2",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "5",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "6",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "7",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "8",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "23",
+            "name": "Isolated PoE power supply, 5V output",
+            "description": "Isolated PoE power supply with 5V output, shutdown control. Also can be used as generic isolated power supply with 35-60V input range.",
+            "id": "tibbit_23_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "ISOLATED",
+                "POE",
+                "+5V OUT",
+                "POWER REGULATOR"
+            ]
+        },
+        "spec": {
+            "poe": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "18"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": true,
+                    "value": "1500"
+                }
+            ],
+            "form": "M2T",
+            "category": "power",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SDWN",
+                    "requirement": 1,
+                    "message": " You will have no control of the shutdown line, power supply will always be enabled"
+                },
+                {
+                    "id": "2",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "5",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "6",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "7",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "8",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "25",
+            "name": "High-power 5V supply, 12/24/48V input",
+            "description": "High-power non-isolated power supply with 5V output, 8-60V input range, and shutdown control.",
+            "id": "tibbit_25_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "+24/48V IN",
+                "+5V OUT",
+                "HIGH-POWER",
+                "REGULATOR"
+            ]
+        },
+        "spec": {
+            "power": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21",
+                "27"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "100"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "CS",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SCLK",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "MOSI",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "DONE/MISO",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "26",
+            "name": "IR code processor",
+            "description": "Records and plays back infrared commands (codes) of conventional IR remote controls.",
+            "id": "tibbit_26_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "IR",
+                "COMMAND",
+                "PROCESSOR"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "26"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "27",
+            "name": "IR Receiver/Transmitter",
+            "description": "Infrared receiver circuitry and transmitter diode.",
+            "id": "tibbit_27_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "IR RX/TX"
+            ]
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "2"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "28",
+            "name": "Ambient light sensor",
+            "description": "Visible spectrum ambient light sensor.",
+            "id": "tibbit_28_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "AMBIENT",
+                "LIGHT SENS."
+            ]
+        },
+        "spec": {
+            "sensors": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "2"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "29",
+            "name": "Ambient temperature meter",
+            "description": "Ambient temperature meter.",
+            "id": "tibbit_29_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TEMP.",
+                "METER"
+            ]
+        },
+        "spec": {
+            "sensors": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "2"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "30",
+            "name": "Temperature/humidity meter",
+            "description": "Temperature/humidity meter.",
+            "id": "tibbit_30_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "HUM/TEMP",
+                "METER"
+            ]
+        },
+        "spec": {
+            "sensors": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21",
+                "12"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RST",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "INT",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "31",
+            "name": "PIC coprocessor",
+            "description": "ADC, PWM, I/O based on PIC 16F1824 microprocessor.",
+            "id": "tibbit_31_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "PIC CO-",
+                "PROCESSOR",
+                "(ADC,PWM,..)"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "18"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": true,
+                    "value": "1500"
+                }
+            ],
+            "form": "M1T",
+            "category": "power",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "5V",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "-SDWN",
+                    "requirement": 1,
+                    "message": "Shutdown line not available"
+                },
+                {
+                    "id": "-PF",
+                    "requirement": 1,
+                    "message": "Power failure monitoring not available"
+                }
+            ]
+        },
+        "good": {
+            "model": "33",
+            "name": "Wide input range power supply",
+            "description": "8-60V input voltage (12V/24V/48V) 1.5A output current with spikes up to 2A",
+            "id": "tibbit_33_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "WIDE INPUT",
+                "RANGE",
+                "POWER SUPPLY"
+            ]
+        },
+        "spec": {
+            "power": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "2"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "35",
+            "name": "Barometric pressure sensor",
+            "description": "Barometric pressure sensor.",
+            "id": "tibbit_35_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "BAR.PRESS.",
+                "METER"
+            ]
+        },
+        "spec": {
+            "sensors": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "2"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "36",
+            "name": "3-axis accelerometer",
+            "description": "3-axis accelerometer (shock sensor).",
+            "id": "tibbit_36_A",
+            "desc_svg": [
+                "3-AXIS",
+                "ACCELER."
+            ]
+        },
+        "spec": {
+            "sensors": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "12",
+                "23",
+                "42"
+            ],
+            "power": [],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "37",
+            "name": "RF connector",
+            "description": "RF connector.",
+            "id": "tibbit_37_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "RF",
+                "CONNECTOR"
+            ]
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "1"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "38",
+            "name": "Pushbutton",
+            "description": "One pushbutton.",
+            "id": "tibbit_38_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "BUTTON"
+            ]
+        },
+        "spec": {
+            "button": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "30"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "39_1",
+            "name": "Large green LED (low brightness)",
+            "description": "Large green LED (low brightness)",
+            "id": "tibbit_39_1_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "GREEN",
+                "LED"
+            ]
+        },
+        "spec": {
+            "led": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "30"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "39_2",
+            "name": "Large red LED (high brightness)",
+            "description": "Large red LED (high brightness)",
+            "id": "tibbit_39_2_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "RED",
+                "LED"
+            ]
+        },
+        "spec": {
+            "led": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "30"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "39_3",
+            "name": "Large yellow LED (low brightness)",
+            "description": "Large yellow LED (low brightness)",
+            "id": "tibbit_39_3_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "YELLOW",
+                "LED"
+            ]
+        },
+        "spec": {
+            "led": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "30"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "39_4",
+            "name": "Large blue LED (high brightness)",
+            "description": "Large blue LED (high brightness)",
+            "id": "tibbit_39_4_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "BLUE",
+                "LED"
+            ]
+        },
+        "spec": {
+            "led": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "40_1",
+            "name": "Digital potentiometer, 5KOhm",
+            "description": "Digital potentiometer, 5KOhm, 8-bit resolution.",
+            "id": "tibbit_40_1_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "DIGITAL",
+                "POTENTIOMETER",
+                "5KOHM"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "40_2",
+            "name": "Digital potentiometer, 10KOhm",
+            "description": "Digital potentiometer, 10KOhm, 8-bit resolution.",
+            "id": "tibbit_40_2_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "DIGITAL",
+                "POTENTIOMETER",
+                "10KOHM"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "40_3",
+            "name": "Digital potentiometer, 50KOhm",
+            "description": "Digital potentiometer, 50KOhm, 8-bit resolution.",
+            "id": "tibbit_40_3_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "DIGITAL",
+                "POTENTIOMETER",
+                "50KOHM"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "40_4",
+            "name": "Digital potentiometer, 100KOhm",
+            "description": "Digital potentiometer, 100KOhm, 8-bit resolution.",
+            "id": "tibbit_40_4_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "DIGITAL",
+                "POTENTIOMETER",
+                "100KOHM"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_3"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "40"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "41",
+            "name": "8-bit port (supplied with 200mm cable)",
+            "description": "8-bit port (supplied with 200mm cable).",
+            "id": "tibbit_41_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "8-BIT PORT",
+                "EXTENDER"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21",
+                "37"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "CS",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "CLK",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "MOSI",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "MISO/-INT",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "42",
+            "name": "RTC and NVRAM with backup",
+            "description": "Real-time clock and non-volatile memory with backup battery and interrupt output.",
+            "id": "tibbit_42_B",
+            "for_sale": 1,
+            "desc_svg": [
+                "RTC WITH",
+                "BACKUP"
+            ]
+        },
+        "spec": {
+            "rtc": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [
+                "serial"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 1
+                },
+                {
+                    "id": "RX",
+                    "requirement": 1
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1
+                },
+                {
+                    "id": "-MCLR",
+                    "requirement": 1
+                }
+            ]
+        },
+        "good": {
+            "model": "43_1",
+            "name": "4-Channel Streaming ADC ±10V",
+            "description": "12-bit, precise, 4-Channel Streaming ADC ±10V (Single-ended) and 20V (Differential).",
+            "id": "tibbit_43_1",
+            "for_sale": 1,
+            "desc_svg": [
+                "4-CHANNEL",
+                "STREAMING",
+                "ADC ±10V"
+            ]
+        },
+        "spec": {
+            "adc": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [
+                "serial"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 1
+                },
+                {
+                    "id": "RX",
+                    "requirement": 1
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1
+                },
+                {
+                    "id": "-MCLR",
+                    "requirement": 1
+                }
+            ]
+        },
+        "good": {
+            "model": "43_2",
+            "name": "4-Channel Streaming ADC ±100V",
+            "description": "12-bit, precise, 4-Channel Streaming ADC ±100V (Single-ended) and 200V (Differential).",
+            "id": "tibbit_43_2",
+            "for_sale": 1,
+            "desc_svg": [
+                "4-CHANNEL",
+                "STREAMING",
+                "ADC ±100V"
+            ]
+        },
+        "spec": {
+            "adc": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "80"
+                }
+            ],
+            "form": "H2",
+            "category": "connector",
+            "requires": [
+                "serial"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 1,
+                    "message": " You will have no control of the TX line"
+                },
+                {
+                    "id": "RX",
+                    "requirement": 1,
+                    "message": " You will have no control of the RX line"
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " You will have no control of the RTS line"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " You will have no control of the CTS line"
+                },
+                {
+                    "id": "FD/-HD",
+                    "requirement": 1,
+                    "message": " You will have no control of the FD/HD line, this Tibbit will operate in the full-duplex mode only"
+                },
+                {
+                    "id": "-232/422&485",
+                    "requirement": 1,
+                    "message": " You will have no control of the 232/422-485 line, this Tibbit will operate in the RS232 mode only"
+                },
+                {
+                    "id": "DTR",
+                    "requirement": 1,
+                    "message": " You will have no control of the DTR line"
+                },
+                {
+                    "id": "DSR",
+                    "requirement": 1,
+                    "message": " You will have no control of the CTS line"
+                }
+            ]
+        },
+        "good": {
+            "model": "44_1",
+            "name": "Isolated RS232/422/485 port",
+            "description": "Isolated RS232/422/485 port with DB9M connector.",
+            "id": "tibbit_44_1_A",
+            "limitations": null,
+            "for_sale": 1,
+            "desc_svg": [
+                "ISOLATED",
+                "RS232/422/485",
+                "PORT"
+            ],
+            "country_price": null
+        },
+        "spec": {
+            "serial": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "80"
+                }
+            ],
+            "form": "H2",
+            "category": "connector",
+            "requires": [
+                "serial"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 1,
+                    "message": " You will have no control of the TX line"
+                },
+                {
+                    "id": "RX",
+                    "requirement": 1,
+                    "message": " You will have no control of the RX line"
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " You will have no control of the RTS line"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " You will have no control of the CTS line"
+                },
+                {
+                    "id": "FD/-HD",
+                    "requirement": 1,
+                    "message": " You will have no control of the FD/HD line, this Tibbit will operate in the full-duplex mode only"
+                },
+                {
+                    "id": "-232/422&485",
+                    "requirement": 1,
+                    "message": " You will have no control of the 232/422-485 line, this Tibbit will operate in the RS232 mode only"
+                },
+                {
+                    "id": "DTR",
+                    "requirement": 1,
+                    "message": " You will have no control of the DTR line"
+                },
+                {
+                    "id": "DSR",
+                    "requirement": 1,
+                    "message": " You will have no control of the CTS line"
+                }
+            ]
+        },
+        "good": {
+            "model": "44_2",
+            "name": "Isolated RS232/422/485 port",
+            "description": "Isolated RS232/422/485 port with terminal block.",
+            "id": "tibbit_44_2_A",
+            "limitations": null,
+            "for_sale": 1,
+            "desc_svg": [
+                "ISOLATED",
+                "RS232/422/485",
+                "PORT"
+            ],
+            "country_price": null
+        },
+        "spec": {
+            "serial": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "500"
+                }
+            ],
+            "form": "H2",
+            "category": "io",
+            "requires": [
+                "serial",
+                "interrupt"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " No control of the RTS line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " No control of the CTS line.",
+                    "direction": "right"
+                },
+                {
+                    "id": "-SDWN",
+                    "requirement": 1,
+                    "message": " No control of the SHUTDOWN line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "PWRKEY",
+                    "requirement": 2,
+                    "message": "",
+                    "direction": "left"
+                },
+                {
+                    "id": "RESET",
+                    "requirement": 1,
+                    "message": " No control of the RESET line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "STATUS",
+                    "requirement": 1,
+                    "message": " No sensing of the STATUS line.",
+                    "direction": "right"
+                }
+            ]
+        },
+        "good": {
+            "model": "45_1",
+            "name": "LTE (4G) Modem (SA)",
+            "description": "This version of Tibbit #45 supports LTE bands B1, B3, B5, B7, B8, and B28.",
+            "id": "tibbit_45_1",
+            "for_sale": 1,
+            "desc_svg": [
+                "LTE (4G)",
+                "MODEM",
+                "(SA)"
+            ]
+        },
+        "spec": {
+            "lte": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "500"
+                }
+            ],
+            "form": "H2",
+            "category": "io",
+            "requires": [
+                "serial",
+                "interrupt"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " No control of the RTS line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " No control of the CTS line.",
+                    "direction": "right"
+                },
+                {
+                    "id": "-SDWN",
+                    "requirement": 1,
+                    "message": " No control of the SHUTDOWN line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "PWRKEY",
+                    "requirement": 2,
+                    "message": "",
+                    "direction": "left"
+                },
+                {
+                    "id": "RESET",
+                    "requirement": 1,
+                    "message": " No control of the RESET line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "STATUS",
+                    "requirement": 1,
+                    "message": " No sensing of the STATUS line.",
+                    "direction": "right"
+                }
+            ]
+        },
+        "good": {
+            "model": "45_2",
+            "name": "LTE (4G) Modem (E)",
+            "description": "This version of Tibbit #45 supports LTE bands B1, B3, B7, B8, and B20.",
+            "id": "tibbit_45_2",
+            "for_sale": 1,
+            "desc_svg": [
+                "LTE (4G)",
+                "MODEM",
+                "(E)"
+            ]
+        },
+        "spec": {
+            "lte": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "500"
+                }
+            ],
+            "form": "H2",
+            "category": "io",
+            "requires": [
+                "serial",
+                "interrupt"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " No control of the RTS line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " No control of the CTS line.",
+                    "direction": "right"
+                },
+                {
+                    "id": "-SDWN",
+                    "requirement": 1,
+                    "message": " No control of the SHUTDOWN line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "PWRKEY",
+                    "requirement": 2,
+                    "message": "",
+                    "direction": "left"
+                },
+                {
+                    "id": "RESET",
+                    "requirement": 1,
+                    "message": " No control of the RESET line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "STATUS",
+                    "requirement": 1,
+                    "message": " No sensing of the STATUS line.",
+                    "direction": "right"
+                }
+            ]
+        },
+        "good": {
+            "model": "45_3",
+            "name": "LTE (4G) Modem (A)",
+            "description": "This version of Tibbit #45 supports LTE bands B2, B4, and B12.",
+            "id": "tibbit_45_3",
+            "for_sale": 1,
+            "desc_svg": [
+                "LTE (4G)",
+                "MODEM",
+                "(A)"
+            ]
+        },
+        "spec": {
+            "lte": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "300"
+                }
+            ],
+            "form": "H2",
+            "category": "io",
+            "requires": [
+                "serial",
+                "interrupt"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " No control of the RTS line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " No control of the CTS line.",
+                    "direction": "right"
+                },
+                {
+                    "id": "-SDWN",
+                    "requirement": 1,
+                    "message": " No control of the SHUTDOWN line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "PWRKEY",
+                    "requirement": 2,
+                    "message": "",
+                    "direction": "left"
+                },
+                {
+                    "id": "RESET",
+                    "requirement": 1,
+                    "message": " No control of the RESET line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "STATUS",
+                    "requirement": 1,
+                    "message": " No sensing of the STATUS line.",
+                    "direction": "right"
+                }
+            ]
+        },
+        "good": {
+            "model": "46",
+            "name": "Cat-M1/NB-IoT Modem",
+            "description": "Supports LTE-M1(CAT-M1) and LTE-NB1 (NB-IoT)",
+            "id": "tibbit_46",
+            "for_sale": 1,
+            "desc_svg": [
+                "CAT-M1/",
+                "NB-IoT"
+            ]
+        },
+        "spec": {
+            "lte": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "50"
+                }
+            ],
+            "form": "H2",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "BCLK",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "WCLK",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "MCLK",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "RESET",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "I2C_SCL",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "I2C_SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "DOUT",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "DIN",
+                    "requirement": 1,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "48",
+            "name": "Audio In/Out",
+            "description": "Audio In/Out Tibbit",
+            "id": "tibbit_48_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "AUDIO",
+                "IN/OUT"
+            ]
+        },
+        "spec": {
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "00_1"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "C2",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "49",
+            "name": "Micro SD card slot",
+            "description": "Micro SD card slot Tibbit",
+            "id": "tibbit_49_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "MICRO SD",
+                "CARD SLOT"
+            ]
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "50",
+            "name": "Mini type B USB port",
+            "description": "Mini-B USB port with OTG",
+            "id": "tibbit_50_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "USB"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "100"
+                }
+            ],
+            "form": "M2T",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "CSL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "-RST",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "-INT",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "5",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "6",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "7",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "8",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "52",
+            "name": "Four-channel isolated +/-10V ADC",
+            "description": "Four-channel isolated ADC with -10V ~ +10V range.",
+            "id": "tibbit_52_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "4-CHANNEL",
+                "ISOLATED",
+                "+/-10V ADC"
+            ]
+        },
+        "spec": {
+            "adc": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "100"
+                }
+            ],
+            "form": "M2T",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "CSL",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "5",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "6",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "7",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "8",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "53",
+            "name": "Isolated 4-20mA ADC",
+            "description": "Two-channel isolated ADC with 4 ~ 20mA range.",
+            "id": "tibbit_53_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "ISOLATED",
+                "4-20 mA ADC"
+            ]
+        },
+        "spec": {
+            "adc": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "40"
+                }
+            ],
+            "form": "M1S",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "-IN1",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "-IN2",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "-IN3",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "-IN4",
+                    "requirement": 1,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "54",
+            "name": "Four dry contact inputs",
+            "description": "Four dry contact inputs; external switches should be installed between the input terminals and the system ground.",
+            "id": "tibbit_54_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FOUR DRY",
+                "CONTACT",
+                "INPUTS"
+            ]
+        },
+        "spec": {
+            "input": 4
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "25"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "-CS",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "-SCLK",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "-MOSI",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "-DONE/MISO",
+                    "requirement": 2,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "57",
+            "name": "FPGA Tibbit",
+            "description": "Contains an ICE5LP1K-SWG36ITR50 FPGA from Lattice Semiconductor",
+            "id": "tibbit_57_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "FPGA",
+                "(1K)"
+            ]
+        },
+        "spec": {
+            "special": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "-OUT1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "-OUT2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "58",
+            "name": "Two 24V NPN isolated open collector outputs",
+            "description": "Two 24V NPN isolated open collector outputs",
+            "id": "tibbit_58_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO 24V NPN ISO.",
+                "OPEN COLLECTOR",
+                "OUTPUTS"
+            ]
+        },
+        "spec": {
+            "output": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1S",
+            "category": "output",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "-OUT1",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 1"
+                },
+                {
+                    "id": "-OUT2",
+                    "requirement": 1,
+                    "message": " You will not be able to read input 2"
+                },
+                {
+                    "id": "3",
+                    "requirement": 0,
+                    "message": ""
+                },
+                {
+                    "id": "4",
+                    "requirement": 0,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "59",
+            "name": "Two 24V PNP isolated open collector outputs",
+            "description": "Two 24V PNP isolated open collector outputs",
+            "id": "tibbit_59_A",
+            "for_sale": 1,
+            "desc_svg": [
+                "TWO 24V PNP ISO.",
+                "OPEN COLLECTOR",
+                "OUTPUTS"
+            ]
+        },
+        "spec": {
+            "output": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "120"
+                }
+            ],
+            "form": "H2",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "-CS",
+                    "requirement": 1,
+                    "message": " You will have no control of the -CS line"
+                },
+                {
+                    "id": "SCLK",
+                    "requirement": 1,
+                    "message": " You will have no control of the SCLK line"
+                },
+                {
+                    "id": "MOSI",
+                    "requirement": 1,
+                    "message": " You will have no control of the MOSI line"
+                },
+                {
+                    "id": "MISO",
+                    "requirement": 1,
+                    "message": " You will have no control of the MISO line"
+                },
+                {
+                    "id": "SCL",
+                    "requirement": 1,
+                    "message": " You will have no control of the SCLK line"
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 1,
+                    "message": " You will have no control of the SDA line"
+                }
+            ]
+        },
+        "good": {
+            "model": "61_1",
+            "name": "ISOLATED ±10V, 4-20mA ADC Tibbit with 24V Output",
+            "description": "ISOLATED ±10V, 4-20mA ADC Tibbit",
+            "id": "tibbit_61_1",
+            "for_sale": 1,
+            "desc_svg": [
+                "ISOLATED",
+                "±10V",
+                "4-20MA",
+                "ADC"
+            ]
+        },
+        "spec": {
+            "adc": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "35"
+                }
+            ],
+            "form": "H2",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "-CS",
+                    "requirement": 1,
+                    "message": " You will have no control of the -CS line"
+                },
+                {
+                    "id": "SCLK",
+                    "requirement": 1,
+                    "message": " You will have no control of the SCLK line"
+                },
+                {
+                    "id": "MOSI",
+                    "requirement": 1,
+                    "message": " You will have no control of the MOSI line"
+                },
+                {
+                    "id": "MISO",
+                    "requirement": 1,
+                    "message": " You will have no control of the MISO line"
+                },
+                {
+                    "id": "SCL",
+                    "requirement": 1,
+                    "message": " You will have no control of the SCLK line"
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 1,
+                    "message": " You will have no control of the SDA line"
+                }
+            ]
+        },
+        "good": {
+            "model": "61_2",
+            "name": "ISOLATED ±10V, 4-20mA ADC Tibbit",
+            "description": "ISOLATED ±10V, 4-20mA ADC Tibbit",
+            "id": "tibbit_61_2",
+            "for_sale": 1,
+            "desc_svg": [
+                "ISOLATED",
+                "±10V",
+                "4-20MA",
+                "ADC",
+                "WITH",
+                "24V OUT"
+            ]
+        },
+        "spec": {
+            "adc": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [
+                "21",
+                "20"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "20"
+                }
+            ],
+            "form": "M1T",
+            "category": "io",
+            "requires": [],
+            "lines": [
+                {
+                    "id": "SCL",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "SDA",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "-RST",
+                    "requirement": 1,
+                    "message": ""
+                },
+                {
+                    "id": "-BUSY",
+                    "requirement": 1,
+                    "message": ""
+                }
+            ]
+        },
+        "good": {
+            "model": "62",
+            "name": "Two 1-Wire/Single-Wire Ports",
+            "description": "Two 1-Wire/Single-Wire Ports",
+            "id": "tibbit_62",
+            "for_sale": 1,
+            "desc_svg": [
+                "2-CHANNEL",
+                "1-WIRE/",
+                "SNGL-WIRE"
+            ]
+        },
+        "spec": {
+            "one_wire": 2
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "12"
+                }
+            ],
+            "form": "H1",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "requirement": 0
+                },
+                {
+                    "requirement": 0
+                },
+                {
+                    "requirement": 0
+                },
+                {
+                    "id": "-DETECT",
+                    "requirement": 2
+                }
+            ]
+        },
+        "good": {
+            "model": "63_1",
+            "name": "AC Voltage Detector (110V)",
+            "description": "AC Voltage Detector 110V (also referred to as 120V AC)",
+            "id": "tibbit_63_1",
+            "for_sale": 1,
+            "desc_svg": [
+                "AC VOLTAGE",
+                "DETECTOR",
+                "(110V)"
+            ]
+        },
+        "spec": {
+            "voltage_detector": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "12"
+                }
+            ],
+            "form": "H1",
+            "category": "input",
+            "requires": [],
+            "lines": [
+                {
+                    "requirement": 0
+                },
+                {
+                    "requirement": 0
+                },
+                {
+                    "requirement": 0
+                },
+                {
+                    "id": "-DETECT",
+                    "requirement": 2
+                }
+            ]
+        },
+        "good": {
+            "model": "63_2",
+            "name": "AC Voltage Detector (220V)",
+            "description": "AC Voltage Detector 220V (also referred to as 230V or 240V AC)",
+            "id": "tibbit_63_2",
+            "for_sale": 1,
+            "desc_svg": [
+                "AC VOLTAGE",
+                "DETECTOR",
+                "(220V)"
+            ]
+        },
+        "spec": {
+            "voltage_detector": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "200"
+                }
+            ],
+            "form": "WIFI",
+            "category": "empty",
+            "requires": []
+        },
+        "good": {
+            "model": "WA2000C",
+            "name": "WA2000C Wi-Fi Add-on Module with on-board antenna",
+            "description": "WA2000C Wi-Fi Add-on Module with on-board antenna",
+            "id": "WA2000C",
+            "for_sale": 1,
+            "desc_svg": [
+                "WA2000C Wi-Fi",
+                "Add-on Module"
+            ]
+        },
+        "spec": {
+            "wifi": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "200"
+                }
+            ],
+            "form": "WIFI",
+            "category": "empty",
+            "requires": []
+        },
+        "good": {
+            "model": "WA2000U",
+            "name": "WA2000U Wi-Fi Add-on Module",
+            "description": "WA2000U Wi-Fi Add-on Module",
+            "id": "WA2000U",
+            "for_sale": 1,
+            "desc_svg": [
+                "WA2000U Wi-Fi",
+                "Add-on Module"
+            ]
+        },
+        "spec": {
+            "wifi": 1
+        }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "200"
+                }
+            ],
+            "form": "WIFI",
+            "category": "empty",
+            "requires": []
+        },
+        "good": {
+            "model": "WM6256",
+            "name": "WM6256 Wi-Fi Add-on Module",
+            "description": "WM6256 Wi-Fi Add-on Module",
+            "id": "wm6256_b",
+            "for_sale": 1,
+            "desc_svg": [
+                "WM6256 Wi-Fi",
+                "Add-on Module"
+            ]
+        },
+        "spec": {
+            "wifi": 1
+        }
+    }
+]

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 644" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif">
+<rect width="1400" height="644" fill="#FFFFFF"/>
+<defs><marker id="mn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker><marker id="mf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C62828"/></marker></defs>
+<text x="40" y="44" font-size="22" font-weight="800" fill="#222">Автополив — конечный автомат (тик on_sys_timer = 0,5 с)</text>
+<path d="M250,268.64 L410,268.64" stroke="#555" stroke-width="2" fill="none" marker-end="url(#mn)"/>
+<path d="M620,268.64 L780,268.64" stroke="#555" stroke-width="2" fill="none" marker-end="url(#mn)"/>
+<path d="M990,268.64 L1150,268.64" stroke="#555" stroke-width="2" fill="none" marker-end="url(#mn)"/>
+<path d="M1229.8,230 C1229.8,84 540.2,84 540.2,230" stroke="#555" stroke-width="2" fill="none" marker-end="url(#mn)"/>
+<path d="M1229.8,230 C1229.8,110 910.2,110 910.2,230" stroke="#555" stroke-width="2" fill="none" marker-end="url(#mn)"/>
+<path d="M700.0,340 L700.0,488" fill="none" stroke="#C62828" stroke-width="2.2" stroke-dasharray="7 5" marker-end="url(#mf)"/>
+<line x1="145.0" x2="1255.0" y1="340" y2="340" stroke="#C62828" stroke-width="2.2" stroke-dasharray="7 5"/>
+<line x1="145.0" x2="145.0" y1="322" y2="340" stroke="#C62828" stroke-width="2.2" stroke-dasharray="4 4"/>
+<line x1="515.0" x2="515.0" y1="322" y2="340" stroke="#C62828" stroke-width="2.2" stroke-dasharray="4 4"/>
+<line x1="885.0" x2="885.0" y1="322" y2="340" stroke="#C62828" stroke-width="2.2" stroke-dasharray="4 4"/>
+<line x1="1255.0" x2="1255.0" y1="322" y2="340" stroke="#C62828" stroke-width="2.2" stroke-dasharray="4 4"/>
+<path d="M742.0,492 C742.0,407.0 145.0,407.0 145.0,322" stroke="#555" stroke-width="2" fill="none" marker-end="url(#mn)"/>
+<rect x="40" y="230" width="210" height="92" rx="14" fill="#E8F1FD" stroke="#2F6FD0" stroke-width="2.5"/>
+<text x="145.0" y="260" font-size="17" font-weight="800" fill="#2F6FD0" text-anchor="middle">START</text>
+<text x="145.0" y="284" font-size="12.5" fill="#333" text-anchor="middle">набор 8 исправных замеров</text>
+<text x="145.0" y="306" font-size="11.5" fill="#666" text-anchor="middle">насос выкл · LED B-~</text>
+<rect x="410" y="230" width="210" height="92" rx="14" fill="#E8F6EE" stroke="#1B8A5A" stroke-width="2.5"/>
+<text x="515.0" y="260" font-size="17" font-weight="800" fill="#1B8A5A" text-anchor="middle">IDLE</text>
+<text x="515.0" y="284" font-size="12.5" fill="#333" text-anchor="middle">ждём, пока почва высохнет</text>
+<text x="515.0" y="306" font-size="11.5" fill="#666" text-anchor="middle">насос выкл · G-------~</text>
+<rect x="780" y="230" width="210" height="92" rx="14" fill="#FFF2E0" stroke="#D9822B" stroke-width="2.5"/>
+<text x="885.0" y="260" font-size="17" font-weight="800" fill="#D9822B" text-anchor="middle">WATER</text>
+<text x="885.0" y="284" font-size="12.5" fill="#333" text-anchor="middle">полив</text>
+<text x="885.0" y="306" font-size="11.5" fill="#666" text-anchor="middle">насос ВКЛ · GGGG~</text>
+<rect x="1150" y="230" width="210" height="92" rx="14" fill="#E8F6EE" stroke="#1B8A5A" stroke-width="2.5"/>
+<text x="1255.0" y="260" font-size="17" font-weight="800" fill="#1B8A5A" text-anchor="middle">SOAK</text>
+<text x="1255.0" y="284" font-size="12.5" fill="#333" text-anchor="middle">вода впитывается</text>
+<text x="1255.0" y="306" font-size="11.5" fill="#666" text-anchor="middle">насос выкл · G-G-------~</text>
+<rect x="595.0" y="492" width="210" height="92" rx="14" fill="#FDECEC" stroke="#C62828" stroke-width="2.5"/>
+<text x="700.0" y="522" font-size="17" font-weight="800" fill="#C62828" text-anchor="middle">FAULT</text>
+<text x="700.0" y="546" font-size="12.5" fill="#333" text-anchor="middle">насос заблокирован</text>
+<text x="700.0" y="568" font-size="11.5" fill="#666" text-anchor="middle">R-R-~*</text>
+<rect x="296" y="246" width="68" height="18" rx="4" fill="#fff" opacity="0.92"/>
+<text x="330" y="259" font-size="12" fill="#555" text-anchor="middle">8 замеров</text>
+<rect x="641" y="246" width="119" height="18" rx="4" fill="#fff" opacity="0.92"/>
+<text x="700" y="259" font-size="12" fill="#555" text-anchor="middle">влажн. &lt; DRY / MD</text>
+<rect x="1011" y="246" width="119" height="18" rx="4" fill="#fff" opacity="0.92"/>
+<text x="1070" y="259" font-size="12" fill="#555" text-anchor="middle">≥ WET / MXON / MD</text>
+<rect x="832" y="104" width="106" height="18" rx="4" fill="#fff" opacity="0.92"/>
+<text x="885" y="116" font-size="12" fill="#555" text-anchor="middle">прошло SOAK мин</text>
+<rect x="1011" y="123" width="119" height="18" rx="4" fill="#fff" opacity="0.92"/>
+<text x="1070" y="136" font-size="12" fill="#555" text-anchor="middle">MD — ручной полив</text>
+<rect x="708" y="403" width="445" height="18" rx="4" fill="#fff" opacity="0.92"/>
+<text x="712" y="416" font-size="12" fill="#C62828" text-anchor="start">любое → датчик вне 200…4500 мВ ×6 / MXFL таймаутов / ошибка настроек</text>
+<rect x="448" y="394" width="61" height="18" rx="4" fill="#fff" opacity="0.92"/>
+<text x="452" y="407" font-size="12" fill="#555" text-anchor="start">MD ≥ 3 с</text>
+</svg>

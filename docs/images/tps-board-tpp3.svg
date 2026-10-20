@@ -1,0 +1,643 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="60 80 1329 1404" font-family="Inter,Segoe UI,Helvetica,Arial,sans-serif">
+<rect width="1389" height="2076" fill="#FFFFFF"/>
+<rect x="75" y="128" width="1294" height="736" fill="#17B884"/>
+<text transform="translate(1349,496.0) rotate(-90)" fill="#fff" font-size="26" font-weight="800" text-anchor="middle">TPP3W(G2)</text>
+<rect x="205" y="92" width="122" height="162" fill="#1E9AD6"/><rect x="216" y="108" width="100" height="132" fill="#14324D"/>
+<text x="266" y="180" fill="#fff" font-size="14" font-weight="700" text-anchor="middle">RJ45</text>
+<rect x="132" y="92" width="64" height="64" fill="#14A57A" stroke="#fff" stroke-width="2"/>
+<text x="164" y="110" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">+5V</text>
+<rect x="155" y="116" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"/>
+<text x="164" y="150" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">OFF</text>
+<rect x="375" y="222" width="70" height="70" fill="none" stroke="#fff" stroke-width="2"/>
+<rect x="411" y="224" width="32" height="66" fill="#2B2B2B"/>
+<text transform="translate(398,274) rotate(-90)" fill="#fff" font-size="11" font-weight="700">PoE</text>
+<text transform="translate(432,276) rotate(-90)" fill="#fff" font-size="11" font-weight="700">S28</text>
+<title>Перемычки у RJ45: 2-3 (обычный тайл)</title>
+<g><title>Wi-Fi add-on WA2000: +300 мА от +5 В</title>
+<rect x="132" y="318" width="298" height="120" rx="3" fill="#2F8FE3"/>
+<path d="M158,332 H418 V424 H144 V346 Z" fill="#141414"/>
+<text x="160" y="376" fill="#fff" font-size="26" font-weight="800">WA2000</text>
+<text x="160" y="400" fill="#fff" font-size="11" font-weight="600">WI-FI / BLUETOOTH ADD-ON</text></g>
+<rect x="334" y="782" width="136" height="82" fill="none" stroke="#5FD8AE" stroke-width="2"/>
+<circle cx="355.0" cy="842" r="2.6" fill="#0B3D2E"/>
+<circle cx="370.5" cy="842" r="2.6" fill="#0B3D2E"/>
+<circle cx="386.0" cy="842" r="2.6" fill="#0B3D2E"/>
+<circle cx="401.5" cy="842" r="2.6" fill="#0B3D2E"/>
+<circle cx="417.0" cy="842" r="2.6" fill="#0B3D2E"/>
+<circle cx="432.5" cy="842" r="2.6" fill="#0B3D2E"/>
+<circle cx="448.0" cy="842" r="2.6" fill="#0B3D2E"/>
+<circle cx="402.0" cy="807" r="16" fill="none" stroke="#fff" stroke-width="2"/>
+<text x="402.0" y="811.5" fill="#fff" font-size="12.5" font-weight="700" text-anchor="middle">S4</text>
+<rect x="472" y="128" width="136" height="82" fill="none" stroke="#5FD8AE" stroke-width="2"/>
+<circle cx="493.0" cy="188" r="2.6" fill="#0B3D2E"/>
+<circle cx="508.5" cy="188" r="2.6" fill="#0B3D2E"/>
+<circle cx="524.0" cy="188" r="2.6" fill="#0B3D2E"/>
+<circle cx="539.5" cy="188" r="2.6" fill="#0B3D2E"/>
+<circle cx="555.0" cy="188" r="2.6" fill="#0B3D2E"/>
+<circle cx="570.5" cy="188" r="2.6" fill="#0B3D2E"/>
+<circle cx="586.0" cy="188" r="2.6" fill="#0B3D2E"/>
+<circle cx="540.0" cy="153" r="16" fill="none" stroke="#fff" stroke-width="2"/>
+<text x="540.0" y="157.5" fill="#fff" font-size="12.5" font-weight="700" text-anchor="middle">S28</text>
+<g><title>#05 RS485 port (M1S)
+Сокеты: S1
+ser.num = 0
+TX: S1.A → PL_IO_NUM_9_TX0
+RX: S1.B → PL_IO_NUM_8_RX0
+DIR: S1.C → PL_IO_NUM_0
+Потребление: +5V 15 мА</title>
+<rect x="200" y="502" width="128" height="273" rx="3" fill="#2F8FE3"/>
+<rect x="215.2" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="215.2" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="237.6" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="237.6" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="260.0" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="260.0" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="282.4" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="282.4" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="304.8" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="304.8" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<path d="M227,527 H315 V750 H213 V541 Z" fill="#141414"/>
+<path d="M213,541 L227,527 V541 Z" fill="#2F8FE3"/>
+<g transform="translate(264.0,638.5) rotate(-90)">
+<text x="-103.5" y="41.0" fill="#fff" font-size="30" font-weight="800">#05</text>
+<text x="-41.7" y="39.0" fill="#fff" font-size="10.5" font-weight="600">RS485 PORT</text>
+<rect x="93.5" y="-39.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-30.0" fill="#fff" font-size="8.5" text-anchor="end">TX</text>
+<rect x="93.5" y="-11.7" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-2.7" fill="#fff" font-size="8.5" text-anchor="end">RX</text>
+<rect x="93.5" y="15.7" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="24.7" fill="#fff" font-size="8.5" text-anchor="end">DIR</text>
+</g>
+</g>
+<g><title>#21 Four terminal blocks (C1)
+Сокеты: S2</title>
+<rect x="197" y="782" width="134" height="124" fill="#EE6A2C"/>
+<rect x="197" y="894" width="134" height="12" fill="#B8461A"/>
+<rect x="207" y="802" width="114" height="78" rx="3" fill="#141414"/>
+<text x="313" y="832" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#21</text>
+<text x="215" y="852" fill="#fff" font-size="10.5" font-weight="600">FOUR TERMINAL</text>
+<text x="215" y="865" fill="#fff" font-size="10.5" font-weight="600">BLOCKS</text>
+</g>
+<g><title>#62 Two 1-Wire/Single-Wire Ports (M1T)
+Сокеты: S3
+SCL: S3.A → PL_IO_NUM_32
+SDA: S3.B → PL_IO_NUM_33
+-RST: S3.C → PL_IO_NUM_4
+-BUSY: S3.D → PL_IO_NUM_20_INT4
+Потребление: +5V 20 мА</title>
+<rect x="338" y="502" width="128" height="273" rx="3" fill="#2F8FE3"/>
+<rect x="353.2" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="353.2" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="375.6" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="375.6" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="398.0" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="398.0" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="420.4" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="420.4" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="442.8" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="442.8" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<path d="M365,527 H453 V750 H351 V541 Z" fill="#141414"/>
+<path d="M351,541 L365,527 V541 Z" fill="#2F8FE3"/>
+<g transform="translate(402.0,638.5) rotate(-90)">
+<text x="-103.5" y="41.0" fill="#fff" font-size="30" font-weight="800">#62</text>
+<text x="-41.7" y="13.0" fill="#fff" font-size="10.5" font-weight="600">TWO</text>
+<text x="-41.7" y="26.0" fill="#fff" font-size="10.5" font-weight="600">1-WIRE/SINGLE-WIRE</text>
+<text x="-41.7" y="39.0" fill="#fff" font-size="10.5" font-weight="600">PORTS</text>
+<rect x="93.5" y="-39.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-30.0" fill="#fff" font-size="8.5" text-anchor="end">SCL</text>
+<rect x="93.5" y="-18.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-9.5" fill="#fff" font-size="8.5" text-anchor="end">SDA</text>
+<rect x="93.5" y="2.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="11.0" fill="#fff" font-size="8.5" text-anchor="end">-RST</text>
+<rect x="93.5" y="22.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="31.5" fill="#fff" font-size="8.5" text-anchor="end">-BUSY</text>
+</g>
+</g>
+<g><title>#44_1 Isolated RS232/422/485 port (H2)
+Сокеты: S5, S6, S7, S8
+ser.num = 1
+TX: S5.A → PL_IO_NUM_11_TX1
+RX: S5.B → PL_IO_NUM_10_RX1
+RTS: S5.C → PL_IO_NUM_1
+CTS: S5.D → PL_IO_NUM_17_INT1
+FD/-HD: S7.A → PL_IO_NUM_34
+-232/422&amp;485: S7.B → PL_IO_NUM_35
+DTR: S7.C → PL_IO_NUM_5
+DSR: S7.D → PL_IO_NUM_21_INT5
+Потребление: +5V 80 мА</title>
+<rect x="476" y="502" width="266" height="273" rx="3" fill="#2F8FE3"/>
+<rect x="490.4" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="490.4" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="511.2" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="511.2" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="532.1" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="532.1" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="552.9" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="552.9" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="573.8" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="573.8" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="594.6" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="594.6" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="615.4" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="615.4" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="636.2" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="636.2" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="657.1" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="657.1" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="677.9" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="677.9" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="698.7" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="698.7" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="719.6" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="719.6" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<path d="M503,527 H729 V750 H489 V541 Z" fill="#141414"/>
+<path d="M489,541 L503,527 V541 Z" fill="#2F8FE3"/>
+<g transform="translate(609.0,638.5) rotate(-90)">
+<text x="-103.5" y="110.0" fill="#fff" font-size="34" font-weight="800">#44_1</text>
+<text x="-103.5" y="48.0" fill="#fff" font-size="10.5" font-weight="600">ISOLATED</text>
+<text x="-103.5" y="61.0" fill="#fff" font-size="10.5" font-weight="600">RS232/422/485</text>
+<text x="-103.5" y="74.0" fill="#fff" font-size="10.5" font-weight="600">PORT</text>
+<rect x="93.5" y="-108.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-99.0" fill="#fff" font-size="8.5" text-anchor="end">TX</text>
+<rect x="93.5" y="-80.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-71.5" fill="#fff" font-size="8.5" text-anchor="end">RX</text>
+<rect x="93.5" y="-53.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-44.0" fill="#fff" font-size="8.5" text-anchor="end">RTS</text>
+<rect x="93.5" y="-25.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-16.5" fill="#fff" font-size="8.5" text-anchor="end">CTS</text>
+<rect x="93.5" y="2.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="11.0" fill="#fff" font-size="8.5" text-anchor="end">FD/-HD</text>
+<rect x="93.5" y="29.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="38.5" fill="#fff" font-size="8.5" text-anchor="end">-232/422&amp;485</text>
+<rect x="93.5" y="57.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="66.0" fill="#fff" font-size="8.5" text-anchor="end">DTR</text>
+<rect x="93.5" y="84.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="93.5" fill="#fff" font-size="8.5" text-anchor="end">DSR</text>
+</g>
+<rect x="473" y="782" width="272" height="124" fill="#EE6A2C"/>
+<rect x="473" y="894" width="272" height="12" fill="#B8461A"/>
+</g>
+<g><title>#02 RS232/422/485 port (M2S)
+Сокеты: S9, S11
+ser.num = 2
+TX: S9.A → PL_IO_NUM_13_TX2
+RX: S9.B → PL_IO_NUM_12_RX2
+RTS: S9.C → PL_IO_NUM_2
+CTS: S9.D → PL_IO_NUM_18_INT2
+FD/-HD: S11.A → PL_IO_NUM_36
+-232/422&amp;485: S11.B → PL_IO_NUM_37
+DTR: S11.C → PL_IO_NUM_6
+DSR: S11.D → PL_IO_NUM_22_INT6
+Потребление: +5V 40 мА</title>
+<rect x="752" y="502" width="266" height="273" rx="3" fill="#2F8FE3"/>
+<rect x="766.4" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="766.4" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="787.2" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="787.2" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="808.1" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="808.1" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="828.9" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="828.9" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="849.8" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="849.8" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="870.6" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="870.6" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="891.4" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="891.4" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="912.2" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="912.2" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="933.1" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="933.1" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="953.9" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="953.9" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="974.7" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="974.7" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="995.6" y="509" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="995.6" y="757" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<path d="M779,527 H1005 V750 H765 V541 Z" fill="#141414"/>
+<path d="M765,541 L779,527 V541 Z" fill="#2F8FE3"/>
+<g transform="translate(885.0,638.5) rotate(-90)">
+<text x="-103.5" y="110.0" fill="#fff" font-size="34" font-weight="800">#02</text>
+<text x="-103.5" y="61.0" fill="#fff" font-size="10.5" font-weight="600">RS232/422/485</text>
+<text x="-103.5" y="74.0" fill="#fff" font-size="10.5" font-weight="600">PORT</text>
+<rect x="93.5" y="-108.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-99.0" fill="#fff" font-size="8.5" text-anchor="end">TX</text>
+<rect x="93.5" y="-80.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-71.5" fill="#fff" font-size="8.5" text-anchor="end">RX</text>
+<rect x="93.5" y="-53.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-44.0" fill="#fff" font-size="8.5" text-anchor="end">RTS</text>
+<rect x="93.5" y="-25.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-16.5" fill="#fff" font-size="8.5" text-anchor="end">CTS</text>
+<rect x="93.5" y="2.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="11.0" fill="#fff" font-size="8.5" text-anchor="end">FD/-HD</text>
+<rect x="93.5" y="29.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="38.5" fill="#fff" font-size="8.5" text-anchor="end">-232/422&amp;485</text>
+<rect x="93.5" y="57.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="66.0" fill="#fff" font-size="8.5" text-anchor="end">DTR</text>
+<rect x="93.5" y="84.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="93.5" fill="#fff" font-size="8.5" text-anchor="end">DSR</text>
+</g>
+</g>
+<g><title>#20 Nine terminal blocks (C2)
+Сокеты: S10, S12</title>
+<rect x="749" y="782" width="272" height="124" fill="#EE6A2C"/>
+<rect x="749" y="894" width="272" height="12" fill="#B8461A"/>
+<rect x="759" y="802" width="252" height="78" rx="3" fill="#141414"/>
+<text x="1003" y="832" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#20</text>
+<text x="767" y="852" fill="#fff" font-size="10.5" font-weight="600">NINE TERMINAL BLOCKS</text>
+</g>
+<g><title>#22 RTD Temperature Meter (M1S)
+Сокеты: S13
+CSL: S13.A → PL_IO_NUM_15_TX3
+SDA: S13.B → PL_IO_NUM_14_RX3
+RST: S13.C → PL_IO_NUM_3
+INT: S13.D → PL_IO_NUM_19_INT3
+Потребление: +5V 10 мА</title>
+<rect x="1028" y="502" width="128" height="273" rx="3" fill="#8CC63F"/>
+<rect x="1043.2" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1043.2" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1065.6" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1065.6" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1088.0" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1088.0" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1110.4" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1110.4" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1132.8" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1132.8" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<path d="M1055,527 H1143 V750 H1041 V541 Z" fill="#141414"/>
+<path d="M1041,541 L1055,527 V541 Z" fill="#8CC63F"/>
+<g transform="translate(1092.0,638.5) rotate(-90)">
+<text x="-103.5" y="41.0" fill="#fff" font-size="30" font-weight="800">#22</text>
+<text x="-41.7" y="26.0" fill="#fff" font-size="10.5" font-weight="600">RTD TEMPERATURE</text>
+<text x="-41.7" y="39.0" fill="#fff" font-size="10.5" font-weight="600">METER</text>
+<rect x="93.5" y="-39.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-30.0" fill="#fff" font-size="8.5" text-anchor="end">CSL</text>
+<rect x="93.5" y="-18.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-9.5" fill="#fff" font-size="8.5" text-anchor="end">SDA</text>
+<rect x="93.5" y="2.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="11.0" fill="#fff" font-size="8.5" text-anchor="end">RST</text>
+<rect x="93.5" y="22.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="31.5" fill="#fff" font-size="8.5" text-anchor="end">INT</text>
+</g>
+</g>
+<g><title>#21 Four terminal blocks (C1)
+Сокеты: S14</title>
+<rect x="1025" y="782" width="134" height="124" fill="#EE6A2C"/>
+<rect x="1025" y="894" width="134" height="12" fill="#B8461A"/>
+<rect x="1035" y="802" width="114" height="78" rx="3" fill="#141414"/>
+<text x="1141" y="832" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#21</text>
+<text x="1043" y="852" fill="#fff" font-size="10.5" font-weight="600">FOUR TERMINAL</text>
+<text x="1043" y="865" fill="#fff" font-size="10.5" font-weight="600">BLOCKS</text>
+</g>
+<g><title>#04_8 Four 24V isolated inputs, common ground (M1S)
+Сокеты: S15
+IN1: S15.A → PL_IO_NUM_38
+IN2: S15.B → PL_IO_NUM_39
+IN3: S15.C → PL_IO_NUM_7
+IN4: S15.D → PL_IO_NUM_23_INT7
+Потребление: +5V 40 мА</title>
+<rect x="1166" y="502" width="128" height="273" rx="3" fill="#8CC63F"/>
+<rect x="1181.2" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1181.2" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1203.6" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1203.6" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1226.0" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1226.0" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1248.4" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1248.4" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1270.8" y="509" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<rect x="1270.8" y="757" width="8" height="11" fill="#5E9A18" opacity=".75"/>
+<path d="M1193,527 H1281 V750 H1179 V541 Z" fill="#141414"/>
+<path d="M1179,541 L1193,527 V541 Z" fill="#8CC63F"/>
+<g transform="translate(1230.0,638.5) rotate(-90)">
+<text x="-103.5" y="41.0" fill="#fff" font-size="30" font-weight="800">#04_8</text>
+<text x="-103.5" y="-4.0" fill="#fff" font-size="10.5" font-weight="600">FOUR 24V ISOLATED</text>
+<text x="-103.5" y="9.0" fill="#fff" font-size="10.5" font-weight="600">INPUTS, COMMON GROUND</text>
+<rect x="93.5" y="-39.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-30.0" fill="#fff" font-size="8.5" text-anchor="end">IN1</text>
+<rect x="93.5" y="-18.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-9.5" fill="#fff" font-size="8.5" text-anchor="end">IN2</text>
+<rect x="93.5" y="2.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="11.0" fill="#fff" font-size="8.5" text-anchor="end">IN3</text>
+<rect x="93.5" y="22.5" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="31.5" fill="#fff" font-size="8.5" text-anchor="end">IN4</text>
+</g>
+</g>
+<g><title>#21 Four terminal blocks (C1)
+Сокеты: S16</title>
+<rect x="1163" y="782" width="134" height="124" fill="#EE6A2C"/>
+<rect x="1163" y="894" width="134" height="12" fill="#B8461A"/>
+<rect x="1173" y="802" width="114" height="78" rx="3" fill="#141414"/>
+<text x="1279" y="832" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#21</text>
+<text x="1181" y="852" fill="#fff" font-size="10.5" font-weight="600">FOUR TERMINAL</text>
+<text x="1181" y="865" fill="#fff" font-size="10.5" font-weight="600">BLOCKS</text>
+</g>
+<g><title>#61_1 ISOLATED ±10V, 4-20mA ADC Tibbit with 24V Output (H2T)
+Сокеты: S17, S18, S19, S20
+-CS: S17.A → PL_IO_NUM_24
+SCLK: S17.B → PL_IO_NUM_25
+MOSI: S17.C → PL_IO_NUM_26
+MISO: S17.D → PL_IO_NUM_27
+SCL: S19.A → PL_IO_NUM_28
+SDA: S19.B → PL_IO_NUM_29
+Потребление: +5V 120 мА</title>
+<rect x="1028" y="217" width="266" height="273" rx="3" fill="#2F8FE3"/>
+<rect x="1042.4" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1042.4" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1063.2" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1063.2" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1084.1" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1084.1" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1104.9" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1104.9" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1125.8" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1125.8" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1146.6" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1146.6" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1167.4" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1167.4" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1188.2" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1188.2" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1209.1" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1209.1" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1229.9" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1229.9" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1250.8" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1250.8" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1271.6" y="224" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<rect x="1271.6" y="472" width="8" height="11" fill="#1C62A8" opacity=".75"/>
+<path d="M1055,242 H1281 V465 H1041 V256 Z" fill="#141414"/>
+<path d="M1041,256 L1055,242 V256 Z" fill="#2F8FE3"/>
+<g transform="translate(1161.0,353.5) rotate(90)">
+<text x="-103.5" y="110.0" fill="#fff" font-size="34" font-weight="800">#61_1</text>
+<text x="-103.5" y="48.0" fill="#fff" font-size="10.5" font-weight="600">ISOLATED ±10V, 4-20MA</text>
+<text x="-103.5" y="61.0" fill="#fff" font-size="10.5" font-weight="600">ADC TIBBIT WITH 24V</text>
+<text x="-103.5" y="74.0" fill="#fff" font-size="10.5" font-weight="600">OUTPUT</text>
+<rect x="93.5" y="-108.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-99.0" fill="#fff" font-size="8.5" text-anchor="end">-CS</text>
+<rect x="93.5" y="-80.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-71.0" fill="#fff" font-size="8.5" text-anchor="end">SCLK</text>
+<rect x="93.5" y="-52.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-43.0" fill="#fff" font-size="8.5" text-anchor="end">MOSI</text>
+<rect x="93.5" y="-24.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-15.0" fill="#fff" font-size="8.5" text-anchor="end">MISO</text>
+<rect x="93.5" y="4.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="13.0" fill="#fff" font-size="8.5" text-anchor="end">SCL</text>
+<rect x="93.5" y="32.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="41.0" fill="#fff" font-size="8.5" text-anchor="end">SDA</text>
+</g>
+<rect x="1025" y="86" width="272" height="124" fill="#EE6A2C"/>
+<rect x="1025" y="86" width="272" height="12" fill="#B8461A"/>
+</g>
+<g><title>#00_3 Two direct I/O lines, +5V power, ground (M1S)
+Сокеты: S21
+LN1: S21.A → PL_IO_NUM_40
+LN2: S21.B → PL_IO_NUM_41
+Потребление: +5V 20 мА</title>
+<rect x="890" y="217" width="128" height="273" rx="3" fill="#C3C6C8"/>
+<rect x="905.2" y="224" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="905.2" y="472" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="927.6" y="224" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="927.6" y="472" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="950.0" y="224" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="950.0" y="472" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="972.4" y="224" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="972.4" y="472" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="994.8" y="224" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<rect x="994.8" y="472" width="8" height="11" fill="#8E9295" opacity=".75"/>
+<path d="M917,242 H1005 V465 H903 V256 Z" fill="#141414"/>
+<path d="M903,256 L917,242 V256 Z" fill="#C3C6C8"/>
+<g transform="translate(954.0,353.5) rotate(90)">
+<text x="-103.5" y="41.0" fill="#fff" font-size="30" font-weight="800">#00_3</text>
+<text x="-103.5" y="-4.0" fill="#fff" font-size="10.5" font-weight="600">TWO DIRECT I/O LINES,</text>
+<text x="-103.5" y="9.0" fill="#fff" font-size="10.5" font-weight="600">+5V POWER, GROUND</text>
+<rect x="93.5" y="-39.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-30.0" fill="#fff" font-size="8.5" text-anchor="end">LN1</text>
+<rect x="93.5" y="-11.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-2.0" fill="#fff" font-size="8.5" text-anchor="end">LN2</text>
+</g>
+</g>
+<g><title>#29 Ambient temperature meter (C1)
+Сокеты: S22
+Потребление: +5V 2 мА</title>
+<rect x="887" y="86" width="134" height="124" fill="#EE6A2C"/>
+<rect x="887" y="86" width="134" height="12" fill="#B8461A"/>
+<rect x="897" y="108" width="114" height="78" rx="3" fill="#141414"/>
+<text x="1003" y="138" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#29</text>
+<text x="905" y="158" fill="#fff" font-size="10.5" font-weight="600">AMBIENT</text>
+<text x="905" y="171" fill="#fff" font-size="10.5" font-weight="600">TEMPERATURE</text>
+</g>
+<g><title>#03_1 Two low-power relays (configuration 1) (M1S)
+Сокеты: S23
+RL1: S23.A → PL_IO_NUM_54
+RL2: S23.B → PL_IO_NUM_55
+Потребление: +5V 60 мА</title>
+<rect x="752" y="217" width="128" height="273" rx="3" fill="#E2463F"/>
+<rect x="767.2" y="224" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="767.2" y="472" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="789.6" y="224" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="789.6" y="472" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="812.0" y="224" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="812.0" y="472" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="834.4" y="224" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="834.4" y="472" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="856.8" y="224" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<rect x="856.8" y="472" width="8" height="11" fill="#A9231D" opacity=".75"/>
+<path d="M779,242 H867 V465 H765 V256 Z" fill="#141414"/>
+<path d="M765,256 L779,242 V256 Z" fill="#E2463F"/>
+<g transform="translate(816.0,353.5) rotate(90)">
+<text x="-103.5" y="41.0" fill="#fff" font-size="30" font-weight="800">#03_1</text>
+<text x="-103.5" y="-4.0" fill="#fff" font-size="10.5" font-weight="600">TWO LOW-POWER RELAYS</text>
+<text x="-103.5" y="9.0" fill="#fff" font-size="10.5" font-weight="600">(CONFIGURATION 1)</text>
+<rect x="93.5" y="-39.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-30.0" fill="#fff" font-size="8.5" text-anchor="end">RL1</text>
+<rect x="93.5" y="-11.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-2.0" fill="#fff" font-size="8.5" text-anchor="end">RL2</text>
+</g>
+</g>
+<g><title>#21 Four terminal blocks (C1)
+Сокеты: S24</title>
+<rect x="749" y="86" width="134" height="124" fill="#EE6A2C"/>
+<rect x="749" y="86" width="134" height="12" fill="#B8461A"/>
+<rect x="759" y="108" width="114" height="78" rx="3" fill="#141414"/>
+<text x="865" y="138" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#21</text>
+<text x="767" y="158" fill="#fff" font-size="10.5" font-weight="600">FOUR TERMINAL</text>
+<text x="767" y="171" fill="#fff" font-size="10.5" font-weight="600">BLOCKS</text>
+</g>
+<g><title>#25 High-power 5V supply, 12/24/48V input (M2T)
+Сокеты: S25, S27
+SDWN: S25.A → PL_IO_NUM_44
+Выдаёт: +5V 1500 мА</title>
+<rect x="476" y="217" width="266" height="273" rx="3" fill="#F2C230"/>
+<rect x="490.4" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="490.4" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="511.2" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="511.2" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="532.1" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="532.1" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="552.9" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="552.9" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="573.8" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="573.8" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="594.6" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="594.6" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="615.4" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="615.4" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="636.2" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="636.2" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="657.1" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="657.1" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="677.9" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="677.9" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="698.7" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="698.7" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="719.6" y="224" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<rect x="719.6" y="472" width="8" height="11" fill="#C99A00" opacity=".75"/>
+<path d="M503,242 H729 V465 H489 V256 Z" fill="#141414"/>
+<path d="M489,256 L503,242 V256 Z" fill="#F2C230"/>
+<g transform="translate(609.0,353.5) rotate(90)">
+<text x="-103.5" y="110.0" fill="#fff" font-size="34" font-weight="800">#25</text>
+<text x="-34.3" y="82.0" fill="#fff" font-size="10.5" font-weight="600">HIGH-POWER 5V</text>
+<text x="-34.3" y="95.0" fill="#fff" font-size="10.5" font-weight="600">SUPPLY,</text>
+<text x="-34.3" y="108.0" fill="#fff" font-size="10.5" font-weight="600">12/24/48V</text>
+<rect x="93.5" y="-108.0" width="10" height="10" fill="none" stroke="#fff" stroke-width="1.3"/>
+<text x="89.5" y="-99.0" fill="#fff" font-size="8.5" text-anchor="end">SDWN</text>
+</g>
+</g>
+<g><title>#18 Power input (C1)
+Сокеты: S26</title>
+<rect x="611" y="86" width="134" height="124" fill="#EE6A2C"/>
+<rect x="611" y="86" width="134" height="12" fill="#B8461A"/>
+<rect x="621" y="108" width="114" height="78" rx="3" fill="#141414"/>
+<text x="727" y="138" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#18</text>
+<text x="629" y="158" fill="#fff" font-size="10.5" font-weight="600">POWER INPUT</text>
+</g>
+<g><title>#37 RF connector (C1)
+Сокеты: S29</title>
+<rect x="335" y="86" width="134" height="124" fill="#EE6A2C"/>
+<rect x="335" y="86" width="134" height="12" fill="#B8461A"/>
+<rect x="345" y="108" width="114" height="78" rx="3" fill="#141414"/>
+<text x="451" y="138" fill="#fff" font-size="24" font-weight="800" text-anchor="end">#37</text>
+<text x="353" y="158" fill="#fff" font-size="10.5" font-weight="600">RF CONNECTOR</text>
+</g>
+<text x="75" y="934" font-size="18" font-weight="800" fill="#222">Подключение к CPU</text>
+<text x="75" y="960" font-size="12" font-weight="700" fill="#666">Сокет</text>
+<text x="175" y="960" font-size="12" font-weight="700" fill="#666">Tibbit</text>
+<text x="260" y="960" font-size="12" font-weight="700" fill="#666">Назначение</text>
+<text x="555" y="960" font-size="12" font-weight="700" fill="#666">Линии → PL_IO_NUM_*</text>
+<text x="1219" y="960" font-size="12" font-weight="700" fill="#666">UART · +5 В</text>
+<line x1="75" x2="1369" y1="966" y2="966" stroke="#CCC"/>
+<rect x="75" y="968" width="1294" height="23" fill="#F6F7F8"/>
+<rect x="175" y="973" width="10" height="10" fill="#2F8FE3"/>
+<text x="75" y="983" font-size="12.5" font-weight="700" fill="#222">S1</text>
+<text x="191" y="983" font-size="12.5" font-weight="700" fill="#222">#05</text>
+<text x="260" y="983" font-size="12" fill="#333">RS485 port</text>
+<text x="555" y="983" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">TX→9_TX0 · RX→8_RX0 · DIR→0</text>
+<text x="1219" y="983" font-size="12" fill="#333">ser.num 0 · 15 мА</text>
+<rect x="175" y="998" width="10" height="10" fill="#2F8FE3"/>
+<text x="75" y="1008" font-size="12.5" font-weight="700" fill="#222">S3</text>
+<text x="191" y="1008" font-size="12.5" font-weight="700" fill="#222">#62</text>
+<text x="260" y="1008" font-size="12" fill="#333">Two 1-Wire/Single-Wire Ports</text>
+<text x="555" y="1008" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">SCL→32 · SDA→33 · -RST→4 · -BUSY→20_INT4</text>
+<text x="1219" y="1008" font-size="12" fill="#333">20 мА</text>
+<rect x="75" y="1018" width="1294" height="23" fill="#F6F7F8"/>
+<rect x="175" y="1023" width="10" height="10" fill="#2F8FE3"/>
+<text x="75" y="1033" font-size="12.5" font-weight="700" fill="#222">S5–S8</text>
+<text x="191" y="1033" font-size="12.5" font-weight="700" fill="#222">#44_1</text>
+<text x="260" y="1033" font-size="12" fill="#333">Isolated RS232/422/485 port</text>
+<text x="555" y="1033" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">TX→11_TX1 · RX→10_RX1 · RTS→1 · CTS→17_INT1 · FD/-HD→34 · -232/422&amp;485→35 · DTR→5 · DSR→21_INT5</text>
+<text x="1219" y="1033" font-size="12" fill="#333">ser.num 1 · 80 мА</text>
+<rect x="175" y="1048" width="10" height="10" fill="#2F8FE3"/>
+<text x="75" y="1058" font-size="12.5" font-weight="700" fill="#222">S9+S11</text>
+<text x="191" y="1058" font-size="12.5" font-weight="700" fill="#222">#02</text>
+<text x="260" y="1058" font-size="12" fill="#333">RS232/422/485 port</text>
+<text x="555" y="1058" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">TX→13_TX2 · RX→12_RX2 · RTS→2 · CTS→18_INT2 · FD/-HD→36 · -232/422&amp;485→37 · DTR→6 · DSR→22_INT6</text>
+<text x="1219" y="1058" font-size="12" fill="#333">ser.num 2 · 40 мА</text>
+<rect x="75" y="1068" width="1294" height="23" fill="#F6F7F8"/>
+<rect x="175" y="1073" width="10" height="10" fill="#8CC63F"/>
+<text x="75" y="1083" font-size="12.5" font-weight="700" fill="#222">S13</text>
+<text x="191" y="1083" font-size="12.5" font-weight="700" fill="#222">#22</text>
+<text x="260" y="1083" font-size="12" fill="#333">RTD Temperature Meter</text>
+<text x="555" y="1083" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">CSL→15_TX3 · SDA→14_RX3 · RST→3 · INT→19_INT3</text>
+<text x="1219" y="1083" font-size="12" fill="#333">10 мА</text>
+<rect x="175" y="1098" width="10" height="10" fill="#8CC63F"/>
+<text x="75" y="1108" font-size="12.5" font-weight="700" fill="#222">S15</text>
+<text x="191" y="1108" font-size="12.5" font-weight="700" fill="#222">#04_8</text>
+<text x="260" y="1108" font-size="12" fill="#333">Four 24V isolated inputs, common ground</text>
+<text x="555" y="1108" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">IN1→38 · IN2→39 · IN3→7 · IN4→23_INT7</text>
+<text x="1219" y="1108" font-size="12" fill="#333">40 мА</text>
+<rect x="75" y="1118" width="1294" height="23" fill="#F6F7F8"/>
+<rect x="175" y="1123" width="10" height="10" fill="#2F8FE3"/>
+<text x="75" y="1133" font-size="12.5" font-weight="700" fill="#222">S17–S20</text>
+<text x="191" y="1133" font-size="12.5" font-weight="700" fill="#222">#61_1</text>
+<text x="260" y="1133" font-size="12" fill="#333">ISOLATED ±10V, 4-20mA ADC Tibbit with 24V O…</text>
+<text x="555" y="1133" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">-CS→24 · SCLK→25 · MOSI→26 · MISO→27 · SCL→28 · SDA→29</text>
+<text x="1219" y="1133" font-size="12" fill="#333">120 мА</text>
+<rect x="175" y="1148" width="10" height="10" fill="#C3C6C8"/>
+<text x="75" y="1158" font-size="12.5" font-weight="700" fill="#222">S21</text>
+<text x="191" y="1158" font-size="12.5" font-weight="700" fill="#222">#00_3</text>
+<text x="260" y="1158" font-size="12" fill="#333">Two direct I/O lines, +5V power, ground</text>
+<text x="555" y="1158" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">LN1→40 · LN2→41</text>
+<text x="1219" y="1158" font-size="12" fill="#333">20 мА</text>
+<rect x="75" y="1168" width="1294" height="23" fill="#F6F7F8"/>
+<rect x="175" y="1173" width="10" height="10" fill="#E2463F"/>
+<text x="75" y="1183" font-size="12.5" font-weight="700" fill="#222">S23</text>
+<text x="191" y="1183" font-size="12.5" font-weight="700" fill="#222">#03_1</text>
+<text x="260" y="1183" font-size="12" fill="#333">Two low-power relays (configuration 1)</text>
+<text x="555" y="1183" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">RL1→54 · RL2→55</text>
+<text x="1219" y="1183" font-size="12" fill="#333">60 мА</text>
+<rect x="175" y="1198" width="10" height="10" fill="#F2C230"/>
+<text x="75" y="1208" font-size="12.5" font-weight="700" fill="#222">S25+S27</text>
+<text x="191" y="1208" font-size="12.5" font-weight="700" fill="#222">#25</text>
+<text x="260" y="1208" font-size="12" fill="#333">High-power 5V supply, 12/24/48V input</text>
+<text x="555" y="1208" font-size="11.5" fill="#333" font-family="Menlo,Consolas,monospace">SDWN→44</text>
+<text x="1219" y="1208" font-size="12" fill="#333">даёт +5V 1500 мА</text>
+<text x="75" y="1256" font-size="18" font-weight="800" fill="#1B8A5A">Питание +5 В: потребление 897 мА из 1500 мА — загрузка 60%</text>
+<rect x="75" y="1268" width="1294" height="34" fill="#F1F3F4"/>
+<rect x="75" y="1268" width="1294.0" height="34" fill="#E3F5EC" stroke="#1B8A5A" stroke-width="1.5"/>
+<rect x="75.0" y="1272" width="119.8" height="26" fill="#5B6770"><title>плата TPP3 Gen2: 140 мА</title></rect>
+<text x="80.0" y="1289" fill="#fff" font-size="11" font-weight="600">плата TPP3 Gen2</text>
+<rect x="195.8" y="1272" width="42.1" height="26" fill="#2F8FE3"><title>зуммер: 50 мА</title></rect>
+<rect x="238.9" y="1272" width="257.8" height="26" fill="#8CC63F"><title>Wi-Fi WA2000: 300 мА</title></rect>
+<text x="243.9" y="1289" fill="#fff" font-size="11" font-weight="600">Wi-Fi WA2000</text>
+<rect x="497.7" y="1272" width="11.9" height="26" fill="#E2463F"><title>#05 S1: 15 мА</title></rect>
+<rect x="510.6" y="1272" width="16.3" height="26" fill="#F2C230"><title>#62 S3: 20 мА</title></rect>
+<rect x="527.9" y="1272" width="68.0" height="26" fill="#9B59B6"><title>#44_1 S5: 80 мА</title></rect>
+<text x="532.9" y="1289" fill="#fff" font-size="11" font-weight="600">#44_1 S5</text>
+<rect x="596.9" y="1272" width="33.5" height="26" fill="#16A3A3"><title>#02 S9: 40 мА</title></rect>
+<rect x="631.4" y="1272" width="7.6" height="26" fill="#EE6A2C"><title>#22 S13: 10 мА</title></rect>
+<rect x="640.0" y="1272" width="33.5" height="26" fill="#5B6770"><title>#04_8 S15: 40 мА</title></rect>
+<rect x="674.6" y="1272" width="102.5" height="26" fill="#2F8FE3"><title>#61_1 S17: 120 мА</title></rect>
+<text x="679.6" y="1289" fill="#fff" font-size="11" font-weight="600">#61_1 S17</text>
+<rect x="778.1" y="1272" width="16.3" height="26" fill="#8CC63F"><title>#00_3 S21: 20 мА</title></rect>
+<rect x="795.3" y="1272" width="0.7" height="26" fill="#E2463F"><title>#29 S22: 2 мА</title></rect>
+<rect x="797.1" y="1272" width="50.8" height="26" fill="#F2C230"><title>#03_1 S23: 60 мА</title></rect>
+<rect x="75.0" y="1314" width="12" height="12" fill="#5B6770"/>
+<text x="93.0" y="1324" font-size="12.5" fill="#333">плата TPP3 Gen2 — 140 мА</text>
+<rect x="398.5" y="1314" width="12" height="12" fill="#2F8FE3"/>
+<text x="416.5" y="1324" font-size="12.5" fill="#333">зуммер — 50 мА</text>
+<rect x="722.0" y="1314" width="12" height="12" fill="#8CC63F"/>
+<text x="740.0" y="1324" font-size="12.5" fill="#333">Wi-Fi WA2000 — 300 мА</text>
+<rect x="1045.5" y="1314" width="12" height="12" fill="#E2463F"/>
+<text x="1063.5" y="1324" font-size="12.5" fill="#333">#05 S1 — 15 мА</text>
+<rect x="75.0" y="1334" width="12" height="12" fill="#F2C230"/>
+<text x="93.0" y="1344" font-size="12.5" fill="#333">#62 S3 — 20 мА</text>
+<rect x="398.5" y="1334" width="12" height="12" fill="#9B59B6"/>
+<text x="416.5" y="1344" font-size="12.5" fill="#333">#44_1 S5 — 80 мА</text>
+<rect x="722.0" y="1334" width="12" height="12" fill="#16A3A3"/>
+<text x="740.0" y="1344" font-size="12.5" fill="#333">#02 S9 — 40 мА</text>
+<rect x="1045.5" y="1334" width="12" height="12" fill="#EE6A2C"/>
+<text x="1063.5" y="1344" font-size="12.5" fill="#333">#22 S13 — 10 мА</text>
+<rect x="75.0" y="1354" width="12" height="12" fill="#5B6770"/>
+<text x="93.0" y="1364" font-size="12.5" fill="#333">#04_8 S15 — 40 мА</text>
+<rect x="398.5" y="1354" width="12" height="12" fill="#2F8FE3"/>
+<text x="416.5" y="1364" font-size="12.5" fill="#333">#61_1 S17 — 120 мА</text>
+<rect x="722.0" y="1354" width="12" height="12" fill="#8CC63F"/>
+<text x="740.0" y="1364" font-size="12.5" fill="#333">#00_3 S21 — 20 мА</text>
+<rect x="1045.5" y="1354" width="12" height="12" fill="#E2463F"/>
+<text x="1063.5" y="1364" font-size="12.5" fill="#333">#29 S22 — 2 мА</text>
+<rect x="75.0" y="1374" width="12" height="12" fill="#F2C230"/>
+<text x="93.0" y="1384" font-size="12.5" fill="#333">#03_1 S23 — 60 мА</text>
+<text x="75" y="1410" font-size="13" fill="#333"><tspan font-weight="700">Источники:</tspan> #25 S25 (24 В) — 1500 мА</text>
+<text x="75" y="1464" font-size="14" font-weight="700" fill="#1B8A5A">Ошибок и предупреждений нет</text>
+</svg>
