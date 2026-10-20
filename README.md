@@ -5,7 +5,7 @@
 **Agent skills that turn Claude into a Tibbo firmware and AppBlocks engineer.**
 
 Write and review Tibbo BASIC firmware, pick Tibbits and check TPS power budgets,
-read, fix and generate AppBlocks projects — with real Tibbo API data instead of guesswork.
+read, fix and generate AppBlocks projects - with real Tibbo API data instead of guesswork.
 
 [![Tests](https://github.com/scancode-iot/tibbo-claude-skills/actions/workflows/tests.yml/badge.svg)](https://github.com/scancode-iot/tibbo-claude-skills/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -20,7 +20,7 @@ read, fix and generate AppBlocks projects — with real Tibbo API data instead o
 
 ## Why
 
-Tibbo devices run TiOS — an event-driven OS with its own BASIC dialect, static memory, per-channel cursors
+Tibbo devices run TiOS - an event-driven OS with its own BASIC dialect, static memory, per-channel cursors
 (`sock.num`, `ser.num`), and 60+ libraries that silently do nothing unless every callback and `*_proc_*` hook is wired.
 Tibbit selection has its own traps: socket shapes, UART/interrupt lines, 9–18 V inputs on some power Tibbits, ±15 V rails.
 
@@ -58,14 +58,14 @@ flowchart LR
 <tr>
 <td width="50%" valign="top">
 
-**TPS board check** — sockets, Tibbits, `PL_IO_NUM_*` lines, `ser.num`, +5 V budget, drawn in the style of the Tibbo configurator.
+**TPS board check** - sockets, Tibbits, `PL_IO_NUM_*` lines, `ser.num`, +5 V budget, drawn in the style of the Tibbo configurator.
 
 <img src="docs/images/tps-board-tpp3.svg" alt="TPP3 board with Tibbits and power budget" />
 
 </td>
 <td width="50%" valign="top">
 
-**Errors are numbered on the board** — wrong socket, 24 V into a 9–18 V supply, missing connector.
+**Errors are numbered on the board** - wrong socket, 24 V into a 9–18 V supply, missing connector.
 
 <img src="docs/images/tps-board-error.svg" alt="TPS configuration with numbered errors" />
 
@@ -74,7 +74,7 @@ flowchart LR
 <tr>
 <td colspan="2">
 
-**AppBlocks logic flow** — groups, nodes at their editor positions, coloured by role, port labels on links.
+**AppBlocks logic flow** - groups, nodes at their editor positions, coloured by role, port labels on links.
 
 <img src="docs/images/appblocks-flow.svg" alt="AppBlocks logic flow diagram" />
 
@@ -83,7 +83,7 @@ flowchart LR
 <tr>
 <td colspan="2">
 
-**Firmware state machine** — states, outputs, transitions and fault paths taken from the code.
+**Firmware state machine** - states, outputs, transitions and fault paths taken from the code.
 
 <img src="docs/images/state-diagram.svg" alt="Firmware state machine diagram" />
 
@@ -96,7 +96,7 @@ flowchart LR
 ## Installation
 
 Download the packages from the [latest release](https://github.com/scancode-iot/tibbo-claude-skills/releases/latest):
-`tibbo-firmware.zip` and `appblocks.zip`. Install **both** — `appblocks` uses the checker from `tibbo-firmware`.
+`tibbo-firmware.zip` and `appblocks.zip`. Install **both** - `appblocks` uses the checker from `tibbo-firmware`.
 
 ### Claude apps (claude.ai, desktop, mobile)
 
@@ -107,7 +107,7 @@ Download the packages from the [latest release](https://github.com/scancode-iot/
 
 See [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude) if the menu looks different.
 
-### Claude Code — as a plugin (recommended)
+### Claude Code - as a plugin (recommended)
 
 ```text
 /plugin marketplace add scancode-iot/tibbo-claude-skills
@@ -116,7 +116,7 @@ See [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-s
 
 Updates arrive with `/plugin marketplace update scancode`.
 
-### Claude Code — manual
+### Claude Code - manual
 
 ```bash
 git clone https://github.com/scancode-iot/tibbo-claude-skills.git
@@ -133,7 +133,7 @@ and pass the returned `skill_id` values in the `container` parameter together wi
 
 ## Usage examples
 
-Just describe the task — Claude picks the skill by itself.
+Just describe the task - Claude picks the skill by itself.
 
 ```text
 I need a TPP3 controller that reads 4 Modbus RTU meters over RS485 and publishes
@@ -157,7 +157,7 @@ Add a "pump runtime" variable to this AppBlocks project and reset it every day a
 
 Good habits that make answers better:
 
-- **Name the platform exactly** — `TPP3W(G2)`, `TPP2W(G3)`, `DS1102W`, `EM2000W`.
+- **Name the platform exactly** - `TPP3W(G2)`, `TPP2W(G3)`, `DS1102W`, `EM2000W`.
 - **Say which Tibbits sit in which sockets** and **what feeds the power** (12/24/48 V through which Tibbit, PoE).
 - For library code, mention `src_lib_ver` from your `.tpr`.
 
@@ -180,7 +180,7 @@ tibbo-claude-skills/
 
 ## Requirements
 
-The bundled scripts need **Python 3.9+ and nothing else** — only the standard library.
+The bundled scripts need **Python 3.9+ and nothing else** - only the standard library.
 They run inside Claude's sandbox automatically; you can also run them yourself:
 
 ```bash
@@ -206,9 +206,9 @@ Both suites run offline and on every push (see [Actions](https://github.com/scan
 
 The reference files were compiled in October 2026 from:
 
-- [github.com/tibbotech](https://github.com/tibbotech) — TiOS API, platforms, libraries, Tibbit catalog, examples (extracted automatically, names and signatures are exact);
-- [docs.tibbo.com](https://docs.tibbo.com) — power supply, sockets and tiles, PoE (written up by hand);
-- [appblocks.io](https://appblocks.io) — example projects and the editor's node catalog.
+- [github.com/tibbotech](https://github.com/tibbotech) - TiOS API, platforms, libraries, Tibbit catalog, examples (extracted automatically, names and signatures are exact);
+- [docs.tibbo.com](https://docs.tibbo.com) - power supply, sockets and tiles, PoE (written up by hand);
+- [appblocks.io](https://appblocks.io) - example projects and the editor's node catalog.
 
 Tibbo releases new libraries and Tibbits from time to time. If something is out of date,
 please [open an issue](https://github.com/scancode-iot/tibbo-claude-skills/issues).
@@ -221,7 +221,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 Code and skill instructions: [MIT](LICENSE) © 2026 Scancode.
-Reference data and example projects derived from Tibbo Technology materials remain the property of their owners —
+Reference data and example projects derived from Tibbo Technology materials remain the property of their owners -
 see [NOTICE](NOTICE).
 
 Tibbo, Tibbit, TiOS, TIDE and AppBlocks are trademarks of Tibbo Technology Inc. This project is not an official
@@ -229,6 +229,6 @@ Tibbo product. Claude is a product of Anthropic.
 
 <div align="center">
 
-Made by **[Scancode](https://github.com/scancode-iot)** — Tibbo Technology distributor in Russia and the CIS.
+Made by **[Scancode](https://github.com/scancode-iot)** - Tibbo Technology distributor in Russia and the CIS.
 
 </div>

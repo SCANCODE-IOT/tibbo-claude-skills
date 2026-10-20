@@ -5,7 +5,7 @@
 **Навыки, которые превращают Claude в инженера по прошивкам Tibbo и проектам AppBlocks.**
 
 Писать и проверять прошивки на Tibbo BASIC, подбирать Tibbit и считать бюджет питания TPS,
-разбирать, исправлять и создавать проекты AppBlocks — на точных данных Tibbo API, а не по догадкам.
+разбирать, исправлять и создавать проекты AppBlocks - на точных данных Tibbo API, а не по догадкам.
 
 [![Tests](https://github.com/scancode-iot/tibbo-claude-skills/actions/workflows/tests.yml/badge.svg)](https://github.com/scancode-iot/tibbo-claude-skills/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -20,7 +20,7 @@
 
 ## Зачем это нужно
 
-Устройства Tibbo работают на TiOS — событийной ОС со своим диалектом BASIC, статической памятью, «курсорами» каналов
+Устройства Tibbo работают на TiOS - событийной ОС со своим диалектом BASIC, статической памятью, «курсорами» каналов
 (`sock.num`, `ser.num`) и более чем 60 библиотеками, которые молча не работают, если не реализованы все колбэки
 и не проброшены хуки `*_proc_*`. У подбора Tibbit свои ловушки: формы сокетов, линии UART и прерываний,
 вход 9–18 В у части источников питания, шина ±15 В.
@@ -59,14 +59,14 @@ flowchart LR
 <tr>
 <td width="50%" valign="top">
 
-**Проверка платы TPS** — сокеты, Tibbit, линии `PL_IO_NUM_*`, `ser.num`, бюджет +5 В в стиле конфигуратора Tibbo.
+**Проверка платы TPS** - сокеты, Tibbit, линии `PL_IO_NUM_*`, `ser.num`, бюджет +5 В в стиле конфигуратора Tibbo.
 
 <img src="docs/images/tps-board-tpp3.svg" alt="Плата TPP3 с Tibbit и бюджетом питания" />
 
 </td>
 <td width="50%" valign="top">
 
-**Ошибки пронумерованы прямо на плате** — неверный сокет, 24 В на источник 9–18 В, нет разъёма.
+**Ошибки пронумерованы прямо на плате** - неверный сокет, 24 В на источник 9–18 В, нет разъёма.
 
 <img src="docs/images/tps-board-error.svg" alt="Конфигурация TPS с пронумерованными ошибками" />
 
@@ -75,7 +75,7 @@ flowchart LR
 <tr>
 <td colspan="2">
 
-**Схема логики AppBlocks** — группы, узлы на своих местах в редакторе, цвет по роли, подписи портов на связях.
+**Схема логики AppBlocks** - группы, узлы на своих местах в редакторе, цвет по роли, подписи портов на связях.
 
 <img src="docs/images/appblocks-flow.svg" alt="Схема логики проекта AppBlocks" />
 
@@ -84,7 +84,7 @@ flowchart LR
 <tr>
 <td colspan="2">
 
-**Конечный автомат прошивки** — состояния, выходы, переходы и аварийные пути, взятые из кода.
+**Конечный автомат прошивки** - состояния, выходы, переходы и аварийные пути, взятые из кода.
 
 <img src="docs/images/state-diagram.svg" alt="Диаграмма состояний прошивки" />
 
@@ -106,7 +106,7 @@ flowchart LR
 
 Если меню выглядит иначе, см. [Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude).
 
-### Claude Code — как плагин (рекомендуется)
+### Claude Code - как плагин (рекомендуется)
 
 ```text
 /plugin marketplace add scancode-iot/tibbo-claude-skills
@@ -115,7 +115,7 @@ flowchart LR
 
 Обновление: `/plugin marketplace update scancode`.
 
-### Claude Code — вручную
+### Claude Code - вручную
 
 ```bash
 git clone https://github.com/scancode-iot/tibbo-claude-skills.git
@@ -132,7 +132,7 @@ cp -r tibbo-claude-skills/skills/tibbo-firmware tibbo-claude-skills/skills/appbl
 
 ## Примеры запросов
 
-Просто опишите задачу — Claude сам выберет скилл.
+Просто опишите задачу - Claude сам выберет скилл.
 
 ```text
 Нужен контроллер на TPP3: опрашивает 4 счётчика по Modbus RTU через RS485 и отправляет
@@ -141,7 +141,7 @@ cp -r tibbo-claude-skills/skills/tibbo-firmware tibbo-claude-skills/skills/appbl
 
 ```text
 Проверь проект на Tibbo BASIC для TPP2W(G3): main.tbs, device.tbs, global.tbh (во вложении).
-Особое внимание — работе с сокетами и DHCP.
+Особое внимание - работе с сокетами и DHCP.
 ```
 
 ```text
@@ -155,9 +155,9 @@ cp -r tibbo-claude-skills/skills/tibbo-firmware tibbo-claude-skills/skills/appbl
 
 Что помогает получить точный ответ:
 
-- **Точное имя платформы** — `TPP3W(G2)`, `TPP2W(G3)`, `DS1102W`, `EM2000W`.
+- **Точное имя платформы** - `TPP3W(G2)`, `TPP2W(G3)`, `DS1102W`, `EM2000W`.
 - **Какие Tibbit в каких сокетах** и **от чего питание** (12/24/48 В через какой Tibbit, PoE).
-- Для кода с библиотеками — `src_lib_ver` из `.tpr`.
+- Для кода с библиотеками - `src_lib_ver` из `.tpr`.
 
 Claude не может запустить TIDE: он проверяет код статически по справочным данным и честно пишет, что проверено,
 а что нет. Всегда собирайте и проверяйте прошивку на реальном устройстве.
@@ -178,7 +178,7 @@ tibbo-claude-skills/
 
 ## Требования
 
-Скриптам нужен **только Python 3.9+** — используется лишь стандартная библиотека.
+Скриптам нужен **только Python 3.9+** - используется лишь стандартная библиотека.
 В песочнице Claude они запускаются автоматически, но их можно запускать и самостоятельно:
 
 ```bash
@@ -204,29 +204,29 @@ sh skills/appblocks/tests/run.sh
 
 Справочники собраны в октябре 2026 года из:
 
-- [github.com/tibbotech](https://github.com/tibbotech) — API TiOS, платформы, библиотеки, каталог Tibbit, примеры (извлечены автоматически, имена и сигнатуры точные);
-- [docs.tibbo.com](https://docs.tibbo.com) — питание, сокеты и тайлы, PoE (выписаны вручную);
-- [appblocks.io](https://appblocks.io) — проекты-примеры и каталог узлов редактора.
+- [github.com/tibbotech](https://github.com/tibbotech) - API TiOS, платформы, библиотеки, каталог Tibbit, примеры (извлечены автоматически, имена и сигнатуры точные);
+- [docs.tibbo.com](https://docs.tibbo.com) - питание, сокеты и тайлы, PoE (выписаны вручную);
+- [appblocks.io](https://appblocks.io) - проекты-примеры и каталог узлов редактора.
 
 Tibbo периодически выпускает новые библиотеки и Tibbit. Если что-то устарело,
 [создайте issue](https://github.com/scancode-iot/tibbo-claude-skills/issues).
 
 ## Участие
 
-Самое ценное — сообщения об ошибках с реальным проектом или реальной ошибкой редактора.
+Самое ценное - сообщения об ошибках с реальным проектом или реальной ошибкой редактора.
 См. [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Лицензия
 
 Код и инструкции скиллов: [MIT](LICENSE) © 2026 Scancode.
 Справочные данные и проекты-примеры, полученные из материалов Tibbo Technology, остаются собственностью
-правообладателей — см. [NOTICE](NOTICE).
+правообладателей - см. [NOTICE](NOTICE).
 
-Tibbo, Tibbit, TiOS, TIDE и AppBlocks — товарные знаки Tibbo Technology Inc. Проект не является официальным
-продуктом Tibbo. Claude — продукт компании Anthropic.
+Tibbo, Tibbit, TiOS, TIDE и AppBlocks - товарные знаки Tibbo Technology Inc. Проект не является официальным
+продуктом Tibbo. Claude - продукт компании Anthropic.
 
 <div align="center">
 
-Сделано **[Сканкод (Scancode)](https://github.com/scancode-iot)** — дистрибьютором Tibbo Technology в России и СНГ.
+Сделано **[Сканкод (Scancode)](https://github.com/scancode-iot)** - дистрибьютором Tibbo Technology в России и СНГ.
 
 </div>

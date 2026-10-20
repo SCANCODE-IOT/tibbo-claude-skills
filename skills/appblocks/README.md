@@ -2,7 +2,7 @@
 
 **English** · [Русский](README.ru.md) · [← All skills](../../README.md)
 
-A Claude skill for **[Tibbo AppBlocks](https://appblocks.io)** — the visual firmware builder for Tibbo and Zephyr devices
+A Claude skill for **[Tibbo AppBlocks](https://appblocks.io)** - the visual firmware builder for Tibbo and Zephyr devices
 and its cloud. Claude reads, explains, reviews, edits and generates AppBlocks projects, draws their logic and hardware,
 and works with the AppBlocks Cloud API.
 
@@ -14,11 +14,11 @@ and works with the AppBlocks Cloud API.
 
 | Task | How the skill handles it |
 |---|---|
-| **Explain a project** | `ab_tool.py summary` — board, Tibbits, services, variables, tables and event chains, then a plain-language description of what the device does. |
+| **Explain a project** | `ab_tool.py summary` - board, Tibbits, services, variables, tables and event chains, then a plain-language description of what the device does. |
 | **Review logic** | Applies the AppBlocks flow rules: a flow must start from an event, parameters reach only the next block, ASYNC blocks drop parameters, `On Variable Changed` recursion, command loops without exit, unhandled `modbus_timeout` / `tbl_record_not_found`, passwords in plain text, disabled features that nodes need. |
-| **Review hardware** | Converts the project's Tibbits to a TPS configuration (`ab_tool.py tps`) and runs `tps_check.py` from `tibbo-firmware` — sockets, lines, power budget, board picture. |
+| **Review hardware** | Converts the project's Tibbits to a TPS configuration (`ab_tool.py tps`) and runs `tps_check.py` from `tibbo-firmware` - sockets, lines, power budget, board picture. |
 | **Edit or generate** | Edits a *copy* of the export with a script, never by hand; keeps IDs of reused elements and removes unused ones together with every reference (including dashboards, LUIS, LCD menus); new IDs from `ab_tool.py ids`; `check` must report 0 errors before the file is handed back for **Import**. |
-| **Work with the cloud** | Lists projects and devices, downloads projects, generates firmware code, reads versions and workspaces. Any write — create/update projects, device variables, commands, **OTA**, workflows — happens only after your explicit "yes" to that exact call. |
+| **Work with the cloud** | Lists projects and devices, downloads projects, generates firmware code, reads versions and workspaces. Any write - create/update projects, device variables, commands, **OTA**, workflows - happens only after your explicit "yes" to that exact call. |
 | **Use the editor** | In your browser, under your sign-in, read-first; Run, Deploy, OTA, save and delete only after confirmation. |
 
 Runtimes covered: **`tios`** (Tibbo BASIC for TPP2, TPP3, DS1101, DS1102, EM510), **`zephyr`** (Zephyr C), `micropython`.
@@ -43,7 +43,7 @@ Runtimes covered: **`tios`** (Tibbo BASIC for TPP2, TPP3, DS1101, DS1102, EM510)
 
 Both scripts use only the Python standard library.
 
-### `ab_tool.py` — offline, no account needed
+### `ab_tool.py` - offline, no account needed
 
 ```bash
 python3 scripts/ab_tool.py summary project.json              # what is in the project
@@ -63,7 +63,7 @@ python3 ../tibbo-firmware/scripts/tps_check.py check cfg.json --svg board.svg
 
 The supply voltage is not stored in an AppBlocks project; pass it with `--vin`. If you don't tell Claude the voltage, it assumes 24 V and says so in the answer.
 
-### `ab_api.py` — AppBlocks Cloud
+### `ab_api.py` - AppBlocks Cloud
 
 ```bash
 export APPBLOCKS_API_KEY=abk_...        # Settings → API Keys in the AppBlocks web app
@@ -78,13 +78,13 @@ python3 scripts/ab_api.py example sprinkler5 --out p.json
 | Command group | Commands | Changes your account? |
 |---|---|---|
 | Read | `me`, `projects`, `project`, `versions`, `examples`, `example`, `workspaces`, `devices`, `device`, `get` | No |
-| Generate | `code` | No — sends the project to the code generator only |
-| Write | `create … --yes`, `update … --yes` | **Yes** — Claude asks first, every time |
+| Generate | `code` | No - sends the project to the code generator only |
+| Write | `create … --yes`, `update … --yes` | **Yes** - Claude asks first, every time |
 
 Security:
 
-- The key is read **only** from `APPBLOCKS_API_KEY` or a file named in `APPBLOCKS_API_KEY_FILE` — never from the command line. Claude never prints it or saves it to files, memory or artifacts; the device MQTT `key` is hidden as well.
-- In the claude.ai sandbox the network is closed by default: add `api.appblocks.io` and `appblocks.io` to allowed domains in **Settings → Capabilities** (on Team/Enterprise — ask your admin). Without that, use an exported `.json` file.
+- The key is read **only** from `APPBLOCKS_API_KEY` or a file named in `APPBLOCKS_API_KEY_FILE` - never from the command line. Claude never prints it or saves it to files, memory or artifacts; the device MQTT `key` is hidden as well.
+- In the claude.ai sandbox the network is closed by default: add `api.appblocks.io` and `appblocks.io` to allowed domains in **Settings → Capabilities** (on Team/Enterprise - ask your admin). Without that, use an exported `.json` file.
 
 ## Example prompts
 
@@ -107,8 +107,8 @@ Show my AppBlocks devices that are offline and which firmware version they run.
 ## Limits
 
 - The JSON format and node catalog were reconstructed from exported projects (October 2026). A new node type may be missing; Claude then copies the shape from a similar node in your projects and asks you to check the editor's **Problems** tab.
-- `ab_api.py code` succeeding does not guarantee that the editor's Problems list is empty — the skill asks you to open the project and send any new errors, which are then added to `check`.
-- A device left in **Debug** mode stops without a connection to the editor — the skill warns not to leave it that way on site.
+- `ab_api.py code` succeeding does not guarantee that the editor's Problems list is empty - the skill asks you to open the project and send any new errors, which are then added to `check`.
+- A device left in **Debug** mode stops without a connection to the editor - the skill warns not to leave it that way on site.
 
 ## Tests
 
