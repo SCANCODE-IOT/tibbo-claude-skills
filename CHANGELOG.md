@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.1.2] - 2026-10-22
+
+### Fixed
+- Removed `certifi-*.whl` that was committed by mistake into `skills/appblocks/scripts/` in 1.1.1 and got into `appblocks.zip`
+  (the file was not used by the skill). `tools/package.sh` now refuses to package anything but text sources, and `*.whl` is in `.gitignore`.
+
 ## [1.1.1] - 2026-10-22
 
 Hotfix after user reports: scripts on Windows, and AppBlocks code generation facts checked against `POST /api/projects/code`.
@@ -77,6 +83,7 @@ First public release.
 - Upload-ready packages for Claude apps and the API (`tools/package.sh`, attached to releases).
 - Offline tests on every push.
 
+[1.1.2]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.2
 [1.1.1]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.1
 [1.1.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.0
 [1.0.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.0.0
