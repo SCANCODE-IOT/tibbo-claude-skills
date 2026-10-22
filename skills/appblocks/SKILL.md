@@ -27,6 +27,8 @@ OTA, переменные/таблицы/команды, облачные workfl
 | `tests/run.sh` | Офлайн-тесты инструментов на примерах (и мост в tps_check, если tibbo-firmware лежит рядом). |
 | `examples/*.json` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и Modbus→MQTT (`ModbusMQTTGateway`, он же пример modbusmqtt; zephyr, GitHub), sprinkler5, accesscontrol6, hydroponics (TPP3), water_level_control_cloud (с appblocks.io, в т.ч. tios). |
 
+**Windows:** скрипты запускай через `python` (или `python3`), вывод всегда UTF-8; при `CERTIFICATE_VERIFY_FAILED` в `ab_api.py` проверку не отключай - `pip install truststore` (или `certifi`, или `SSL_CERT_FILE` с бандлом Git), диагностика `ab_api.py tls`.
+
 Железо проверяет `tps_check.py` из скилла tibbo-firmware (найди Glob `**/tibbo-firmware/scripts/tps_check.py`): он же
 рисует плату в стиле редактора AppBlocks (сокеты с номерами линий, SERn(k)/INTn(k), Tibbit, PoE, +5V, бюджет питания).
 
@@ -73,6 +75,8 @@ python3 scripts/ab_api.py code p.json --outdir gen   # что сгенериру
 - Логику строй по правилам потоков: каждое действие достижимо из события; значения между потоками — через переменные;
   повторы — таймеры/On Time Period/команды; после ASYNC — только переменные.
 - Tibbit: сначала подбор и проверка раскладки/питания (tibbo-firmware), затем `tibbit_NN` с SOCKET и полями по образцу.
+- Минимальная основа для нового tios-проекта - пример `tbt22` (`appblocks.io/projects/tbt22.json`: TPP2W(G2), 47 feature,
+  датчик #22 с разъёмом #21 и источник #10 с #18, несколько блоков); плату меняй полем `device` до добавления Tibbit.
 - **Проект на основе примера**: меняешь данные (настройки STG, команды, таблицы) — **оставляй ID тех, что переиспользуешь,
   а ненужные удаляй вместе со всеми ссылками на них**, включая панели (`web_dashboard`, `luis`, `ds_man`, `lcd_menu`, `cgg`:
   пункты настроек, кнопки-команды, таблицы консоли). Никогда не пересоздавай элемент с новым ID, не заменив старый

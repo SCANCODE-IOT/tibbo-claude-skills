@@ -126,6 +126,18 @@ cp -r tibbo-claude-skills/skills/tibbo-firmware tibbo-claude-skills/skills/appbl
 
 Use `.claude/skills/` inside a project instead of `~/.claude/skills/` to install for one project only.
 
+### Claude Code on Windows
+
+The scripts work with `python` or `python3` from PowerShell, cmd or Git Bash; no extra settings are needed.
+
+- **Console encoding.** Since 1.1.1 the scripts always print UTF-8, so a cp1251/cp1252 console no longer stops them
+  with `UnicodeEncodeError`. If Russian text looks garbled in an old `cmd` window, run `chcp 65001` or use Windows Terminal.
+- **`CERTIFICATE_VERIFY_FAILED` from `ab_api.py`** while the browser and `curl` open `api.appblocks.io` fine: Python
+  is not using the right root certificates. Certificate checks are never switched off; give Python a proper store instead:
+  `pip install truststore` (the Windows store, preferred) or `pip install certifi`, or point `SSL_CERT_FILE` to a bundle,
+  for example `C:/Program Files/Git/mingw64/etc/ssl/certs/ca-bundle.crt` from Git for Windows.
+  `python scripts/ab_api.py tls` shows which store is used and checks the connection.
+
 ### Claude API
 
 Upload each skill folder through the [Skills API](https://platform.claude.com/docs/en/build-with-claude/skills-guide)
@@ -180,7 +192,8 @@ tibbo-claude-skills/
 
 ## Requirements
 
-The bundled scripts need **Python 3.9+ and nothing else** - only the standard library.
+The bundled scripts need **Python 3.9+ and nothing else** - only the standard library
+(optional: `truststore` or `certifi` for `ab_api.py` on Windows, see above).
 They run inside Claude's sandbox automatically; you can also run them yourself:
 
 ```bash

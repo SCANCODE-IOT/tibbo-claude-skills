@@ -13,6 +13,15 @@ The format is documented in references/format.md (derived from projects exported
 """
 import json, re, sys, time, random, string, collections, os
 
+
+def utf8_stdio():
+    """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
 REF = re.compile(r"\{\{\$([A-Za-z0-9_]+)\}\}")
 NODE_PREFIX = "node_"
 SERVICE_TOGGLES = ["net", "wifi", "dhcp", "dns", "sntp", "http", "httpserver", "mqtt", "cgg", "cell", "bt",
@@ -34,7 +43,8 @@ def load(path):
 
 
 def new_id(n=1):
-    """AppBlocks-style id: Date.now() in base36 + random base36 tail (observed 16-20 chars)."""
+    """List of n AppBlocks-style IDs (always a list, also for n=1): Date.now() in base36 + random base36 tail
+    (observed 16-20 chars). For a single ID use one_id()."""
     out = []
     for _ in range(n):
         ts = int(time.time() * 1000)
@@ -46,6 +56,11 @@ def new_id(n=1):
         out.append(b36 + tail)
         time.sleep(0.002)
     return out
+
+
+def one_id():
+    """One AppBlocks-style ID as a string."""
+    return new_id(1)[0]
 
 
 def all_ids(obj, acc=None, parent=None):
@@ -334,6 +349,42 @@ def check_registry(d, errs, warns, reg=None):
                             f"{s.get(fld)!r} (есть: {', '.join(ports) or '-'})")
 
 
+# ------------------------------------------------------------------ generated-code pitfalls (checked by generation, 2026-10-22)
+CMP_OPERATORS = {"=", "<>", "<", "<=", ">", ">="}   # editor's operators; the tios generator copies the text into BASIC as is
+FRAMEWORK_OUTPUTS = {"TPP": {46, 47, 48}}           # TPP2/TPP3: signal strength bar (reset, clock, data) made outputs at boot
+
+
+def check_codegen(d, errs, warns):
+    runtime = d.get("runtime") or "tios"
+    board = str(d.get("device") or "")
+    fw_out = next((v for k, v in FRAMEWORK_OUTPUTS.items() if board.upper().startswith(k)), set())
+    for f in d["features"]:
+        k, s = f["id"], f["settings"]
+        if k == "node_digital_line_set":
+            ln = str(s.get("LINE_NUMBER", "")).strip()
+            if REF.search(ln):
+                continue
+            if not ln.isdigit():
+                errs.append(f"узел {k} {s.get('ID')}: LINE_NUMBER={ln!r} - нужен номер линии числом (48, а не PL_IO_NUM_48): "
+                            f"генератор пишет io.lineset(\"{ln}\", …); неявное преобразование строки в число (val) даст 0, "
+                            "то есть запись, скорее всего, уйдёт на линию 0 (в TIDE не проверено)")
+            elif int(ln) not in fw_out:
+                warns.append(f"узел {k} {s.get('ID')}: линия {ln} - блок не переводит линию в выход (io.enabled не генерируется); "
+                             "запись подействует, только если линию сделал выходом фреймворк или Tibbit проекта - "
+                             "проверь в коде `ab_api.py code` (generated-code.md §Digital Line Set)")
+        elif k == "node_comparison":
+            for a in s.get("ARGUMENTS", []) or []:
+                st = a.get("settings", {})
+                if st.get("TARGETPARAM") != "operator":
+                    continue
+                op = str(st.get("ARGVALUE", "")).strip()
+                if op in CMP_OPERATORS or REF.search(op):
+                    continue
+                msg = (f"узел {k} {s.get('ID')}: оператор {op!r} - в редакторе есть только = <> < <= > >= "
+                       f"(для tios текст уходит в Tibbo BASIC как есть: {op!r} там нет)")
+                (errs if runtime == "tios" else warns).append(msg)
+
+
 def check(d):
     F = d["features"]
     ids = all_ids(d)
@@ -397,6 +448,7 @@ def check(d):
             errs.append(f"в сокет S{sck} поставлено {c} Tibbit")
     check_panels_and_refs(d, ids, errs, warns)
     check_registry(d, errs, warns)
+    check_codegen(d, errs, warns)
     for fl in d.get("featureFlags", []):
         for x in d.get("featureFlagMap", {}).get(fl["id"], []):
             if x not in ids:
@@ -622,6 +674,7 @@ def main():
 
 
 if __name__ == "__main__":
+    utf8_stdio()
     try:
         main()
     except IndexError:

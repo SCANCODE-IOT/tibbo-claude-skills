@@ -15,21 +15,74 @@ Read-only (safe):
   devices  [--workspace W]             devices (name, connected, app, fw)
   device   <deviceId>                  one device (state, variables, changes)
   get <path>                           any GET path
+  tls                                  which CA store is used for HTTPS and whether api.appblocks.io verifies
 Generate (sends the project to AppBlocks, changes nothing in the account):
   code <project.json> --outdir DIR     POST /api/projects/code -> generated firmware sources
 Write (needs the user's explicit yes for this exact call; add --yes):
   create <project.json> [--workspace W] --yes      POST /api/projects
   update <id> <project.json> --yes                 PUT  /api/projects/:id
 """
-import json, os, sys, urllib.request, urllib.error, urllib.parse
+import json, os, ssl, sys, urllib.request, urllib.error, urllib.parse
+
+
+def utf8_stdio():
+    """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
 
 BASE = os.environ.get("APPBLOCKS_BASE", "https://api.appblocks.io").rstrip("/")
+
+
+def ssl_context():
+    """Verified TLS context. Certificate checks are never disabled.
+
+    Order: SSL_CERT_FILE / SSL_CERT_DIR (only that bundle) -> truststore (the OS store, if installed)
+    -> certifi (Mozilla bundle, if installed) -> Python's default context.
+    """
+    cafile, capath = os.environ.get("SSL_CERT_FILE"), os.environ.get("SSL_CERT_DIR")
+    if cafile or capath:
+        return ssl.create_default_context(cafile=cafile or None, capath=capath or None), \
+            f"SSL_CERT_FILE/SSL_CERT_DIR ({cafile or capath})"
+    try:
+        import truststore
+        return truststore.SSLContext(ssl.PROTOCOL_TLS_CLIENT), "truststore (хранилище сертификатов ОС)"
+    except ImportError:
+        pass
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where()), f"certifi ({certifi.where()})"
+    except ImportError:
+        pass
+    return ssl.create_default_context(), "стандартный контекст Python"
+
+
+CTX, CTX_SOURCE = ssl_context()
+
+
+def tls_hint(e):
+    """Explain CERTIFICATE_VERIFY_FAILED; other connection errors keep the sandbox hint."""
+    reason = getattr(e, "reason", e)
+    if isinstance(reason, ssl.SSLCertVerificationError) or "CERTIFICATE_VERIFY_FAILED" in str(reason):
+        return (f"сертификат сервера не прошёл проверку: {reason}\n"
+                f"Хранилище сертификатов: {CTX_SOURCE}. Проверка сертификата не отключается.\n"
+                "Если тот же адрес открывается в браузере или curl, у Python не то хранилище корневых сертификатов "
+                "(часто на Windows). Варианты:\n"
+                "  pip install truststore   - брать сертификаты из хранилища ОС\n"
+                "  pip install certifi      - брать актуальный набор Mozilla\n"
+                "  SSL_CERT_FILE=<бандл>    - например, C:/Program Files/Git/mingw64/etc/ssl/certs/ca-bundle.crt из Git для Windows\n"
+                "Если в сети есть прокси с подменой сертификатов, добавь его корневой сертификат в бандл.\n"
+                "Диагностика: python ab_api.py tls")
+    return (f"нет соединения: {reason}\n(в облачной песочнице хост может быть закрыт: добавь api.appblocks.io в разрешённые хосты "
+            f"или запусти скрипт на компьютере пользователя)")
 
 
 def key(required=True):
     k = os.environ.get("APPBLOCKS_API_KEY")
     if not k and os.environ.get("APPBLOCKS_API_KEY_FILE"):
-        k = open(os.environ["APPBLOCKS_API_KEY_FILE"]).read().strip()
+        k = open(os.environ["APPBLOCKS_API_KEY_FILE"], encoding="utf-8").read().strip()
     if not k and required:
         sys.exit("нет ключа: задай APPBLOCKS_API_KEY или APPBLOCKS_API_KEY_FILE")
     return k
@@ -45,14 +98,13 @@ def call(method, path, body=None, auth=True, raw=False):
         headers["Content-Type"] = "application/json"
     req = urllib.request.Request(BASE + path, data=data, method=method, headers=headers)
     try:
-        with urllib.request.urlopen(req, timeout=120) as r:
+        with urllib.request.urlopen(req, timeout=120, context=CTX) as r:
             b = r.read()
             st = r.status
     except urllib.error.HTTPError as e:
         b, st = e.read(), e.code
     except urllib.error.URLError as e:
-        sys.exit(f"нет соединения с {BASE}: {e.reason}\n(в облачной песочнице хост может быть закрыт: добавь api.appblocks.io в разрешённые хосты "
-                 f"или запусти скрипт на компьютере пользователя)")
+        sys.exit(f"{BASE}: " + tls_hint(e))
     if not (200 <= st < 300):
         sys.exit(f"HTTP {st} {method} {path}: {b[:500].decode('utf-8', 'replace')}")
     if raw:
@@ -68,10 +120,10 @@ SITE = "https://appblocks.io"
 
 def fetch(url):
     try:
-        with urllib.request.urlopen(urllib.request.Request(url, headers={"Accept": "*/*"}), timeout=60) as r:
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"Accept": "*/*"}), timeout=60, context=CTX) as r:
             return r.read().decode("utf-8")
     except urllib.error.URLError as e:
-        sys.exit(f"нет доступа к {url}: {e}")
+        sys.exit(f"{url}: " + tls_hint(e))
 
 
 def site_examples():
@@ -89,12 +141,12 @@ def call_soft(method, path):
     if k:
         headers["x-api-key"] = k
     try:
-        with urllib.request.urlopen(urllib.request.Request(BASE + path, method=method, headers=headers), timeout=60) as r:
+        with urllib.request.urlopen(urllib.request.Request(BASE + path, method=method, headers=headers), timeout=60, context=CTX) as r:
             return json.loads(r.read() or b"null")
     except urllib.error.HTTPError as e:
         raise RuntimeError(f"HTTP {e.code}")
     except urllib.error.URLError as e:
-        raise RuntimeError(str(e.reason))
+        raise RuntimeError(tls_hint(e))
 
 
 def opt(a, name, default=None):
@@ -126,6 +178,18 @@ def main():
     if not a:
         print(__doc__); sys.exit(2)
     c = a[0]
+    if c == "tls":
+        print(f"Python {sys.version.split()[0]}, {ssl.OPENSSL_VERSION}")
+        print(f"хранилище сертификатов: {CTX_SOURCE}")
+        try:
+            with urllib.request.urlopen(urllib.request.Request(BASE + "/", method="HEAD"), timeout=30, context=CTX) as r:
+                st = r.status
+        except urllib.error.HTTPError as e:
+            st = e.code
+        except urllib.error.URLError as e:
+            sys.exit(tls_hint(e))
+        print(f"{BASE}: TLS ок (сертификат проверен), HTTP {st}")
+        return
     if c == "me":
         dump(call("GET", "/api/me"))
     elif c == "projects":
@@ -220,6 +284,7 @@ def main():
 
 
 if __name__ == "__main__":
+    utf8_stdio()
     try:
         main()
     except IndexError:

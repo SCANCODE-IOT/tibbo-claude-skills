@@ -125,6 +125,19 @@ cp -r tibbo-claude-skills/skills/tibbo-firmware tibbo-claude-skills/skills/appbl
 
 Чтобы поставить только для одного проекта, используйте папку `.claude/skills/` внутри проекта вместо `~/.claude/skills/`.
 
+### Claude Code на Windows
+
+Скрипты запускаются через `python` или `python3` из PowerShell, cmd или Git Bash, дополнительных настроек не нужно.
+
+- **Кодировка консоли.** С версии 1.1.1 скрипты всегда печатают UTF-8, поэтому консоль в cp1251/cp1252 больше не роняет
+  их с `UnicodeEncodeError`. Если в старом окне `cmd` русский текст выглядит кракозябрами, выполните `chcp 65001` или
+  используйте Windows Terminal.
+- **`CERTIFICATE_VERIFY_FAILED` в `ab_api.py`**, хотя браузер и `curl` открывают `api.appblocks.io`: Python берёт не те
+  корневые сертификаты. Проверка сертификата не отключается - дайте Python правильное хранилище:
+  `pip install truststore` (хранилище Windows, предпочтительно) или `pip install certifi`, либо укажите бандл в
+  `SSL_CERT_FILE`, например `C:/Program Files/Git/mingw64/etc/ssl/certs/ca-bundle.crt` из Git для Windows.
+  `python scripts/ab_api.py tls` покажет, какое хранилище используется, и проверит соединение.
+
 ### Claude API
 
 Загрузите каждую папку скилла через [Skills API](https://platform.claude.com/docs/en/build-with-claude/skills-guide)
@@ -178,7 +191,8 @@ tibbo-claude-skills/
 
 ## Требования
 
-Скриптам нужен **только Python 3.9+** - используется лишь стандартная библиотека.
+Скриптам нужен **только Python 3.9+** - используется лишь стандартная библиотека
+(по желанию `truststore` или `certifi` для `ab_api.py` на Windows, см. выше).
 В песочнице Claude они запускаются автоматически, но их можно запускать и самостоятельно:
 
 ```bash

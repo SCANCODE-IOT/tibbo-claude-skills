@@ -24,6 +24,15 @@ Exit code: 0 = no errors, 1 = errors found, 2 = bad input.
 """
 import json, os, sys, re
 
+
+def utf8_stdio():
+    """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
 LETTERS = "ABCD"
@@ -450,4 +459,5 @@ def main():
 
 
 if __name__ == "__main__":
+    utf8_stdio()
     main()
