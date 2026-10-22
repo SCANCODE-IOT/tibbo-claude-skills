@@ -14,12 +14,15 @@ OTA, переменные/таблицы/команды, облачные workfl
 | Файл | Когда открывать |
 |---|---|
 | `references/editor.md` | Как устроен редактор и проект: шаги Hardware/Features/Application, Import/Export, Run/Debug/Release, runtime, **правила потоков** (поток с события, нет циклов, параметры видны только следующему блоку, ASYNC теряет параметры), переменные, плагины, частые ошибки. **Читать перед объяснением, ревью или проектированием логики.** |
-| `references/format.md` | Формат экспорта JSON: верх, группы feature, узлы, связи, `{{$…}}`, правила правки. **Читать перед любой правкой JSON.** |
-| `references/catalog.md` | Порты и поля узлов, полный список типов блоков, поля Tibbit, структуры Modbus/LUIS. |
+| `references/format.md` | Формат экспорта JSON: верх, группы feature, узлы, связи, `{{$…}}`, правила правки, формат плагинов (§5). **Читать перед любой правкой JSON.** |
+| `references/blocks.md` | **Все 168 блоков редактора** по категориям палитры: порты (`portId`) с параметрами, настройки с вариантами и значениями по умолчанию, нужная feature, ASYNC; скрытые/устаревшие отдельно. Снято из реестра app.appblocks.io. **Основной справочник портов и полей.** |
+| `references/features.md` | Feature, сервисы-библиотеки, вложенные элементы (variable, timer, tbl_table…), поля `tibbit_NN`, периферия, виджеты LCD и веб-консоли - поля, варианты, ограничения по платам. |
+| `references/catalog.md` | Поля feature и узлов в экспортах Tibbo (ModbusMQTTGateway, bp_modbus_gateway_lcd) с примерами значений, поля Tibbit, структуры Modbus/LUIS. Полный список блоков и полей - blocks.md и features.md. |
 | `references/generated-code.md` | Что генерирует AppBlocks для `tios`: файлы TIDE-проекта, переменные → процедуры `var_X_*`, маркеры вставки кода, замеченные особенности. |
-| `references/catalog-examples.md` | Порты, поля и сокеты, собранные из **78 проектов appblocks.io** (59 типов узлов, 28 Tibbit). Основной справочник портов. |
+| `references/catalog-examples.md` | Как блоки и Tibbit реально используются в **78 проектах appblocks.io** (59 типов узлов, 28 Tibbit): типичные связки, аргументы, сокеты. |
 | `references/api.md` | AppBlocks Cloud API: авторизация, проекты (код, сборка, версии, OTA, бандлы), устройства, группы, workspaces, workflow, дашборды. |
-| `scripts/ab_tool.py` | Офлайн-разбор проекта: `summary`, `check`, `flow` (схема логики SVG), `tps` (железо → tps_check), `nodes`, `ids`. |
+| `scripts/ab_tool.py` | Офлайн-разбор проекта: `summary`, `check` (связи, ссылки, порты и значения по реестру редактора), `lookup <блок\|feature\|слово>`, `flow` (схема логики SVG), `tps` (железо → tps_check), `nodes`, `ids`. |
+| `data/registry.json`, `scripts/build_registry.py`, `scripts/extract_registry.js` | Реестр редактора (блоки, feature, элементы, Tibbit, периферия, виджеты) и как его обновить: JS в браузере на app.appblocks.io → `build_registry.py` пересобирает registry.json, blocks.md, features.md. |
 | `scripts/ab_api.py` | Клиент API: `me`, `projects`, `project <id> --out`, `versions`, `workspaces`, `devices`, `device`, `get`, `code`, `examples`/`example <имя>` (с запасным путём через appblocks.io), запись — только `create`/`update … --yes`. |
 | `tests/run.sh` | Офлайн-тесты инструментов на примерах (и мост в tps_check, если tibbo-firmware лежит рядом). |
 | `examples/*.json` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и Modbus→MQTT (`ModbusMQTTGateway`, он же пример modbusmqtt; zephyr, GitHub), sprinkler5, accesscontrol6, hydroponics (TPP3), water_level_control_cloud (с appblocks.io, в т.ч. tios). |
@@ -47,7 +50,8 @@ OTA, переменные/таблицы/команды, облачные workfl
 ## 2. Разбор и ревью
 ```
 python3 scripts/ab_tool.py summary p.json        # плата, Tibbit, сервисы, переменные, таблицы, цепочки событий
-python3 scripts/ab_tool.py check   p.json        # битые связи и ссылки, дубли ID, конфликты сокетов
+python3 scripts/ab_tool.py check   p.json        # битые связи и ссылки, дубли ID, сокеты; порты, варианты настроек, feature - по реестру редактора
+python3 scripts/ab_tool.py lookup  node_table   # порты и настройки блока (или feature/элемента) из реестра
 python3 scripts/ab_tool.py flow    p.json flow.svg
 python3 scripts/ab_tool.py tps     p.json --vin 24 --out cfg.json && python3 <tps_check.py> check cfg.json --svg board.svg
 python3 scripts/ab_api.py code p.json --outdir gen   # что сгенерирует AppBlocks (для tios — Tibbo BASIC)
@@ -57,13 +61,15 @@ python3 scripts/ab_api.py code p.json --outdir gen   # что сгенериру
 - Ревью логики по правилам editor.md §4: поток без события (не попадёт в прошивку), параметр предыдущего блока после
   ASYNC-блока или через блок (пусто), рекурсия On Variable Changed, циклы через команды без условия выхода,
   `modbus_timeout`/`tbl_record_not_found` никуда не ведут, длинные потоки на tios, таблицы с большим MAXRECORDS,
-  пароли открытым текстом (MQTT_PASSWORD, PASSWORD, WPW) вместо настроек, выключенные feature, нужные узлам.
+  пароли открытым текстом (MQTT_PASSWORD, PASSWORD, WPW) вместо настроек, выключенные feature, нужные узлам,
+  блоки, которых нет в палитре (`node_math`, `node_modbus_register` - устаревшие: предложи замену из blocks.md).
 - Ревью железа — `tps_check.py` (предупреждения AppBlocks про -SDWN, ±15 В, serial-сокеты, питание он повторяет).
 
 ## 3. Правка и генерация
 Порядок: format.md §4 → правка **копии** экспорта скриптом Python (не строками вручную) → `check` = 0 ошибок →
 `tps_check` для железа → `flow` для картинки → отдать файл (импорт кнопкой **Import**) или, с согласия, через API.
-- Новые ID: `ab_tool.py ids N`. Порты и поля — из catalog-examples.md (78 проектов), catalog.md или из такого же узла в проектах пользователя.
+- Новые ID: `ab_tool.py ids N`. Порты и поля — из blocks.md / `ab_tool.py lookup` (реестр редактора), примеры связок — из
+  catalog-examples.md или такого же узла в проектах пользователя. Нужного блока нет — плагин Block (format.md §5).
 - Логику строй по правилам потоков: каждое действие достижимо из события; значения между потоками — через переменные;
   повторы — таймеры/On Time Period/команды; после ASYNC — только переменные.
 - Tibbit: сначала подбор и проверка раскладки/питания (tibbo-firmware), затем `tibbit_NN` с SOCKET и полями по образцу.
@@ -88,6 +94,9 @@ workflow (создаются выключенными; включение — о
 Run/Deploy Release, OTA, сохранение, удаление — только после подтверждения. Пароли и ключи в поля не вводи.
 Устройство в Debug-режиме останавливается без связи с редактором — не оставляй его в Debug на объекте.
 Карта экранов — editor.md §1–2; если интерфейс отличается, сообщи пользователю и предложи обновить скилл.
+В редакторе есть свой ИИ-помощник (editor.md §10): мелкую правку открытого проекта пользователь может сделать им.
+Реестр блоков устарел (новый блок «неизвестен» для `check`) — обнови его: `scripts/extract_registry.js` в браузере
+на app.appblocks.io (только чтение) → `build_registry.py`; изменения покажи пользователю.
 
 ## 6. Визуализация
 - **Плата**: `tps_check.py --svg` — вид как в AppBlocks. **Логика**: `ab_tool.py flow` — группы панелями, узлы

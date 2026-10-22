@@ -255,6 +255,27 @@ def check(cfg, tib, boards):
                 rep.err(w, "для #23 четыре перемычки у RJ45 должны стоять в положение 1-2 (poe_jumpers)")
         if t["model"] == "18":
             rep.info(w, "#18: не подавай питание одновременно на джек и на клеммы — повредит Tibbit")
+    # rules the AppBlocks editor applies to the board (Tibbit socket validator, 2026-10)
+    rf = board.get("rf_socket")
+    # WA2000U has a U.FL output and needs #37; WA2000C has an on-board chip antenna
+    if str(cfg.get("wifi") or "").upper().endswith("U") and rf and placed.get(rf, (None,))[0] != "37":
+        rep.warn(f"S{rf}", f"Wi-Fi-модулю {cfg['wifi']} нужен RF-разъём #37 в S{rf} (выход на внешнюю антенну)")
+    for u in units:
+        t = u["t"]
+        tile = tile_of(board, u["start"])
+        if not tile or len(tile) < 4:
+            continue
+        if t["kind"] == "M" and t["width"] == 2:
+            c21 = [c for c in (tile[1], tile[3]) if placed.get(c, (None,))[0] == "21"]
+            if c21:
+                rep.info(f"S{u['start']}", f"#{t['model']} занимает два M-сокета: один #20 (9 клемм) в S{tile[1]} вместо #21 "
+                                           f"в S{', S'.join(map(str, c21))} выведет все его линии")
+    for tile in board.get("tiles", []):
+        if len(tile) == 4 and all(placed.get(c) == ("21", c) for c in (tile[1], tile[3])):
+            mods = [placed.get(m, (None,))[0] for m in (tile[0], tile[2])]
+            if all(m and m != "21" for m in mods) and placed.get(tile[0], (None, 0))[1] != placed.get(tile[2], (None, 1))[1]:
+                rep.info(f"S{tile[1]}", f"два #21 в S{tile[1]} и S{tile[3]} можно заменить одним #20 (9 клемм) в S{tile[1]} - "
+                                        f"он обслужит #{mods[0]} и #{mods[1]}")
     if poe and jumpers == "1-2":
         c_after = poe["m1"] + 1
         if c_after in placed and placed[c_after][0] != "23":

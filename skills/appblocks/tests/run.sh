@@ -29,6 +29,29 @@ miss = [n for n in need if n not in out]
 print("ok   panel/interval regression" if not miss else "FAIL panel/interval regression: " + ", ".join(miss))
 sys.exit(1 if miss else 0)
 PY
+# editor registry (data/registry.json): unknown block, missing port, bad option, missing feature must be caught
+python3 - "$T" <<'PY' || fail=1
+import json, sys, subprocess
+T = sys.argv[1]
+p = json.load(open("examples/accesscontrol6.json"))
+F = p["features"]
+F[:] = [f for f in F if f["id"] != "timers"]
+for f in F:
+    if f["id"] == "node_beep":
+        f["settings"]["CANINT"] = "maybe"
+link = next(f for f in F if f["id"] == "node_link")
+link["settings"]["SOURCE_PORT"] = "no_such_port"
+F.append({"id": "node_bogus", "settings": {"ID": "lzz00000000000bogus", "X": 0, "Y": 0}})
+json.dump(p, open(T + "/reg.json", "w"))
+out = subprocess.run(["python3", "scripts/ab_tool.py", "check", T + "/reg.json"], capture_output=True, text=True).stdout
+need = ["неизвестный тип блока node_bogus", "'no_such_port'", "CANINT='maybe'", "нужна feature timers"]
+miss = [n for n in need if n not in out]
+print("ok   registry checks" if not miss else "FAIL registry checks: " + ", ".join(miss))
+lk = subprocess.run(["python3", "scripts/ab_tool.py", "lookup", "node_pid"], capture_output=True, text=True).stdout
+ok = "setpoint:float" in lk
+print("ok   lookup" if ok else "FAIL lookup")
+sys.exit(1 if miss or not ok else 0)
+PY
 TPS=$(ls ../tibbo-firmware/scripts/tps_check.py 2>/dev/null)
 if [ -n "$TPS" ]; then
   python3 scripts/ab_tool.py tps examples/ModbusMQTTGateway.json --vin 24 --out "$T/m.json"
