@@ -15,6 +15,15 @@ import os
 import re
 import sys
 
+
+def utf8_stdio():
+    """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 SKILL = os.path.dirname(HERE)
 COMMON = {"ID", "DISPLAY_NAME", "FEATURE", "X", "Y", "INPUTS", "OUTPUTS", "GROUP", "ARGUMENTS"}
@@ -253,4 +262,5 @@ def main():
 
 
 if __name__ == "__main__":
+    utf8_stdio()
     main()

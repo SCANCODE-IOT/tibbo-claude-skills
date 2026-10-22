@@ -27,6 +27,8 @@ OTA, переменные/таблицы/команды, облачные workfl
 | `tests/run.sh` | Офлайн-тесты инструментов на примерах (и мост в tps_check, если tibbo-firmware лежит рядом). |
 | `examples/*.json` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и Modbus→MQTT (`ModbusMQTTGateway`, он же пример modbusmqtt; zephyr, GitHub), sprinkler5, accesscontrol6, hydroponics (TPP3), water_level_control_cloud (с appblocks.io, в т.ч. tios). |
 
+**Windows:** скрипты запускай через `python` (или `python3`), вывод всегда UTF-8; при `CERTIFICATE_VERIFY_FAILED` в `ab_api.py` проверку не отключай - `pip install truststore` (или `certifi`, или `SSL_CERT_FILE` с бандлом Git), диагностика `ab_api.py tls`.
+
 Железо проверяет `tps_check.py` из скилла tibbo-firmware (найди Glob `**/tibbo-firmware/scripts/tps_check.py`): он же
 рисует плату в стиле редактора AppBlocks (сокеты с номерами линий, SERn(k)/INTn(k), Tibbit, PoE, +5V, бюджет питания).
 

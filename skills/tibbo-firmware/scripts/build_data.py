@@ -10,6 +10,15 @@ Usage: python3 scripts/build_data.py /path/to/TibbitDefinitions/tibbits.json
 """
 import json, re, sys, os
 
+
+def utf8_stdio():
+    """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ---- facts from docs.tibbo.com (Oct 2026) -------------------------------------------------
@@ -141,7 +150,7 @@ def parse_platform_sockets(md):
 
 
 def build_tibbits(src):
-    raw = json.load(open(src))
+    raw = json.load(open(src, encoding="utf-8"))
     out = []
     for x in raw:
         m, g = x["main"], x["good"]
@@ -203,14 +212,15 @@ def build_boards(platform_sockets):
 
 def main():
     src = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "data", "tibbits.src.json")
-    md = open(os.path.join(ROOT, "references", "platforms.md")).read()
+    md = open(os.path.join(ROOT, "references", "platforms.md"), encoding="utf-8").read()
     os.makedirs(os.path.join(ROOT, "data"), exist_ok=True)
     tib = build_tibbits(src)
     boards = build_boards(parse_platform_sockets(md))
-    json.dump(tib, open(os.path.join(ROOT, "data", "tibbits.json"), "w"), ensure_ascii=False, indent=1)
-    json.dump(boards, open(os.path.join(ROOT, "data", "boards.json"), "w"), ensure_ascii=False, indent=1)
+    json.dump(tib, open(os.path.join(ROOT, "data", "tibbits.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    json.dump(boards, open(os.path.join(ROOT, "data", "boards.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"tibbits: {len(tib)}, boards: {', '.join(boards)}")
 
 
 if __name__ == "__main__":
+    utf8_stdio()
     main()

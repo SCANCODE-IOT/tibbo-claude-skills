@@ -30,6 +30,8 @@ description: Use when writing, reviewing, debugging or explaining firmware for T
 это обычный TIDE-проект: проверяй его как любой другой, но правки лучше вносить в проект AppBlocks (скилл appblocks), иначе
 они пропадут при следующей генерации.
 
+**Windows:** скрипты запускай через `python` (или `python3`) из PowerShell, cmd или Git Bash; вывод всегда UTF-8, `PYTHONUTF8` не нужен.
+
 ## 0. Перед началом уточни контекст
 
 Если что-то не указано, спроси одним сообщением, не больше трёх вопросов:

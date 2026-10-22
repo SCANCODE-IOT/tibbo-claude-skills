@@ -13,6 +13,15 @@ The format is documented in references/format.md (derived from projects exported
 """
 import json, re, sys, time, random, string, collections, os
 
+
+def utf8_stdio():
+    """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
 REF = re.compile(r"\{\{\$([A-Za-z0-9_]+)\}\}")
 NODE_PREFIX = "node_"
 SERVICE_TOGGLES = ["net", "wifi", "dhcp", "dns", "sntp", "http", "httpserver", "mqtt", "cgg", "cell", "bt",
@@ -34,7 +43,8 @@ def load(path):
 
 
 def new_id(n=1):
-    """AppBlocks-style id: Date.now() in base36 + random base36 tail (observed 16-20 chars)."""
+    """List of n AppBlocks-style IDs (always a list, also for n=1): Date.now() in base36 + random base36 tail
+    (observed 16-20 chars). For a single ID use one_id()."""
     out = []
     for _ in range(n):
         ts = int(time.time() * 1000)
@@ -46,6 +56,11 @@ def new_id(n=1):
         out.append(b36 + tail)
         time.sleep(0.002)
     return out
+
+
+def one_id():
+    """One AppBlocks-style ID as a string."""
+    return new_id(1)[0]
 
 
 def all_ids(obj, acc=None, parent=None):
@@ -622,6 +637,7 @@ def main():
 
 
 if __name__ == "__main__":
+    utf8_stdio()
     try:
         main()
     except IndexError:

@@ -6,19 +6,28 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        python: ["3.9", "3.12"]
+        include:
+          - { os: ubuntu-latest, python: "3.9" }
+          - { os: ubuntu-latest, python: "3.12" }
+          # Windows: Git Bash, console code page of the runner, no PYTHONUTF8
+          - { os: windows-latest, python: "3.12" }
+          - { os: windows-latest, python: "3.14" }
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
       - name: tibbo-firmware
-        run: sh skills/tibbo-firmware/tests/run.sh
+        run: env -u PYTHONUTF8 sh skills/tibbo-firmware/tests/run.sh
       - name: appblocks
-        run: sh skills/appblocks/tests/run.sh
+        run: env -u PYTHONUTF8 sh skills/appblocks/tests/run.sh
       - name: Package skills
+        if: runner.os == 'Linux'
         run: sh tools/package.sh

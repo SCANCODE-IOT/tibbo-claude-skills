@@ -21,6 +21,15 @@ kind: "init" (blue), "normal" (default, green), "active" (orange, e.g. an output
 """
 import json, sys, math
 
+
+def utf8_stdio():
+    """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+
 COL = {"init": ("#E8F1FD", "#2F6FD0"), "normal": ("#E8F6EE", "#1B8A5A"), "active": ("#FFF2E0", "#D9822B"),
        "fault": ("#FDECEC", "#C62828")}
 W_BOX, H_BOX, GAP_X = 210, 92, 160
@@ -130,4 +139,5 @@ def main():
 
 
 if __name__ == "__main__":
+    utf8_stdio()
     main()
