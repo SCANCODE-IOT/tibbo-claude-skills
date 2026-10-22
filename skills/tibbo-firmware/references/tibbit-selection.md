@@ -1,6 +1,6 @@
 # Подбор Tibbit и раскладка по сокетам
 
-Данные: `data/tibbits.json` (81 Tibbit: форма, линии, требования, питание, статус, теги RU/EN, ссылка на docs),
+Данные: `data/tibbits.json` (84 Tibbit: форма, линии, требования, питание, статус, теги RU/EN, ссылка на docs),
 `data/boards.json` (сокеты TPP2/TPP3 всех поколений: линии, UART, INT, ADC, PoE, тайлы). Пересборка:
 `python3 scripts/build_data.py data/tibbits.src.json`.
 

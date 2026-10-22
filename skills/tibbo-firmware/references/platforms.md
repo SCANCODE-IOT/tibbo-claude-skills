@@ -2506,3 +2506,221 @@ I/O line, serial port, ADC enums below are exact constant names for that platfor
 `enum pl_pat_int`:
 - PL_PAT_NOINT — Tells the pat.play method that the new pattern can only be loaded if no pattern is playing at the moment (no interrupting of previous pattern).
 - PL_PAT_CANINT — Tells the pat.play method that the new pattern can be loaded even if another pattern is currently playing (previous pattern can be interrupted).
+
+
+## Сверка с docs.tibbo.com (октябрь 2026)
+
+Сверены страницы `*_platform*` docs.tibbo.com (19 платформ, 95 страниц enum) с разделами выше. Константы выше взяты из .tph и точны для компилятора; ниже — то, чего в .tph-извлечении нет или что в docs описано иначе.
+
+### Ключевые параметры платформ (по docs)
+| Платформа (docs) | Тип | CLOCK | RAM приложения, байт | Flash | EEPROM приложения, байт | GPIO | UART: макс. скорость / ограничения | FIFO UART | Серийный номер | Отладка | Самообновление | Страница |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| DS1100 | 16-bit | фикс. 80 МГц | 17,920 | 327,680 общая (прил.+диск) | 200 | двунапр. | ~115,200 | 16/16 (TX/RX) | 4 Б, неизменяемый | Ethernet (UDP bcast / WinPCap) | нет | `dsws110x_platform_ds1100` |
+| DS1101W/N | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~460,800 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `dsws110x_platform_ds1101` |
+| DS1102W/N | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~460,800 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `dsws110x_platform_ds1102` |
+| WS1102 | 32-bit | фикс. 192 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,620 | 512/512 (TX/RX) | 128 Б (64 OTP + 64) | Serial; Wi-Fi (UDP bcast / WinPCap) | copyfirmware* | `dsws110x_platform_ws1102` |
+| DS1202 | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,600 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `ds1202_platform` |
+| DS1206 | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,600 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `ds1206_platform` |
+| EM500W | 16-bit | фикс. 80 МГц | 17,920 | 327,680 только прил. | 200 | двунапр. | ~115,200 | 16/16 (TX/RX) | 4 Б, неизменяемый | Ethernet (UDP bcast / WinPCap) | нет | `em500_platform` |
+| EM510W | 32-bit | фикс. 24 МГц | 16,128 | 262,144 только прил. | 2,016 | однонапр. | ~460,800 ; нельзя 7 бит + без чётности | N/A | 4 Б, неизменяемый | Ethernet (UDP bcast / WinPCap) | copyfirmware*, нужна внешняя flash | `em510_platform` |
+| EM1000/W/N | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,600 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `em1000_platform` |
+| EM1202/W/N | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,600 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `em1202_platform` |
+| EM1206/W/N | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,600 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `em1206_platform` |
+| EM2000W | 32-bit | фикс. 120 МГц | 66,816 | 786,432 прил. + 1,048,576 диск | 2,040 | однонапр. | ~460,800 ; нельзя 7 бит + без чётности | 1/1 | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* | `em2000_platform` |
+| TPP2W/N | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,600 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `tpp2_platform` |
+| TPP3W/N | 16-bit | PLL вкл 88,47 / выкл 11,06 МГц | 22,271 | 983,040 общая (прил.+диск) | 2,040 | однонапр. | ~921,600 | 16/16 (TX/RX) | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* (без fromfilelzo) | `tpp3_platform` |
+| TPP2W(G2) | 32-bit | фикс. 120 МГц | 66,816 | 786,432 прил. + 1,048,576 диск | 2,040 | однонапр. | ~921,600 ; нельзя 7 бит + без чётности | 1/1 | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* | `tpp2g2_platform` |
+| TPP3W(G2) | 32-bit | фикс. 120 МГц | 66,816 | 786,432 прил. + 1,048,576 диск | 2,040 | однонапр. | ~921,600 ; нельзя 7 бит + без чётности | 1/1 | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* | `tpp3g2_platform` |
+| TPP2W(G3) | 32-bit | фикс. 180 МГц | 132,352 | 1,310,720 прил. + 4,194,304 диск | 2,040 | однонапр. | ~921,600 ; нельзя 7 бит + без чётности | 1/1 | 128 Б (64 OTP + 64) | Ethernet (UDP bcast / WinPCap) | copyfirmware* | `tpp2g3_platform` |
+| WM2000 | 32-bit | фикс. 192 МГц | 59,392 | 1,728,512 (два приложения) + 4,194,304 диск | 2,048 | однонапр. | ~921,620 | 512/512 (TX/RX) | 128 Б (64 OTP + 64) | Serial; Wi-Fi (UDP bcast / WinPCap) | copyfirmware* | `wm2000_platform` |
+
+Примечания:
+- ROM/RAM в таблице в начале файла совпадают с docs, кроме **WS1102**: в docs RAM 22 271 байт и flash 983 040 (похоже на копию с DS1102), в .tph — 59 392 и 1 728 512, как у WM2000. Верь .tph и `sys.freebuffpages`.
+- EEPROM приложения = ёмкость − служебная область: на большинстве платформ служебная область 28 байт (MAC 8 + пароль 20) → `stor.base` = 29; у DS1101/DS1102 по странице `dsws110x_flash_eeprom` служебная область 8 байт. Не хардкодь адреса: пиши относительно `stor.base`, ёмкость бери из `stor.size`.
+- «нельзя 7 бит + без чётности» — на 32-битных ARM-платформах (EM2000, TPP2/3(G2), TPP2(G3), EM510) режим 7 бит/NONE не работает.
+- FIFO UART 1 байт (G2/G3, EM2000): при RTS/CTS после снятия CTS может уйти ещё содержимое FIFO; на 16-битных — до 16 байт (`ref_platforms_fifos`).
+- PLL (16-битные платформы): частота влияет на скорость UART (`ser.baudrate` — делитель, считай через `ser.div9600`) и на `beep.divider`, но не на `on_sys_timer`.
+- Отладка TIDE: UDP-порт 65535 (команды начинаются с `_`, остальное приложение может принимать), только в пределах сегмента сети; по Wi-Fi — только WM2000/WS1102 (`sys.debugmode`, DCB `debugmode=net`, нужен `wln.autoconnect`). На WM2000 при последовательной отладке UART1 недоступен приложению (`ser.num=1` не выставится).
+- TPP2W(G3): датчик температуры платы (−40…125 °C) и 3-осевой акселерометр до 6 g через `sys.`; поддержаны 18/24-битные SSD1963 без переназначения линий LCD.
+- TLS-буфер: на EM2000, EM2001, TPP2(G2), TPP3(G2), TPP2(G3) нужно `sock.tlsbuffrq(39)` + `sys.buffalloc` (минимум 39 страниц); на WM2000/WS1102 TLS-буферы выделяются при загрузке сами (`object_sock_tls_buff`).
+- Две программы (APP0/APP1) — только WM2000 и WS1102: 1 688 КБ на оба приложения, выравнивание 4 КБ; по умолчанию грузится APP1 (`sys.defaultapp`); обновление APP0 стирает APP1; MD-линия принудительно запускает APP0 (`ref_platforms_dual_apps`).
+
+### Расхождения имён констант (docs ↔ .tph)
+| Платформа | docs.tibbo.com | .tph (выше) |
+|---|---|---|
+| DS1100 | PL_IO_NUM_5/6/7 | PL_IO_NUM_5_EMPTY / _6_EMPTY / _7_EMPTY |
+| DS1101 | PL_IO_NUM_7_EMPTY | PL_IO_NUM_7_TX3_INT7 |
+| DS1102 | PL_IO_NUM_7_EMPTY, PL_IO_NUM_8_PWROUT | PL_IO_NUM_7_TX3_INT7, PL_IO_NUM_8 |
+| DS1206 | PL_INT_NUM_0…6 | ещё PL_INT_NUM_7 |
+| EM500W, EM510W | PL_IO_NUM_0_RX0_INT0, PL_IO_NUM_1_TX0_INT1 | PL_IO_NUM_0_INT0, PL_IO_NUM_1_INT1 |
+| EM1000/EM1202/EM1206 (base) | в pl_sock_interfaces есть PL_SOCK_INTERFACE_WLN (для W/N-вариантов) | без WLN |
+| LTPP3 | см. ниже: у LTPP3(G2) своя нумерация линий | константы выше от LTPP3 с TPP-подобной картой |
+
+В коде используй имена из .tph своей платформы (они в TIDE); если компилятор не знает имя из docs — ищи вариант с суффиксом. Перечисление `pl_redir` у всех платформ одинаковое по смыслу (PL_REDIR_NONE, _SER, _SER0…_SER3, _SOCK0…_SOCK15; у EM500/EM510 портов SER0…3 нет), см. tios-api.md.
+
+### LTPP3(G2) — карта линий из docs (`ltpp3g2_platform_pl_io_num`)
+Отличается от раздела `## LTPP3` выше (там старая плата LTPP3). M-сокеты S1, S3, …, S15 (8 штук), UART — S1, S5, S9, S13, прерывание и SPI/I²C — на всех M-сокетах.
+- 0 — PL_IO_NUM_0: Socket 1, control line C.
+- 1 — PL_IO_NUM_1: Socket 5, control line C.
+- 2 — PL_IO_NUM_2: Socket 9, control line C.
+- 3 — PL_IO_NUM_3: Socket 13, control line C.
+- 4 — PL_IO_NUM_4: Socket 3, control line C.
+- 5 — PL_IO_NUM_5: Socket 7, control line C.
+- 6 — PL_IO_NUM_6: Socket 11, control line C.
+- 7 — PL_IO_NUM_7: Socket 15, control line C.
+- 8 — PL_IO_NUM_8: Socket 1, control line B.
+- 9 — PL_IO_NUM_9: Socket 1, control line A.
+- 10 — PL_IO_NUM_10: Socket 5, control line B.
+- 11 — PL_IO_NUM_11: Socket 5, control line A.
+- 12 — PL_IO_NUM_12: Socket 9, control line B.
+- 13 — PL_IO_NUM_13: Socket 9, control line A.
+- 14 — PL_IO_NUM_14: Socket 13, control line B.
+- 15 — PL_IO_NUM_15: Socket 13, control line A.
+- 16 — PL_IO_NUM_16: Socket 1, control line D.
+- 17 — PL_IO_NUM_17: Socket 5, control line D.
+- 18 — PL_IO_NUM_18: Socket 9, control line D.
+- 19 — PL_IO_NUM_19: Socket 13, control line D.
+- 20 — PL_IO_NUM_20: Socket 3, control line D.
+- 21 — PL_IO_NUM_21: Socket 7, control line D.
+- 22 — PL_IO_NUM_22: Socket 11, control line D.
+- 23 — PL_IO_NUM_23: Socket 15, control line D.
+- 24…31 — PL_IO_NUM_24…31: зарезервированы.
+- 32 — PL_IO_NUM_32: Socket 3, control line A.
+- 33 — PL_IO_NUM_33: Socket 3, control line B.
+- 34 — PL_IO_NUM_34: Socket 7, control line A.
+- 35 — PL_IO_NUM_35: Socket 7, control line B.
+- 36 — PL_IO_NUM_36: Socket 11, control line A.
+- 37 — PL_IO_NUM_37: Socket 11, control line B.
+- 38 — PL_IO_NUM_38: Socket 15, control line A.
+- 39 — PL_IO_NUM_39: Socket 15, control line B.
+- 254 — PL_IO_NULL: This is a NULL line that does not physically exist.
+
+`pl_io_port_num` (виртуальные 8-битные порты, линии слева направо): PORT_0 — S1,S3: 9, 8, 0, 16, 32, 33, 4, 20; PORT_1 — S5,S7: 11, 10, 1, 17, 34, 35, 5, 21; PORT_2 — S9,S11: 13, 12, 2, 18, 36, 37, 6, 22; PORT_3 — S13,S15: 15, 14, 3, 19, 38, 39, 7, 23.
+`pl_int_num`: PL_INT_NUM_0…7 (назначаются на любую линию через `io.intnum`), 8 — PL_INT_NULL. `pl_int_edge`: 0 — PL_INT_EDGE_NULL (служебная), 1 — _LOW (спад), 2 — _HIGH (фронт), 3 — _BOTH (как в TiOS).
+
+### EM1000 — `pl_io_num` (`em1000_platform_pl_io_num`)
+В .tph-извлечении для EM1000/EM1202/EM1206 (заголовки gen-*) перечислений нет — ниже из docs.
+- 0 — PL_IO_NUM_0: General-purpose I/O line 0 (P0.0)
+- 1 — PL_IO_NUM_1: General-purpose I/O line 1 (P0.1)
+- 2 — PL_IO_NUM_2: General-purpose I/O line 2 (P0.2)
+- 3 — PL_IO_NUM_3: General-purpose I/O line 3 (P0.3)
+- 4 — PL_IO_NUM_4: General-purpose I/O line 4 (P0.4)
+- 5 — PL_IO_NUM_5: General-purpose I/O line 5 (P0.5)
+- 6 — PL_IO_NUM_6: General-purpose I/O line 6 (P0.6)
+- 7 — PL_IO_NUM_7: General-purpose I/O line 7 (P0.7)
+- 8 — PL_IO_NUM_8_RX0: General-purpose I/O line 8 (P1.0). This line is also the RX/W1in/din input of the serial port 0.
+- 9 — PL_IO_NUM_9_TX0: General-purpose I/O line 9 (P1.1). This line is also the TX/W1out/dout output of the serial port 0.
+- 10 — PL_IO_NUM_10_RX1: General-purpose I/O line 10 (P1.2). This line is also the RX/W0&1in/din input of the serial port 1.
+- 11 — PL_IO_NUM_11_TX1: General-purpose I/O line 11 (P1.3). This line is also the TX/W1out/dout output of serial port 1.
+- 12 — PL_IO_NUM_12_RX2: General-purpose I/O line 12 (P1.4). This line is also the RX/W0&1in/din input of serial port 2.
+- 13 — PL_IO_NUM_13_TX2: General-purpose I/O line 13 (P1.5). This line is also the TX/W1out/dout output of serial port 2.
+- 14 — PL_IO_NUM_14_RX3: General-purpose I/O line 14 (P1.6). This line is also the RX/W0&1in/din input of serial port 3.
+- 15 — PL_IO_NUM_15_TX3: General-purpose I/O line 15 (P1.7). This line is also the TX/W1out/dout output of serial port 3.
+- 16 — PL_IO_NUM_16_INT0: General-purpose I/O line 16 (P2.0). This is also interrupt line 0.
+- 17 — PL_IO_NUM_17_INT1: General-purpose I/O line 17 (P2.1). This is also interrupt line 1.
+- 18 — PL_IO_NUM_18_INT2: General-purpose I/O line 18 (P2.2). This is also interrupt line 2.
+- 19 — PL_IO_NUM_19_INT3: General-purpose I/O line 19 (P2.3). This is also interrupt line 3.
+- 20 — PL_IO_NUM_20_INT4: General-purpose I/O line 20 (P2.4). This is also interrupt line 4.
+- 21 — PL_IO_NUM_21_INT5: General-purpose I/O line 21 (P2.5). This is also interrupt line 5.
+- 22 — PL_IO_NUM_22_INT6: General-purpose I/O line 22 (P2.6). This is also interrupt line 6.
+- 23 — PL_IO_NUM_23_INT7: General-purpose I/O line 23 (P2.7). This is also interrupt line 7.
+- 24 — PL_IO_NUM_24: General-purpose I/O line 24 (P3.0).
+- 25 — PL_IO_NUM_25: General-purpose I/O line 25 (P3.1).
+- 26 — PL_IO_NUM_26: General-purpose I/O line 26 (P3.2).
+- 27 — PL_IO_NUM_27: General-purpose I/O line 27 (P3.3).
+- 28 — PL_IO_NUM_28: General-purpose I/O line 28 (P3.4).
+- 29 — PL_IO_NUM_29: General-purpose I/O line 29 (P3.5).
+- 30 — PL_IO_NUM_30: General-purpose I/O line 30 (P3.6).
+- 31 — PL_IO_NUM_31: General-purpose I/O line 31 (P3.7).
+- 32 — PL_IO_NUM_32: General-purpose I/O line 32 (P4.0).
+- 33 — PL_IO_NUM_33: General-purpose I/O line 33 (P4.1).
+- 34 — PL_IO_NUM_34: General-purpose I/O line 34 (P4.2).
+- 35 — PL_IO_NUM_35: General-purpose I/O line 35 (P4.3).
+- 36 — PL_IO_NUM_36: General-purpose I/O line 36 (P4.4).
+- 37 — PL_IO_NUM_37: General-purpose I/O line 37 (P4.5).
+- 38 — PL_IO_NUM_38: General-purpose I/O line 38 (P4.6).
+- 39 — PL_IO_NUM_39: General-purpose I/O line 39 (P4.7).
+- 40 — PL_IO_NUM_40: General-purpose I/O line 40 (does not belong to any 8-bit port).
+- 41 — PL_IO_NUM_41: General-purpose I/O line 41 (does not belong to any 8-bit port).
+- 42 — PL_IO_NUM_42: General-purpose I/O line 42 (does not belong to any 8-bit port).
+- 43 — PL_IO_NUM_43: General-purpose I/O line 43 (does not belong to any 8-bit port).
+- 44 — PL_IO_NUM_44: General-purpose I/O line 44 (does not belong to any 8-bit port).
+- 45 — PL_IO_NUM_45_CO: General-purpose I/O line 45 (does not belong to any 8-bit port).
+- 46 — PL_IO_NUM_46: General-purpose I/O line 46 (does not belong to any 8-bit port).
+- 47 — PL_IO_NUM_47: General-purpose I/O line 47 (does not belong to any 8-bit port).
+- 48 — PL_IO_NUM_48: General-purpose I/O line 48 (does not belong to any 8-bit port).
+- 49 — PL_IO_NUM_49: General-purpose I/O line 49 (does not belong to any 8-bit port).
+- 50 — PL_IO_NUM_50: General-purpose I/O line 50 (does not belong to any 8-bit port).
+- 51 — PL_IO_NUM_51: General-purpose I/O line 51 (does not belong to any 8-bit port).
+- 52 — PL_IO_NUM_52: General-purpose I/O line 52 (does not belong to any 8-bit port).
+- 53 — PL_IO_NUM_53: General-purpose I/O line 53 (does not belong to any 8-bit port).
+- 54 — PL_IO_NUM_54: General-purpose I/O line 54 (does not belong to any 8-bit port).
+- 55 — PL_IO_NUM_55: General-purpose I/O line 55 (does not belong to any 8-bit port).
+- 56 — PL_IO_NULL: This is a NULL line that does not physically exist.
+
+`pl_int_num` EM1000: 0 — PL_INT_NUM_0: Interrupt line 0 (mapped to I/O line 16).; 1 — PL_INT_NUM_1: Interrupt line 1 (mapped to I/O line 17).; 2 — PL_INT_NUM_2: Interrupt line 2 (mapped to I/O line 18).; 3 — PL_INT_NUM_3: Interrupt line 3 (mapped to I/O line 19).; 4 — PL_INT_NUM_4: Interrupt line 4 (mapped to I/O line 20).; 5 — PL_INT_NUM_5: Interrupt line 5 (mapped to I/O line 21).; 6 — PL_INT_NUM_6: Interrupt line 6 (mapped to I/O line 22).; 7 — PL_INT_NUM_7: Interrupt line 7 (mapped to I/O line 23).; 8 — PL_INT_NULL: This is a NULL interrupt line that does not physically exist.
+
+`pl_io_port_num` EM1000: 0 — PL_IO_PORT_NUM_0: 8-bit port 0 (P0). Contains I/O lines 0-7.; 1 — PL_IO_PORT_NUM_1: 8-bit port 1 (P1). Contains I/O lines 8-15.; 2 — PL_IO_PORT_NUM_2: 8-bit port 2 (P2). Contains I/O lines 16-23.; 3 — PL_IO_PORT_NUM_3: 8-bit port 3 (P3). Contains I/O lines 24-31.; 4 — PL_IO_PORT_NUM_4: 8-bit port 4 (P4). Contains I/O lines 32-39.
+
+### EM1202 — `pl_io_num` (`em1202_platform_pl_io_num`)
+- 0 — PL_IO_NUM_0: General-purpose I/O line 0 (P0.0).
+- 1 — PL_IO_NUM_1: General-purpose I/O line 1 (P0.1).
+- 2 — PL_IO_NUM_2: General-purpose I/O line 2 (P0.2).
+- 3 — PL_IO_NUM_3: General-purpose I/O line 3 (P0.3).
+- 4 — PL_IO_NUM_4: General-purpose I/O line 4 (P0.4).
+- 5 — PL_IO_NUM_5: General-purpose I/O line 5 (P0.5).
+- 6 — PL_IO_NUM_6: General-purpose I/O line 6 (P0.6).
+- 7 — PL_IO_NUM_7: General-purpose I/O line 7 (P0.7).
+- 8 — PL_IO_NUM_8_RX0: General-purpose I/O line 8 (P1.0). This line is also the RX/W1in/din input of serial port 0.
+- 9 — PL_IO_NUM_9_TX0: General-purpose I/O line 9 (P1.1). This line is also the TX/W1out/dout output of serial port 0.
+- 10 — PL_IO_NUM_10_RX1: General-purpose I/O line 10 (P1.2). This line is also the RX/W0&1in/din input of serial port 1.
+- 11 — PL_IO_NUM_11_TX1: General-purpose I/O line 11 (P1.3). This line is also the TX/W1out/dout output of serial port 1.
+- 12 — PL_IO_NUM_12_RX2: General-purpose I/O line 12 (P1.4). This line is also the RX/W1in/din input of serial port 2.
+- 13 — PL_IO_NUM_13_TX2: General-purpose I/O line 13 (P1.5). This line is also the TX/W1out/dout output of serial port 2.
+- 14 — PL_IO_NUM_14_RX3: General-purpose I/O line 14 (P1.6). This line is also the RX/W1in/din input of serial port 3.
+- 15 — PL_IO_NUM_15_TX3: General-purpose I/O line 15 (P1.7). This line is also the TX/W1out/dout output of serial port 3.
+- 16 — PL_IO_NUM_16_INT0: General-purpose I/O line 16 (P2.0). This is also interrupt line 0.
+- 17 — PL_IO_NUM_17_INT1: General-purpose I/O line 17 (P2.1). This is also interrupt line 1.
+- 18 — PL_IO_NUM_18_INT2: General-purpose I/O line 18 (P2.2). This is also interrupt line 2.
+- 19 — PL_IO_NUM_19_INT3: General-purpose I/O line 16 (P2.3). This is also interrupt line 3.
+- 20 — PL_IO_NUM_20_INT4: General-purpose I/O line 16 (P2.4). This is also interrupt line 4.
+- 21 — PL_IO_NUM_21_INT5: General-purpose I/O line 16 (P2.5). This is also interrupt line 5.
+- 22 — PL_IO_NUM_22_INT6: General-purpose I/O line 16 (P2.6). This is also interrupt line 6.
+- 23 — PL_IO_NUM_23_INT7: General-purpose I/O line 16 (P2.7). This is also interrupt line 7.
+- 24 — PL_IO_NUM_24: General-purpose I/O line 24 (does not belong to any 8-bit port).
+- 25 — PL_IO_NUM_25: General-purpose I/O line 25 (does not belong to any 8-bit port).
+- 26 — PL_IO_NUM_26: General-purpose I/O line 26 (does not belong to any 8-bit port).
+- 27 — PL_IO_NUM_27: General-purpose I/O line 27 (does not belong to any 8-bit port).
+- 28 — PL_IO_NUM_28: General-purpose I/O line 28 (does not belong to any 8-bit port).
+- 29 — PL_IO_NUM_29_CO: General-purpose I/O line 29 (does not belong to any 8-bit port).
+- 30 — PL_IO_NUM_30: General-purpose I/O line 30 (does not belong to any 8-bit port).
+- 31 — PL_IO_NUM_31: General-purpose I/O line 31 (does not belong to any 8-bit port).
+- 32 — PL_IO_NULL: This is a NULL line that does not physically exist.
+
+`pl_int_num` EM1202: 0 — PL_INT_NUM_0: Interrupt line 0 (mapped to I/O line 16).; 1 — PL_INT_NUM_1: Interrupt line 1 (mapped to I/O line 17).; 2 — PL_INT_NUM_2: Interrupt line 2 (mapped to I/O line 18).; 3 — PL_INT_NUM_3: Interrupt line 3 (mapped to I/O line 19).; 4 — PL_INT_NUM_4: Interrupt line 4 (mapped to I/O line 20.; 5 — PL_INT_NUM_5: Interrupt line 5 (mapped to I/O line 21).; 6 — PL_INT_NUM_6: Interrupt line 6 (mapped to I/O line 22).; 7 — PL_INT_NUM_7: Interrupt line 7 (mapped to I/O line 23).; 8 — PL_INT_NULL: This is a NULL interrupt line that does not physically exist.
+
+`pl_io_port_num` EM1202: 0 — PL_IO_PORT_NUM_0: 8-bit port 0 (P0). Contains I/O lines 0-7.; 1 — PL_IO_PORT_NUM_1: 8-bit port 1 (P1). Contains I/O lines 8-15.; 2 — PL_IO_PORT_NUM_2: 8-bit port 1 (P2). Contains I/O lines 16-23.
+
+### EM1206 — `pl_io_num` (`em1206_platform_pl_io_num`)
+- 0 — PL_IO_NUM_0_RX0_INT0: General-purpose I/O line 0 (P0.0).
+- 1 — PL_IO_NUM_1_TX0_INT1: General-purpose I/O line 1 (P0.1).
+- 2 — PL_IO_NUM_2_RX1_INT2: General-purpose I/O line 2 (P0.2).
+- 3 — PL_IO_NUM_3_TX1_INT3: General-purpose I/O line 3 (P0.3).
+- 4 — PL_IO_NUM_4_RX2_INT4: General-purpose I/O line 4 (P0.4).
+- 5 — PL_IO_NUM_5_TX2_INT5: General-purpose I/O line 5 (P0.5).
+- 6 — PL_IO_NUM_6_RX3_INT6: General-purpose I/O line 6 (P0.6).
+- 7 — PL_IO_NUM_7_TX3_INT7: General-purpose I/O line 7 (P0.7).
+- 8 — PL_IO_NUM_8: General-purpose I/O line 8 (P1.0).
+- 9 — PL_IO_NUM_9: General-purpose I/O line 9 (P1.1).
+- 10 — PL_IO_NUM_10: General-purpose I/O line 10 (P1.2).
+- 11 — PL_IO_NUM_11: General-purpose I/O line 11 (P1.3).
+- 12 — PL_IO_NUM_12: General-purpose I/O line 12 (P1.4).
+- 13 — PL_IO_NUM_13: General-purpose I/O line 13 (P1.5).
+- 14 — PL_IO_NUM_14: General-purpose I/O line 14 (P1.6).
+- 15 — PL_IO_NUM_15: General-purpose I/O line 15 (P1.7).
+- 16 — PL_IO_NUM_16_CO: General-purpose I/O line 16 (does not belong to any 8-bit port).
+- 17 — PL_IO_NULL: This is a NULL line that does not physically exist.
+
+`pl_int_num` EM1206: 0 — PL_INT_NUM_0: Interrupt line 0 (mapped to I/O line 0).; 1 — PL_INT_NUM_1: Interrupt line 1 (mapped to I/O line 1).; 2 — PL_INT_NUM_2: Interrupt line 2 (mapped to I/O line 2).; 3 — PL_INT_NUM_3: Interrupt line 3 (mapped to I/O line 3).; 4 — PL_INT_NUM_4: Interrupt line 4 (mapped to I/O line 4).; 5 — PL_INT_NUM_5: Interrupt line 5 (mapped to I/O line 5).; 6 — PL_INT_NUM_6: Interrupt line 6 (mapped to I/O line 6).; 7 — PL_INT_NUM_7: Interrupt line 7 (mapped to I/O line 7).; 8 — PL_INT_NULL: This is a NULL interrupt line that does not physically exist.
+
+`pl_io_port_num` EM1206: 0 — PL_IO_PORT_NUM_0: 8-bit port 0 (P0). Contains I/O lines 0-7.; 1 — PL_IO_PORT_NUM_1: 8-bit port 1 (P1). Contains I/O lines 8-15.

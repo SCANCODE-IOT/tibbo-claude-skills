@@ -47,7 +47,7 @@ flowchart LR
     C -->|проект или облако AppBlocks| A[appblocks]
     A -->|железо проекта| T[tps_check.py]
     F --> T
-    F --> R[(TiOS API · 46 платформ<br/>библиотеки · 81 Tibbit)]
+    F --> R[(TiOS API · 46 платформ<br/>библиотеки · 84 Tibbit)]
     A --> K[(168 блоков редактора · 78 проектов<br/>справочник Cloud API)]
     T --> S[SVG платы + бюджет питания]
     A --> L[SVG схемы логики]

@@ -46,7 +46,7 @@ flowchart LR
     C -->|AppBlocks project or cloud| A[appblocks]
     A -->|hardware of the project| T[tps_check.py]
     F --> T
-    F --> R[(TiOS API · 46 platforms<br/>libraries · 81 Tibbits)]
+    F --> R[(TiOS API · 46 platforms<br/>libraries · 84 Tibbits)]
     A --> K[(168 editor blocks · 78 projects<br/>Cloud API reference)]
     T --> S[Board SVG + power budget]
     A --> L[Logic flow SVG]
