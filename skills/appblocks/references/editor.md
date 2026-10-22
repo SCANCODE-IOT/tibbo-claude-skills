@@ -1,6 +1,6 @@
 # AppBlocks: редактор, понятия, правила исполнения (по appblocks.io/docs, октябрь 2026)
 
-Источник — официальная документация (docs/intro, concepts/*, setup/*, settings/linking, features/*, tips/*)
+Источник - официальная документация (docs/intro, concepts/*, setup/*, settings/linking, features/*, tips/*)
 и сам редактор app.appblocks.io (реестр блоков, проверки и встроенный помощник; снято 22.10.2026, §9–10).
 Пересказ; при сомнении открой страницу: `https://appblocks.io/docs/<раздел>` (WebFetch; карта — appblocks.io/sitemap.xml).
 

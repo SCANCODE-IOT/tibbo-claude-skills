@@ -331,7 +331,7 @@ def check_registry(d, errs, warns, reg=None):
             ports = N[node["id"]].get(port_side) or {}
             if s.get(fld) not in ports:
                 errs.append(f"link {s.get('ID')}: у {node['id']} нет {'выхода' if port_side == 'out' else 'входа'} "
-                            f"{s.get(fld)!r} (есть: {', '.join(ports) or '—'})")
+                            f"{s.get(fld)!r} (есть: {', '.join(ports) or '-'})")
 
 
 def check(d):
@@ -572,10 +572,12 @@ def lookup(q):
         print("ничего не найдено"); return 1
     for kind, k, v in hits[:12]:
         print(f"[{kind}] {k} - {v.get('name')}" + (f"  (палитра: {v['cat']})" if v.get("cat") else ""))
+        if v.get("cat") == "Hidden" and k not in LEGIT_HIDDEN:
+            print("  нет в палитре редактора (устаревший/служебный): в новых проектах не использовать, замену ищи в blocks.md")
         for side in ("in", "out"):
             if side in v:
                 print(f"  {'входы ' if side == 'in' else 'выходы'}: " + (", ".join(
-                    p + (f"({', '.join(a)})" if a else "") for p, a in v[side].items()) or "—"))
+                    p + (f"({', '.join(a)})" if a else "") for p, a in v[side].items()) or "-"))
         extra = [x for x in ("feat", "async", "dynamic_ports", "devices", "unsupportedDevices") if v.get(x)]
         if extra:
             print("  " + "; ".join(f"{x}={v[x]}" for x in extra))

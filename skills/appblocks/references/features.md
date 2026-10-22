@@ -24,7 +24,7 @@
 | `general` | General | `LEDPAT` [0=Disabled\|1=Enabled] =1; `DEVICE_NAME` =Device_Name_1; `FIRMWAREVERSION` =1.0.0; `INTERFACE_SWITCHING` [0=Disabled\|1=Enabled] =1; `DEFAULT_INTERFACE` =1; `TIMEZONE` [0=UTC-12:00\|1=UTC-11:00\|2=UTC-10:00\|3=UTC-09:00\|4=UTC-08:00\|5=UTC-07:00\|6=UTC-06:00\|7=UTC-05:00\|8=UTC-04:30\|9=UTC-04:00\|10=UTC-03:30\|11=UTC-03:00\|12=UTC-02:00\|13=UTC-01:00\|14=UTC\|15=UTC+01:00\|16=UTC+02:00\|17=UTC+03:00\|18=UTC+03:30\|19=UTC+04:00\|20=UTC+04:30\|21=UTC+05:00\|22=UTC+05:30\|23=UTC+05:45\|…] =0; `LOGGING` [sys.debugprint=Console]; `BEEPFREQUENCY` number =2700 (2..65535); `LATITUDE` number =0 (-90..90); `LONGITUDE` number =0 (-180..180); `TIME_FORMAT` [hh:mm:ss tt=12-hour\|HH:mm:ss=24-hour] =hh:mm:ss tt | zephyr: свои настройки; micropython: свои настройки |
 | `global_vars` | Variables | `INTERVAL` number =1 (1..600); `DEBUG_PRINT` [0=Disabled\|1=Enabled] =0; `VARS`→variable; `AUTOVARS`→variable |  |
 | `httpserver` | Web (HTTP) Server | `ENABLED` [0=Disabled\|1=Enabled] =0; `PORT` number =80 (..65535); `SOCKETS` number =3; `TXBUF` buffer =10; `RXBUF` buffer =10; `VARBUF` buffer =1; `ENDPOINTS`→http_server_endpoint; `DEBUG_PRINT` [0=Disabled\|1=Enabled] =0; `TLS_ENABLED` [0=Disabled\|1=Enabled] =0 |  |
-| `kp` | Keypad | — |  |
+| `kp` | Keypad | - |  |
 | `lcd` | LCD for TPP2 | `ENABLED` [0=Disabled\|1=Enabled] =0; `BACKCOLOR` COLOR =#000000; `FORECOLOR` COLOR =#ffffff; `LOGFONT` [LCD_STD_FONT=Standard Font\|LCD_SMALL_FONT=Small Font] =LCD_SMALL_FONT; `WIDGETS` array; `SCREENS`→display_screen; `IMAGES`→lcd_image; `GROUPS`→luis_group; `TABLES`→console_table_item | zephyr: свои настройки; micropython: свои настройки |
 | `net` | Ethernet | `ENABLED` [0=Disabled\|1=Enabled] =0; `DHCP` [0=Disabled\|1=Enabled] =1; `IP` IP =1.0.0.1; `NM` IP =255.255.255.0; `GI` IP =1.0.0.1 | даёт: network |
 | `peripheral_wiring` | Peripheral Wiring | `ENABLED` boolean =1; `LAYOUT_DATA`; `CUSTOM_SHAPES`; `CUSTOM_GROUPS` |  |
@@ -49,12 +49,12 @@
 | `cgg` | AppBlocks Cloud | `ENABLED` [0=Disabled\|1=Enabled] =0; `SERVER` =api.appblocks.io; `USERNAME`; `PASSWORD`; `DEBUG_PRINT` [0=Disabled\|1=Enabled] =0; `WIDGETS` array; `WIDGET_GROUPS`→widget_group; `INTERVAL` number =1 (1..300); `MQTT_KEEPALIVE_INTERVAL` number =60 (..65535); `TLS` [0=Disabled\|1=Enabled] =0; `GROUPS`→luis_group; `CONSOLE_PREVIEW` console_preview =cloud; `TABLES`→console_table_item | zephyr: свои настройки; micropython: свои настройки |
 | `cgg_telemetry` | Thingsboard Telemetry | `NAME` =Telemetry_Name; `TELEMETRY_ID` =Telemetry_ID |  |
 | `cron` | Scheduler | `SCHEDULES`→crontab |  |
-| `datetime` | DateTime | — |  |
-| `dhcp` | None | — |  |
-| `display_lib` | Display Library | — |  |
+| `datetime` | DateTime | - |  |
+| `dhcp` | None | - |  |
+| `display_lib` | Display Library | - |  |
 | `dns` | DNS | `ENABLED` [0=Disabled\|1=Enabled] =0; `SERVER1` =8.8.8.8; `SERVER2`; `DNS_TIMEOUT` number =5000 |  |
 | `ds_man` | DS Manager | `ENABLED` [0=Disabled\|1=Enabled] =0; `GROUPS`→luis_group |  |
-| `filenum` | Filenum | — |  |
+| `filenum` | Filenum | - |  |
 | `http` | HTTP Client | `ENABLED` [0=Disabled\|1=Enabled] =0; `MAX_REQUESTS` number =5; `DEBUG_PRINT` [0=Disabled\|1=Enabled] =0 |  |
 | `lcd_graph` | LCD Graphing | `ENABLED` [0=Disabled\|1=Enabled] =0; `MINY` number =-100; `MAXY` number =100; `STARTX` number =0; `STARTY` number =0; `WIDTH` number =320 (1..320); `HEIGHT` number =240 (1..240); `FILL` COLOR =#00ff00 |  |
 | `lcd_menu` | LCD Menus | `ENABLED` [0=Disabled\|1=Enabled] =0; `GROUPS`→luis_group | zephyr: свои настройки; micropython: свои настройки |
@@ -62,19 +62,19 @@
 | `luis` | LUIS (BLE Dashboard) | `ENABLED` [0=Disabled\|1=Enabled] =0; `START_ENABLED` [0=Disabled\|1=Enabled] =1; `GROUPS`→luis_group |  |
 | `mbedtls` | MbedTLS | `ENABLED` [0=Disabled\|1=Enabled] =0; `CONFIGS` stringvariable =
 CONFIG_MBEDTLS_HEAP_SIZE=1638 |  |
-| `modbus` | Modbus | — |  |
+| `modbus` | Modbus | - |  |
 | `modbus_master` | Modbus Master | `DEBUG_PRINT` [1=ON\|0=OFF] =0; `TIMEOUT` number =500; `POLL_INTERVAL` number =1000; `FRAME_DELAY` number =2; `MAX_REQUESTS` number =20; `MODBUSDEVICES`→modbus_device |  |
 | `modbus_slave` | Modbus Slave | `DEBUG_PRINT` [1=ON\|0=OFF] =0; `SLAVEPROTOCOL` [modbus_TCP=TCP\|modbus_RTU=Serial] =modbus_RTU; `DEVICEID` number =1 (..254); `SLAVE_SERIAL_PORT` =0; `SLAVE_TCP_PORT` =502; `MODBUSTABLEITEMS`→modbus_table_item |  |
 | `mqtt` | MQTT | `ENABLED` [0=Disabled\|1=Enabled] =0; `MQTT_APP_CLIENT_ID` =Client_ID_1; `MQTT_NAME` =MQTT_Name_1; `MQTT_PASSWORD` password =Password; `MQTT_SERVER_HOST` =1.0.0.1; `MQTT_DESTINATION_PORT` number =1883 (..65535); `MQTT_TLS` [0=Disabled\|1=Enabled] =0; `MQTT_KEEPALIVE_INTERVAL` number =60 (..65535); `MQTT_DEBUG_PRINT` [0=Disabled\|1=Enabled] =1; `CERTIFICATEFILE` file (..102400); `CERTIFICATE_PATH`; `CLIENT_CERTIFICATE_PATH`; `TOPICS`→mqtt_topic |  |
-| `mqtt_lib` | MQTT Library | — |  |
+| `mqtt_lib` | MQTT Library | - |  |
 | `snmp` | SNMP | `ENABLED` [0=Disabled\|1=Enabled] =0 |  |
 | `sntp` | Time (SNTP) | `ENABLED` [0=Disabled\|1=Enabled] =1; `DEBUGPRINT` [0=Disabled\|1=Enabled] =0; `SNTP_SERVER` IP =216.239.35.0 | даёт: time |
-| `sock` | None | — |  |
+| `sock` | None | - |  |
 | `stg` | Settings | `ENABLED` [0=Disabled\|1=Enabled] =0; `STG_DEBUG_PRINT` [1=Enabled\|0=Disabled] =0; `SETTINGS`→stg_setting |  |
-| `stgcmd_lib` | Settings and Commands Library | — |  |
+| `stgcmd_lib` | Settings and Commands Library | - |  |
 | `tbl` | Data Tables | `TBL_DEBUG_PRINT` [1=Enable\|0=Disable] =0; `TABLES`→tbl_table; `STORAGE_PATH` =/lfs |  |
-| `time` | Time | — |  |
-| `wln` | Wireless | — |  |
+| `time` | Time | - |  |
+| `wln` | Wireless | - |  |
 
 ## Вложенные элементы (variable, timer, tbl_table, stg_setting, command…)
 
@@ -175,10 +175,10 @@ CONFIG_MBEDTLS_HEAP_SIZE=1638 |  |
 | `tibbit_43_2` | Tibbit 43 | `NAME` name; `CH1NAME` name; `CH2NAME` name; `CH3NAME` name; `CH4NAME` name; `STORAGE` [MANUAL=Don't Save to EEPROM\|TO_EEPROM=Save to EEPROM] =MANUAL; `MODE` [COMMAND_MODE=Command Mode\|DATA_MODE=Data Mode] =COMMAND_MODE; `FORMAT_DATA` [DATA_ASCII=ASCII\|DATA_BIN=Binary\|DATA_HEX=Hex] =DATA_ASCII; `FORMAT_COMMAND` [DATA_ASCII=ASCII\|DATA_HEX=Hex] =DATA_ASCII; `SAMPLING` [SAMPLING_SINGLE=Single-Ended\|SAMPLING_DIFF=Differential] =SAMPLING_SINGLE; `RATE` number =1 (1..1000); `RX_BUF` number =32 (1..1000); `CHANNELS_SINGLE` multi [1=Channel 1 (IO1 - GND)\|2=Channel 2 (IO2 - GND)\|3=Channel 3 (IO3 - GND)\|4=Channel 4 (IO4 - GND)] =1,2,3,4; `CHANNELS_DIFF` multi [1=Channel 1 (IO1 - IO2)\|2=Channel 2 (IO3 - IO4)] =1,2; `FIRMWAREFILE` file (..102400) |  |
 | `tibbit_44_1` | Tibbit 44_1 | `NAME` name; `MODE` [RS232\|RS422\|RS485] =RS232; `BAUD` [1200\|2400\|4800\|9600\|19200\|38400\|57600\|115200\|230400\|460800\|921600] =9600; `FLOWCONTROL` [0=disabled\|1=RTSCTS\|2=XONOFF] =0; `PARITY` [0=None\|1=Even\|2=Odd\|3=Mark (Always 1)\|4=Space (Always 0)] =0; `BITS` [0=7 Bits\|1=8 Bits] =1; `TXBUF` buffer =1; `RXBUF` buffer =1 | даёт: serial |
 | `tibbit_44_2` | Tibbit 44_2 | `NAME` name; `MODE` [RS232\|RS422\|RS485] =RS232; `BAUD` [1200\|2400\|4800\|9600\|19200\|38400\|57600\|115200\|230400\|460800\|921600] =9600; `FLOWCONTROL` [0=disabled\|1=RTSCTS\|2=XONOFF] =0; `PARITY` [PL_SER_PR_NONE=None\|PL_SER_PR_EVEN=Even\|PL_SER_PR_ODD=Odd\|PL_SER_PR_MARK=Mark (Always 1)\|PL_SER_PR_SPACE=Space (Always 0)] =PL_SER_PR_NONE; `BITS` [PL_SER_BB_7=7 Bits\|PL_SER_BB_8=8 Bits] =PL_SER_BB_8; `TXBUF` buffer =1; `RXBUF` buffer =1 | даёт: serial |
-| `tibbit_45_1` | Tibbit 45_1 | — |  |
-| `tibbit_45_2` | Tibbit 45_2 | — |  |
-| `tibbit_45_3` | Tibbit 45_3 | — |  |
-| `tibbit_46` | Tibbit 46 | — |  |
+| `tibbit_45_1` | Tibbit 45_1 | - |  |
+| `tibbit_45_2` | Tibbit 45_2 | - |  |
+| `tibbit_45_3` | Tibbit 45_3 | - |  |
+| `tibbit_46` | Tibbit 46 | - |  |
 | `tibbit_48` | Tibbit 48 | `NAME` name | даёт: audio_out |
 | `tibbit_49` | Tibbit 49 | `NAME` name; `MOUNT_POINT` =/SD: | даёт: flash_partition |
 | `tibbit_52` | Tibbit 52 | `NAME` name; `USESSI` [YES=I2C mode\|NO=Direct I/O (bit-banging)] =NO |  |

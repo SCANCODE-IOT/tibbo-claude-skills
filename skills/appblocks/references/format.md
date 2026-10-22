@@ -59,7 +59,7 @@
 {"id": "node_link", "settings": {"ID": "...", "SOURCE": "", "SOURCE_FEATURE": "<ID узла-источника>",
  "SOURCE_PORT": "boot", "TARGET": "", "TARGET_FEATURE": "<ID узла-приёмника>", "TARGET_PORT": "timer_start", "ARGUMENTS": []}}
 ```
-Порты каждого типа — `references/blocks.md` (или `ab_tool.py lookup <тип>`). У `node_switch` выходной порт = **ID кейса** из CASES.
+Порты каждого типа - `references/blocks.md` (или `ab_tool.py lookup <тип>`). У `node_switch` выходной порт = **ID кейса** из CASES.
 `node_system` (один на проект) объявляет порты в INPUTS/OUTPUTS: выходы `boot`, `on_sys_timer`; входы `sys.halt`, `sys.reboot`.
 
 Типичный приём из примеров — «команды» как подпрограммы: `node_command_trigger(COMMAND=X)` вызывает,

@@ -108,7 +108,7 @@ def entry(e, kind):
 
 def fmt_ports(d):
     if not d:
-        return "—"
+        return "-"
     return ", ".join(f"`{k}`" + (f"({', '.join(v)})" if v else "") for k, v in d.items())
 
 
@@ -133,7 +133,7 @@ def fmt_set(d, skip=()):
         if v.get("min") is not None or v.get("max") is not None:
             s += f" ({v.get('min', '')}..{v.get('max', '')})"
         parts.append(s)
-    return "; ".join(parts) or "—"
+    return "; ".join(parts) or "-"
 
 
 def esc(s):
