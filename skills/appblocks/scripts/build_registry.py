@@ -36,6 +36,21 @@ EXTRA_PORTS = {
     "node_modbus_response": {"out": {"response": ["<параметры регистра>"]}},
 }
 # Blocks whose ports are defined by the project itself (custom code, groups, switch cases): ports are not checked.
+# Facts the registry does not show, found by generating code (POST /api/projects/code). Status in brackets.
+BLOCK_NOTES = {
+    "node_digital_line_set": "LINE_NUMBER - номер линии числом (`48`), не имя константы: в код идёт `io.lineset(\"48\", \"0\")` в кавычках; "
+                             "`PL_IO_NUM_48` даст строку, которая при преобразовании в число станет 0. Линию в выход блок не переводит "
+                             "(generated-code.md) [генерация 2026-10-22; TIDE и железо не проверены]",
+    "node_comparison": "operator (аргумент): `=`, `<>`, `<`, `<=`, `>`, `>=`; для tios текст уходит в BASIC как есть, `==`/`!=` там нет "
+                       "[генерация 2026-10-22]",
+    "node_math_compound": "CODE становится телом `function <FUNCNAME>() as string`, блок вызывает её; доступны процедуры фреймворка "
+                          "(например `signal_strength_set`) [генерация 2026-10-22; TIDE не проверен]",
+    "node_time_interval": "срабатывает каждые N+1 тиков по 10 мс: 0,5 с -> 0,51 с (generated-code.md) [генерация 2026-10-22]",
+}
+FEATURE_NOTES = {
+    "general": "LEDPAT: при 1 генератор добавляет `pat.play(\"R-R-~\")` (мигание красным) на ошибках инициализации библиотеки "
+               "Settings в boot(); в проекте без настроек STG код не меняется. Стартовый `B-B-B-` есть всегда [генерация 2026-10-22]",
+}
 DYNAMIC_PORTS = {"node_custom", "node_group", "node_group_input", "node_group_output", "node_switch", "node_math_compound"}
 
 
@@ -216,6 +231,8 @@ def main():
                 notes.append("не для " + ", ".join(v["unsupportedDevices"]))
             if v.get("dynamic_ports"):
                 notes.append("порты задаёт проект")
+            if k in BLOCK_NOTES:
+                notes.append(BLOCK_NOTES[k])
             for rt, diff in (v.get("rt") or {}).items():
                 for side in ("in", "out"):
                     if side in diff:
@@ -254,6 +271,8 @@ def main():
                 notes.append("даёт: " + ", ".join(map(str, v["capabilities"])))
             for rt, diff in (v.get("rt") or {}).items():
                 notes.append(f"{rt}: свои настройки")
+            if kind == "features" and k in FEATURE_NOTES:
+                notes.append(FEATURE_NOTES[k])
             F.append(f"| `{k}` | {esc(v['name'])} | {fmt_set(v['set'], skip)} | {'; '.join(notes)} |")
         F.append("")
     open(os.path.join(SKILL, "references", "features.md"), "w", encoding="utf-8").write("\n".join(F))

@@ -31,3 +31,28 @@ jobs:
       - name: Package skills
         if: runner.os == 'Linux'
         run: sh tools/package.sh
+
+  # Real HTTPS to api.appblocks.io from Windows with truststore and with certifi (external service: does not block the PR)
+  windows-tls:
+    runs-on: windows-latest
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        store: [truststore, certifi]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - run: python -m pip install -q ${{ matrix.store }}
+      - name: ab_api.py tls + code
+        working-directory: skills/appblocks
+        run: |
+          env -u PYTHONUTF8 python scripts/ab_api.py tls | tee "$RUNNER_TEMP/tls.txt"
+          grep -q "${{ matrix.store }}" "$RUNNER_TEMP/tls.txt"
+          env -u PYTHONUTF8 python scripts/ab_api.py code examples/sprinkler5.json --outdir "$RUNNER_TEMP/gen" > "$RUNNER_TEMP/files.txt"
+          grep -q "main.tbs" "$RUNNER_TEMP/files.txt"

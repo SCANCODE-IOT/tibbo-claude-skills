@@ -643,6 +643,11 @@ Enums:
 
 ## pat.tph
 
+> **Шкала из 5 синих LED на TiOS-платах (TPP2/TPP3, в т.ч. G2/G3):** `pat.playlb` есть только на LTPP3(G2) (Linux, раздел в конце
+> файла). На TiOS шкалу ведёт приложение: на TPP - сдвиговый регистр на линиях `PL_IO_NUM_46/47/48` (reset/clock/data, данные
+> активным LOW), на DS110x - линии `PL_IO_NUM_19_SB1…23_SB5`. Готовый драйвер `signal_strength_set()` есть в коде, который
+> генерирует AppBlocks (скилл appblocks, generated-code.md).
+
 **object pat** — The pat. object allows you to "play" blink patters on up to five LED pairs or channels, each pair typically consisting of red and green LEDs. Patterns only play when your application is executing and pause when you application is not running. Channel 0 is the primary channel of your system. It utili
 
 **object pat** — The pat. object allows you to "play" blink patters on up to five LED pairs or channels, each pair typically consisting of red and green LEDs. Patterns only play when your application is executing and pause when you application is not running. Channel 0 is the primary channel of your system. It utili

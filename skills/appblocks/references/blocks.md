@@ -27,7 +27,7 @@
 | Блок | Название | Входы | Выходы | Настройки | Feature | Особенности |
 |---|---|---|---|---|---|---|
 | `node_command_triggered` | On Command | - | `on_command_triggered`(data:string) | `COMMAND`→command | commands |  |
-| `node_comparison` | IF Condition | `comp`(operand1:custom, operator:custom, operand2:custom) | `true_output`, `false_output` | - |  |  |
+| `node_comparison` | IF Condition | `comp`(operand1:custom, operator:custom, operand2:custom) | `true_output`, `false_output` | - |  | operator (аргумент): `=`, `<>`, `<`, `<=`, `>`, `>=`; для tios текст уходит в BASIC как есть, `==`/`!=` там нет [генерация 2026-10-22] |
 | `node_compound_condition` | IF Compound Condition | `cond` | `true_output`, `false_output` | `EXPRESSIONS`→condition_expression; `OPERATOR` [AND\|OR] =AND |  |  |
 | `node_switch` | Switch | `switch_exec` | `switch_default` | `VALUE` stringvariable; `CASES`→node_switch_case |  | порты задаёт проект |
 | `node_forloop` | For-Next Loop | `for_loop`(start:dword, end:dword) | `for_loop_iterate`(current_iteration:dword), `for_loop_done` | - |  |  |
@@ -39,7 +39,7 @@
 |---|---|---|---|---|---|---|
 | `node_arithmetic` | Calculate | `exec`(operand1:custom, operator:custom, operand2:custom) | `answer`(result:float) | `VARIABLE`→variable |  |  |
 | `node_bitwise` | Bitwise | `exec` | `answer`(result:integer) | `OPERAND1` stringvariable; `OPERATOR` [AND\|OR\|XOR\|SHL=Left Shift (<<)\|SHR=Right Shift (>>)]; `OPERAND2` stringvariable |  |  |
-| `node_math_compound` | Custom Function | `set_value` | `math_done` | `VARIABLE`→variable; `FUNCNAME` name =custom_function; `CODE` code |  | порты задаёт проект |
+| `node_math_compound` | Custom Function | `set_value` | `math_done` | `VARIABLE`→variable; `FUNCNAME` name =custom_function; `CODE` code |  | порты задаёт проект; CODE становится телом `function <FUNCNAME>() as string`, блок вызывает её; доступны процедуры фреймворка (например `signal_strength_set`) [генерация 2026-10-22; TIDE не проверен] |
 | `node_random` | Random | `exec`(min:integer, max:integer) | `answer`(result:integer) | `VARIABLE`→variable |  | ASYNC |
 | `node_trig` | Trigonometry | `exec`(angle:float) | `answer`(result:float) | `VARIABLE`→variable; `FUNCTION` [sin=Sine\|cos=Cosine\|tan=Tangent] =sin; `UNIT` [rad=Radians\|deg=Degrees] =rad |  |  |
 | `node_inverse_trig` | Inverse Trigonometry | `exec`(value:float) | `answer`(result:float) | `VARIABLE`→variable; `FUNCTION` [asin=Arcsine\|acos=Arccosine\|atan=Arctangent] =asin; `UNIT` [rad=Radians\|deg=Degrees] =rad |  |  |
@@ -68,7 +68,7 @@
 | Блок | Название | Входы | Выходы | Настройки | Feature | Особенности |
 |---|---|---|---|---|---|---|
 | `node_timer_completed` | On Timer Completed | - | `timer_complete` | `TIMER`→timer | timers |  |
-| `node_time_interval` | On Time Period | - | `timer_tick` | `INTERVAL` number =1 (0.1..65535) |  |  |
+| `node_time_interval` | On Time Period | - | `timer_tick` | `INTERVAL` number =1 (0.1..65535) |  | срабатывает каждые N+1 тиков по 10 мс: 0,5 с -> 0,51 с (generated-code.md) [генерация 2026-10-22] |
 | `node_cron_event` | On Scheduled Event | - | `cron_expired` | `SCHEDULE`→crontab | cron |  |
 | `node_timer_start` | Timer Start | `timer_start`(time:word) | `done` | `TIMER`→timer; `REPEAT` [false=No\|true=Yes] =false |  |  |
 | `node_timer_stop` | Timer Stop | `timer_stop` | `done` | `TIMER`→timer |  |  |
@@ -96,7 +96,7 @@
 | `node_interrupt` | On Interrupt | - | `on_io_int`(intcount:word) | `INTLINE` |  |  |
 | `node_wiegand` | On Wiegand | - | `data_available`(wiegand_data:string, facility_code:string, card_code:string, id_code:string) | `TIBBIT`→tibbit_08; `FORMAT` [binary=Binary\|hex=Hex\|dec=Decimal] =binary |  |  |
 | `node_ir_received` | On IR Received | - | `ir_received`(data:string) | `IR_PORT` |  |  |
-| `node_digital_line_set` | Digital Line Set | `digital_line_set` | `done` | `LINE_NUMBER` stringvariable; `VALUE` [1=HIGH\|0=LOW] =0 |  |  |
+| `node_digital_line_set` | Digital Line Set | `digital_line_set` | `done` | `LINE_NUMBER` stringvariable; `VALUE` [1=HIGH\|0=LOW] =0 |  | LINE_NUMBER - номер линии числом (`48`), не имя константы: в код идёт `io.lineset("48", "0")` в кавычках; `PL_IO_NUM_48` даст строку, которая при преобразовании в число станет 0. Линию в выход блок не переводит (generated-code.md) [генерация 2026-10-22; TIDE и железо не проверены] |
 | `node_ir_send` | IR Send | `ir_send`(data:string) | `done` | `IR_PORT` |  |  |
 
 ## Strings

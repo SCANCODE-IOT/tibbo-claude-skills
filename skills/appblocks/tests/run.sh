@@ -54,6 +54,36 @@ ok = "setpoint:float" in lk
 print("ok   lookup" if ok else "FAIL lookup")
 sys.exit(1 if miss or not ok else 0)
 PY
+# generated-code pitfalls: LINE_NUMBER must be a number, comparison operators of Tibbo BASIC only
+"$PY" - "$T" <<'PY' || fail=1
+import json, sys, subprocess
+T = sys.argv[1]
+base = json.load(open("examples/accesscontrol6.json", encoding="utf-8"))
+base["device"] = "TPP3W(G2)"
+def run(line, op):
+    p = json.loads(json.dumps(base))
+    F = p["features"]
+    cmp_ = next(f for f in F if f["id"] == "node_comparison")
+    for a in cmp_["settings"]["ARGUMENTS"]:
+        if a["settings"]["TARGETPARAM"] == "operator":
+            a["settings"]["ARGVALUE"] = op
+    dl = {"id": "node_digital_line_set", "settings": {"ID": "lzz00000000000line1", "DISPLAY_NAME": "", "FEATURE": "", "X": 0, "Y": 0,
+          "INPUTS": [], "OUTPUTS": [], "GROUP": "", "ARGUMENTS": [], "LINE_NUMBER": line, "VALUE": "0"}}
+    F.append(dl)
+    F.append({"id": "node_link", "settings": {"ID": "lzz00000000000link1", "SOURCE": "", "SOURCE_FEATURE": cmp_["settings"]["ID"],
+              "SOURCE_PORT": "true_output", "TARGET": "", "TARGET_FEATURE": dl["settings"]["ID"], "TARGET_PORT": "digital_line_set", "ARGUMENTS": []}})
+    json.dump(p, open(T + "/cg.json", "w", encoding="utf-8"))
+    r = subprocess.run([sys.executable, "scripts/ab_tool.py", "check", T + "/cg.json"], capture_output=True, text=True, encoding="utf-8")
+    return r.returncode, r.stdout
+rc_bad, out_bad = run("PL_IO_NUM_48", "==")
+rc_ok, out_ok = run("48", "=")
+_, out_warn = run("5", "<>")
+ok = (rc_bad == 1 and "LINE_NUMBER='PL_IO_NUM_48'" in out_bad and "оператор '=='" in out_bad
+      and rc_ok == 0 and "LINE_NUMBER" not in out_ok and "оператор" not in out_ok
+      and "линия 5 - блок не переводит линию в выход" in out_warn)
+print("ok   codegen checks (LINE_NUMBER, operator)" if ok else "FAIL codegen checks\n" + out_bad + out_ok + out_warn)
+sys.exit(0 if ok else 1)
+PY
 # a cp1251 console (Windows) must not break the output: run without PYTHONUTF8
 encfail=0
 for cmd in "lookup node_math_compound" "check examples/sprinkler5.json" "summary examples/sprinkler5.json"; do
