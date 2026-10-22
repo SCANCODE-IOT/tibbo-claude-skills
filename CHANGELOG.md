@@ -3,6 +3,32 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-10-22
+
+Hotfix after user reports: scripts on Windows, and AppBlocks code generation facts checked against `POST /api/projects/code`.
+
+### Fixed
+- **Windows console encoding.** Every script (`ab_tool.py`, `ab_api.py`, `build_registry.py`, `tps_check.py`, `state_diagram.py`,
+  `build_data.py`) now prints UTF-8 regardless of the console code page, so cp1251/cp1252 consoles no longer stop them with
+  `UnicodeEncodeError` (for example `ab_tool.py lookup node_math_compound`). All files are opened with an explicit `encoding="utf-8"`.
+- **`CERTIFICATE_VERIFY_FAILED` in `ab_api.py`.** HTTPS uses `SSL_CERT_FILE` / `SSL_CERT_DIR` if set, otherwise `truststore`
+  (the OS store) or `certifi` when installed, otherwise Python's default. Verification is never disabled. A failed check now
+  prints what to do on Windows instead of the sandbox hint; new `ab_api.py tls` shows the store in use and tests the connection.
+
+### Added
+- `ab_tool.py check`: error when Digital Line Set `LINE_NUMBER` is not a number (`PL_IO_NUM_48` is written into the code as a string);
+  warning when the line is not made an output by the framework; error for comparison operators other than `=` `<>` `<` `<=` `>` `>=`
+  on `tios` (`==` and `!=` go into Tibbo BASIC as is).
+- `generated-code.md`: Digital Line Set, IF Condition, Custom Function, On Time Period (fires every N+1 ticks: 0.5 s is 0.51 s),
+  `LEDPAT` (adds a red error pattern on Settings library init failures, no effect without Settings), the TPP signal strength bar
+  driver (`signal_strength_set`). Each fact is marked: checked by generation, not checked in the editor, TIDE or on hardware.
+- `editor.md` §8: driving the TPP signal strength bar from logic; `SKILL.md`: `tbt22` as a minimal base for a new tios project.
+- tibbo-firmware `tios-api.md`: `pat.playlb` exists only on LTPP3(G2); on TiOS boards the bar is driven by the application.
+- `ab_tool.one_id()`; `new_id()` docstring says it always returns a list.
+- README and both `SKILL.md`: running the scripts on Windows.
+- Tests run without `PYTHONUTF8` on a cp1251 console; CI on `windows-latest` (Python 3.12, 3.14) and an HTTPS check from Windows
+  with `truststore` and `certifi`.
+
 ## [1.1.0] - 2026-10-22
 
 Skills retrained on the AppBlocks editor itself (app.appblocks.io) and on the full docs.tibbo.com sources (2,325 pages, received from Tibbo on 2026-10-21).
@@ -51,5 +77,6 @@ First public release.
 - Upload-ready packages for Claude apps and the API (`tools/package.sh`, attached to releases).
 - Offline tests on every push.
 
+[1.1.1]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.1
 [1.1.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.0
 [1.0.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.0.0
