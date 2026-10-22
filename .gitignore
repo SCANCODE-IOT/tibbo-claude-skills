@@ -4,3 +4,7 @@ __pycache__/
 .DS_Store
 *.svg.tmp
 .env
+
+# downloaded packages
+*.whl
+*.tar.gz
