@@ -1,0 +1,3 @@
+{"board": "TPP2W(G2)", "slots": {"S1": "05", "S2": "21", "S3": "05", "S4": "21", "S5": "02", "S6": "21", "S11": "10", "S12": "18"},
+ "power": {"vin": 12}, "wifi": "WA2000U",
+ "_comment": "AppBlocks editor rules: WA2000U needs #37 in S13; two #21 in one tile -> one #20; M2 module with #21 -> #20"}

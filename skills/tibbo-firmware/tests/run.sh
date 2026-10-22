@@ -13,5 +13,8 @@ python3 scripts/tps_check.py check tests/gallery_tpp3.json --svg "$T/b.svg" >/de
 python3 scripts/tps_check.py board "TPP2W(G2)" | grep -q "PL_IO_NUM_9_TX0" && echo "ok   board cmd" || { echo "FAIL board cmd"; fail=1; }
 python3 scripts/tps_check.py find rs485 | grep -q "#05" && echo "ok   find cmd" || { echo "FAIL find cmd"; fail=1; }
 python3 scripts/tps_check.py tibbit 12 | grep -q '"model": "12"' && echo "ok   tibbit cmd" || { echo "FAIL tibbit cmd"; fail=1; }
+out=$(python3 scripts/tps_check.py check tests/editor_rules.json)
+echo "$out" | grep -q "RF-разъём #37 в S13" && echo "$out" | grep -q "два #21 в S2 и S4" && echo "$out" | grep -q "#02 занимает два M-сокета" \
+  && echo "ok   editor socket rules" || { echo "FAIL editor socket rules"; fail=1; }
 rm -rf "$T"
 exit $fail

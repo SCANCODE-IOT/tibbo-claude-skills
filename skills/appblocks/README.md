@@ -29,12 +29,15 @@ Runtimes covered: **`tios`** (Tibbo BASIC for TPP2, TPP3, DS1101, DS1102, EM510)
 |---|---|
 | `SKILL.md` | Instructions Claude follows: where to get the project, review, editing, cloud write rules, browser, visualisation. |
 | `references/editor.md` | Editor structure (Hardware / Features / Application), Import/Export, Run/Debug/Release, runtimes, **flow rules**, variables, plugins, common mistakes. |
-| `references/format.md` | The exported JSON format: top level, feature groups, nodes, links, `{{$…}}` references, editing rules. |
-| `references/catalog.md` | Node types, ports and fields, Tibbit fields, Modbus and LUIS structures. |
-| `references/catalog-examples.md` | Ports, fields and sockets collected from **78 appblocks.io projects** (59 node types, 28 Tibbits). |
+| `references/format.md` | The exported JSON format: top level, feature groups, nodes, links, `{{$…}}` references, editing rules, plugin (`custom_feature`) format. |
+| `references/blocks.md` | **All 168 editor blocks** by palette category: ports with parameters, settings with allowed values and defaults, required feature, ASYNC; hidden/legacy blocks listed separately. Taken from the app.appblocks.io registry. |
+| `references/features.md` | Features, service libraries, nested items, `tibbit_NN` fields, peripherals, LCD and web console widgets. |
+| `references/catalog.md` | Fields of features and nodes in Tibbo's exports with sample values, Tibbit fields, Modbus and LUIS structures. |
+| `references/catalog-examples.md` | How blocks and Tibbits are used in **78 appblocks.io projects** (59 node types, 28 Tibbits): typical wiring, arguments, sockets. |
 | `references/generated-code.md` | What AppBlocks generates for `tios`: TIDE project files, `var_X_*` procedures, code insertion markers. |
 | `references/api.md` | AppBlocks Cloud API: authentication, projects (code, build, versions, OTA, bundles), devices, groups, workspaces, workflows, dashboards. |
 | `scripts/ab_tool.py` | Offline project tool (see below). |
+| `data/registry.json` | The editor registry in compact form; refresh with `scripts/extract_registry.js` (run in the browser on app.appblocks.io, read-only) and `scripts/build_registry.py`. |
 | `scripts/ab_api.py` | Cloud API client (see below). |
 | `examples/` | 6 Tibbo projects: Modbus gateway with LCD on 4×RS485 and Modbus→MQTT gateway (Zephyr), sprinkler, access control, hydroponics (TPP3), water level control with cloud. |
 | `tests/run.sh` | Offline tests on the examples, including the bridge to `tps_check.py`. |
@@ -47,7 +50,8 @@ Both scripts use only the Python standard library.
 
 ```bash
 python3 scripts/ab_tool.py summary project.json              # what is in the project
-python3 scripts/ab_tool.py check   project.json              # broken links and references, duplicate IDs, socket conflicts (exit 1 on errors)
+python3 scripts/ab_tool.py check   project.json              # links, references, IDs, sockets + ports, option values, features vs the editor registry (exit 1 on errors)
+python3 scripts/ab_tool.py lookup  node_table                # ports and settings of a block / feature from the registry
 python3 scripts/ab_tool.py flow    project.json flow.svg     # logic diagram
 python3 scripts/ab_tool.py tps     project.json --vin 24 --out cfg.json   # hardware → tps_check.py config
 python3 scripts/ab_tool.py nodes   project.json              # node types and ports used

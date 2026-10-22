@@ -29,12 +29,15 @@
 |---|---|
 | `SKILL.md` | Инструкции для Claude: откуда взять проект, ревью, правка, правила записи в облако, браузер, визуализация. |
 | `references/editor.md` | Устройство редактора (Hardware / Features / Application), Import/Export, Run/Debug/Release, runtime, **правила потоков**, переменные, плагины, частые ошибки. |
-| `references/format.md` | Формат экспорта JSON: верхний уровень, группы feature, узлы, связи, ссылки `{{$…}}`, правила правки. |
-| `references/catalog.md` | Типы узлов, порты и поля, поля Tibbit, структуры Modbus и LUIS. |
-| `references/catalog-examples.md` | Порты, поля и сокеты, собранные из **78 проектов appblocks.io** (59 типов узлов, 28 Tibbit). |
+| `references/format.md` | Формат экспорта JSON: верхний уровень, группы feature, узлы, связи, ссылки `{{$…}}`, правила правки, формат плагинов (`custom_feature`). |
+| `references/blocks.md` | **Все 168 блоков редактора** по категориям палитры: порты с параметрами, настройки с допустимыми значениями и значениями по умолчанию, нужная feature, ASYNC; скрытые и устаревшие блоки отдельно. Снято из реестра app.appblocks.io. |
+| `references/features.md` | Feature, сервисы-библиотеки, вложенные элементы, поля `tibbit_NN`, периферия, виджеты LCD и веб-консоли. |
+| `references/catalog.md` | Поля feature и узлов в экспортах Tibbo с примерами значений, поля Tibbit, структуры Modbus и LUIS. |
+| `references/catalog-examples.md` | Как блоки и Tibbit используются в **78 проектах appblocks.io** (59 типов узлов, 28 Tibbit): типичные связки, аргументы, сокеты. |
 | `references/generated-code.md` | Что генерирует AppBlocks для `tios`: файлы проекта TIDE, процедуры `var_X_*`, маркеры вставки кода. |
 | `references/api.md` | AppBlocks Cloud API: авторизация, проекты (код, сборка, версии, OTA, бандлы), устройства, группы, рабочие пространства, workflow, дашборды. |
 | `scripts/ab_tool.py` | Офлайн-инструмент для проектов (см. ниже). |
+| `data/registry.json` | Реестр редактора в компактном виде; обновление - `scripts/extract_registry.js` (в браузере на app.appblocks.io, только чтение) и `scripts/build_registry.py`. |
 | `scripts/ab_api.py` | Клиент облачного API (см. ниже). |
 | `examples/` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и шлюз Modbus→MQTT (Zephyr), полив, контроль доступа, гидропоника (TPP3), контроль уровня воды с облаком. |
 | `tests/run.sh` | Офлайн-тесты на примерах, включая связку с `tps_check.py`. |
@@ -47,7 +50,8 @@
 
 ```bash
 python3 scripts/ab_tool.py summary project.json              # что есть в проекте
-python3 scripts/ab_tool.py check   project.json              # битые связи и ссылки, дубли ID, конфликты сокетов (код 1 при ошибках)
+python3 scripts/ab_tool.py check   project.json              # связи, ссылки, ID, сокеты + порты, значения настроек, feature по реестру редактора (код 1 при ошибках)
+python3 scripts/ab_tool.py lookup  node_table                # порты и настройки блока / feature из реестра
 python3 scripts/ab_tool.py flow    project.json flow.svg     # схема логики
 python3 scripts/ab_tool.py tps     project.json --vin 24 --out cfg.json   # железо → конфигурация tps_check.py
 python3 scripts/ab_tool.py nodes   project.json              # использованные типы узлов и порты

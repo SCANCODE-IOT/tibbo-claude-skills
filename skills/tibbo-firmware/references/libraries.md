@@ -342,7 +342,7 @@ Config defines (set before include):
 - `DHCP_MAX_RETRIES` = 3 — The number of retries in a single batch of retries
 - `DHCP_WAIT_TIME` = 2 — Maximum waiting time (in seconds) for the DHCP server to reply
 - `DHCP_MAX_RETRY_DELAY` = 10 — Max delay (in seconds) between retries in a batch of retries (it is randomized between 1 and this constant for each retry)
-- `DHCP_POST_FAIL_DELAY` = 60 — Delay (in seconds) between the batches of retries
+- `DHCP_POST_FAIL_DELAY` = 60 - Delay (in seconds) between the batches of retries **[docs.tibbo.com: default = 180 с (lib_dhcp_defines)]**
 - `DHCP_MAX_HOST_NAME_LEN` = 0 — Max device (host) name length
 
 API:
@@ -428,8 +428,8 @@ Config defines (set before include):
 - `GPRS_SEND_PING` = 0 — 0- suppress pinging. 1- ping GPRS_PING_IP in the end of PPP link establishment (as a proof of success).
 - `GPRS_PING_IP` = "0.0.0.0" — This is the IP address that will be pinged when GPRS_SEND_PING is set. Only relevant when GPRS_SEND_PING is 1.
 - `GPRS_SER_PORT` = 3 — The serial port to which the GPRS modem is connected. Default=3. Like with ser.num, serial ports are numbered from 0. Keep at default value for NB1010 and DS101x devices.
-- `GPRS_MODULE_EXTERNAL` = 0 — 0- the GPRS module is external, GPRS_SWITCH and GPRS_RESET GPIO lines are not in use, there is no startup delay- the GPRS module is supposed to be up and running by the time gprs_start() is called 1- the GPRS module is i
-- `GPRS_SWITCH` = 54 — GPIO line that, when set LOW, diverts traffic on GPRS_SER_PORT to the GPRS module. When the line is HIGH or disabled, serial port traffic goes elsewhere in the device. Only relevant when GPRS_MODULE_EXTERNAL is 0 Define 
+- `GPRS_MODULE_EXTERNAL` = 0 - 0- the GPRS module is external, GPRS_SWITCH and GPRS_RESET GPIO lines are not in use, there is no startup delay- the GPRS module is supposed to be up and running by the time gprs_start() is called 1- the GPRS module is i **[docs.tibbo.com: смысл значений обратный: 0 - модуль встроенный (NB1010, DS101x), линии GPRS_SWITCH/GPRS_RESET используются, есть сброс и задержка старта; 1 - внешний модуль, линии не используются (lib_gprs_defines). Сверь с комментарием в своей gprs.tbh]**
+- `GPRS_SWITCH` = 54 - GPIO line that, when set LOW, diverts traffic on GPRS_SER_PORT to the GPRS module. When the line is HIGH or disabled, serial port traffic goes elsewhere in the device. Only relevant when GPRS_MODULE_EXTERNAL is 0 Define **[docs.tibbo.com: там же описан `GPRS_RESET` (default = 55): HIGH - модуль в сбросе, LOW - работа; только при GPRS_MODULE_EXTERNAL = 0. А также `GPRS_SER_PORT_RTSMAP`/`GPRS_SER_PORT_CTSMAP` - линии RTS/CTS порта модема, по умолчанию равны номеру GPRS_SER_PORT]**
 - `GPRS_PAYLOAD_SIZE` = 4 — Size of TCP and UDP packets that the GPRS interface will be able to carry, expressed in 256-byte units. Do not set >4 or <1.
 
 API:
@@ -596,8 +596,8 @@ Enums: `modbusProtocol`(modbus_TCP, modbus_RTU); `modbusFunc`(ReadCoilStatus, Re
 Config defines (set before include):
 - `MQTT_LARGE_PACKETS` = 0 — MQTT Library
 - `MQTT_DEBUG_PRINT` = 0
-- `MQTT_RX_BUFF` = 16
-- `MQTT_TX_BUFF` = 16
+- `MQTT_RX_BUFF` = 16 **[docs.tibbo.com: в старой версии библиотеки default = 1 страница; размер подбирай под длину топиков и сообщений]**
+- `MQTT_TX_BUFF` = 16 **[docs.tibbo.com: в старой версии default = 1]**
 - `MQTT_TLS_BUFF_PAGES` = 40
 - `MQTT_PING_TIMER` = 60
 - `MQTT_CONNECTION_TIMER` = 30
@@ -844,7 +844,7 @@ Enums: `en_sntp_status_codes`(SNTP_STATUS_OK, SNTP_STATUS_INVALID_SOCKET, SNTP_S
 
 Config defines (set before include):
 - `SOCK_DEBUG_PRINT` = 0 — SOCKET ALLOCATION LIBRARY 1- debug output in console. 0- no debug output.
-- `SOCK_MAX_SIGNATURE_LEN` = 3 — Maximum length of the socket user's signature string
+- `SOCK_MAX_SIGNATURE_LEN` = 3 - Maximum length of the socket user's signature string **[docs.tibbo.com: default = 0; >0 - чтобы видеть подписи вызывающих sock_get() через sock_who_uses()]**
 
 API:
 - `function sock_get(byref signature as string) as byte`
@@ -1588,3 +1588,42 @@ Callbacks YOU must implement:
 - `sub callback_wln_rescan_for_better_ap()`
 
 Enums: `pl_wln_security_modes`(WLN_SECURITY_MODE_DISABLED, WLN_SECURITY_MODE_WEP64, WLN_SECURITY_MODE_WEP128, WLN_SECURITY_MODE_WPA1, WLN_SECURITY_MODE_WPA2); `pl_wln_security_modes`(WLN_SECURITY_MODE_DISABLED, WLN_SECURITY_MODE_WEP64, WLN_SECURITY_MODE_WEP128); `en_wln_status_codes`(WLN_STATUS_OK, WLN_STATUS_OUT_OF_SOCKETS, WLN_STATUS_INSUFFICIENT_BUFFER_SPACE, WLN_STATUS_MISSING_FIRMWARE_FILE, WLN_STATUS_BOOT_FAILURE, WLN_STATUS_INVALID_SECURITY_MODE, WLN_STATUS_INVALID_WEP_KEY, WLN_STATUS_SCANNING_FAILURE, WLN_STATUS_ASSOCIATION_FAILURE, WLN_STATUS_DISASSOCIATION, WLN_STATUS_UNEXPECTED_ERROR, WLN_STATUS_NOT_STARTED…); `wln_info_elements`(WLN_INFO_ELEMENT_REQUIRED_BUFFERS)
+
+
+# Сверка с docs.tibbo.com (октябрь 2026)
+
+В docs описаны 10 библиотек: AGG, DHCP, FILENUM, GPRS, MQTT, PPPOE, SCAP, SOCK, STG (settings), WLN - около 130 страниц `lib_*`/`library_*`. Сигнатуры выше взяты из актуальных .tbh tibbotech/libraries и новее docs; docs нужны для смысла параметров и порядка подключения. Страницы STG (`lib_stg_*`) в docs пока пустые («reworked»). Остальные библиотеки (dns, http, modbus, sntp, smtp, tibbits/tbtNN, ui и т.д.) в docs не описаны - только .tbh.
+
+## Процедуры из docs, которых нет в .tbh выше (старые версии библиотек)
+- `function mqtt_reconnect() as ok_ng` - переподключение с параметрами последнего `mqtt_connect()`; при успехе вызывается `callback_mqtt_connect_ok` (lib_mqtt_mqtt_reconnect).
+- `function pppoe_get_info(info_element as pppoe_info_elements, byref extra_data as string) as string` - `PPPOE_INFO_ELEMENT_REQUIRED_BUFFERS`: сколько страниц буфера нужно библиотеке; `extra_data` пустая (lib_pppoe_pppoe_get_info). Enum `pppoe_info_elements` в .tbh есть.
+- `function wln_rescan(byref ap_name as string) as en_wln_status_codes` - поиск указанной точки доступа для оценки сигнала (роуминг); возвращает WLN_STATUS_OK / _NOT_STARTED / _BUSY, результат приходит в `callback_wln_rescan_result(current_rssi, scan_rssi, different_ap)`. В новой wln.tbh вместо неё `wln_start_rescan()` и `callback_wln_rescan_for_better_ap()`.
+
+## Сигнатуры: docs (старые) против .tbh (новые)
+| Процедура | docs.tibbo.com | .tbh выше |
+|---|---|---|
+| `mqtt_start` | `sub mqtt_start()` | `mqtt_start(target_interface, server, dst_port, user, password, client_id, encrypted)` |
+| `mqtt_connect` | `mqtt_connect(dst_ip, dst_port, user, password, keep_alive as byte) as ok_ng` | `mqtt_connect() as ok_ng` (параметры в mqtt_start) |
+| `mqtt_publish` | `(topic, data)` | `(topic, data, qos, retain)`; для больших сообщений `mqtt_start_publish` + `mqtt_continue_publish` |
+| `callback_mqtt_notif` | `(topic, data)` | `(topic, data, remaining_bytes as dword)` |
+| `wln_start` | `(ap_name, security_mode, key, domain)` | ещё `active_scan as no_yes, scanfilter as pl_wln_scan_filter` |
+| `gprs_start` | `(at_dt_command_param, apn)` | ещё `username, password` |
+| `callback_dhcp_ok` | `…dhcp_obtained_ip, dhcp_obtained_gateway, dhcp_obtained_netmask, dhcp_obtained_lease_time` | `ip, gateway_ip, netmask, lease_time` (только имена) |
+
+Правило: реализуй колбэки и вызывай процедуры по той .tbh, которая лежит в проекте (`src_lib_ver`), а не по docs.
+
+## #define из docs, расходящиеся со значениями выше
+| #define | docs | .tbh |
+|---|---|---|
+| `DHCP_POST_FAIL_DELAY` | 180 | 60 |
+| `MQTT_RX_BUFF` / `MQTT_TX_BUFF` | 1 | 16 |
+| `SOCK_MAX_SIGNATURE_LEN` | 0 | 3 |
+| `GPRS_MODULE_EXTERNAL` | 0 = встроенный модуль | комментарий в .tbh: 0 = внешний |
+| `GPRS_RESET` | 55 | нет в извлечении |
+| `GPRS_SER_PORT_RTSMAP`, `GPRS_SER_PORT_CTSMAP` | = GPRS_SER_PORT | нет в извлечении |
+
+## Полезное из docs по работе библиотек
+- Все библиотеки с `*_get_info(…_INFO_ELEMENT_REQUIRED_BUFFERS)` сообщают, сколько страниц буфера им нужно: вызывай до `sys.buffalloc` и учитывай в бюджете страниц (ref_libraries_common_get_info).
+- `callback_*_pre_buffrq(required_buff_pages)` сообщает, что свободных страниц буфера не хватает и сколько нужно библиотеке.
+- DHCP: `DHCP_MAX_RETRIES` попыток в пакете, пауза между попытками случайная 1…`DHCP_MAX_RETRY_DELAY` с, между пакетами `DHCP_POST_FAIL_DELAY`; `callback_dhcp_pre_clear_ip(interface)` - вызывается перед установкой IP интерфейса в 0.0.0.0 (только если IP ещё не 0.0.0.0); по комментарию .tbh соединения через интерфейс при этом рвутся (lib_dhcp_callback_dhcp_pre_clear_ip). На WM2000/WS1102 вместо библиотеки можно использовать встроенный DHCP (`wln.dhcp`, события `on_sys_dhcp_ok/failure`), но тогда `wln.dhcp` и `wln.autodhcp` библиотеке мешают - выключи их, если используешь библиотеку.
+- SOCK/FILENUM: `sock_get("SIG")`/`filenum_get("SIG")` возвращают номер или 255, если свободных нет; `sock_who_uses()/filenum_who_uses()` возвращают подпись (нужен `*_MAX_SIGNATURE_LEN > 0`).

@@ -39,7 +39,7 @@
 | Интерфейсы | `web_dashboard`, `luis` (настройка через BLE/веб), `lcd`, `lcd_graph`, `display_lib`, `ds_man` | |
 | Данные | `global_vars` (VARS → `variable`: VARNAME, DATATYPE float/string/datetime…, DEFAULT), `stg` (SETTINGS → `stg_setting`: SETTINGID, STORAGE E/R, DATATYPE, DEFAULT), `tbl` (TABLES → `tbl_table` → FIELDS `tbl_field`), `timers` (TIMERS → `timer`), `commands` (COMMANDS → `command`), `cron`, `fd`, `files`, `flash_devices` | |
 | Связки | `linked_setting` (FEATURE = ID Tibbit/сервиса, SETTINGID = его поле, LINKEDSETTING = ID `stg_setting`) | Поле feature берётся из настройки STG (меняется с веба/BLE) |
-| Расширения | `custom_features` → `custom_feature` → CODE_BLOCKS (`LOCATION`: напр. `PRJ_CONF_OVERRIDES`, код Zephyr Kconfig/C), `custom_feature_id` | Свой код внутри проекта |
+| Расширения | `custom_features` → `custom_feature` (плагин: SETTINGS, CODE_BLOCKS, VARIABLES), узел-плагин `node_custom_*` | Свой код внутри проекта, §5 |
 | Служебные | `filenum`, `sock`, `time`, `datetime`, `stgcmd_lib`, `mqtt_lib`, `peripheral_wiring` (LAYOUT_DATA), `datasheet_pages` (PAGES — markdown страниц datasheet) | Не трогай без нужды |
 
 ## 3. Логика: узлы и связи
@@ -59,7 +59,7 @@
 {"id": "node_link", "settings": {"ID": "...", "SOURCE": "", "SOURCE_FEATURE": "<ID узла-источника>",
  "SOURCE_PORT": "boot", "TARGET": "", "TARGET_FEATURE": "<ID узла-приёмника>", "TARGET_PORT": "timer_start", "ARGUMENTS": []}}
 ```
-Порты каждого типа — `references/catalog.md`. У `node_switch` выходной порт = **ID кейса** из CASES.
+Порты каждого типа - `references/blocks.md` (или `ab_tool.py lookup <тип>`). У `node_switch` выходной порт = **ID кейса** из CASES.
 `node_system` (один на проект) объявляет порты в INPUTS/OUTPUTS: выходы `boot`, `on_sys_timer`; входы `sys.halt`, `sys.reboot`.
 
 Типичный приём из примеров — «команды» как подпрограммы: `node_command_trigger(COMMAND=X)` вызывает,
@@ -72,7 +72,7 @@
 2. Каждый новый элемент — новый ID (`ab_tool.py ids`). Не копируй ID из другого проекта.
 3. Ссылки (`GROUP`, `TIMER`, `VARIABLE`, `TABLE`, `COMMAND`, `SOCKET`, `SERIAL_PORT`, `{{$ID}}`, `LINKEDSETTING`)
    должны указывать на существующие ID.
-4. Порты бери только из catalog.md или из того же типа узла в экспорте пользователя.
+4. Порты и поля бери из `blocks.md` / `ab_tool.py lookup <блок>` (реестр редактора), catalog-examples.md или из того же типа узла в экспорте пользователя.
 5. Новый Tibbit = `tibbit_NN` с SOCKET/TIBBIT/PLATFORM:"" и полями по образцу того же Tibbit в любом экспорте;
    если образца нет — добавь Tibbit в редакторе AppBlocks, а не угадывай поля.
 6. Позиции X/Y: новые узлы ставь правее источника (+300…350 по X), в той же GROUP.
@@ -88,5 +88,33 @@
 9. **Числовые поля имеют минимумы редактора**: `global_vars.INTERVAL` (Update Interval) ≥ 1. Значения вне пределов
    редактор показывает в Problems, хотя сервер генерации кода их принимает — успешный `ab_api.py code` не доказывает,
    что проект чистый.
-10. **Импорт сгенерированного файла в AppBlocks не проверен** (нет доступа к редактору при сборке скилла).
-   Перед первым использованием попроси пользователя импортировать маленькую правку и подтвердить.
+10. **Импорт сгенерированного файла в AppBlocks проверен** в октябре 2026 на проекте СКУД; ошибки, которые показал
+   редактор, вошли в `check` (п. 8–9). Для нового типа правки всё равно попроси пользователя открыть проект и прислать Problems.
+11. **Значения настроек с вариантами** (Format, Operator, CANINT…) - только из списка в blocks.md; `check` сверяет их
+   с реестром редактора. Значения feature, которые зависят от runtime (BAUD у zephyr - `PL_SER_BAUD_*`), реестр
+   tios не описывает: бери по образцу проекта того же runtime.
+
+## 5. Плагины (custom_feature) - формат
+Плагин живёт в проекте внутри `custom_features.FEATURES` и выглядит так (сокращённо, по плагинам маркетплейса):
+```json
+{"id": "custom_feature", "settings": {"ID": "<ID>", "NAME": "Deadband", "FEATURE_ID": "node_custom_deadband",
+ "VERSION": "1.0.0", "RUNTIMES": "tios", "TYPE": "block", "REQUIREMENTS": "", "DEPENDENCIES": "", "CAPABILITIES": "",
+ "SETTINGS": [{"id": "custom_feature_setting", "settings": {"ID": "<ID>", "SETTING_ID": "threshold", "NAME": "Threshold",
+    "TYPE": "value", "DATA_TYPE": "float", "REQUIRED": "1", "DEFAULT_VALUE": "", "REFID": "", "OPTIONS": [],
+    "PIN_REQUIREMENT": "GPIO", "FEATURE_CAPABILITY": "", "STATE": "enabled"}}],
+ "CODE_BLOCKS": [{"id": "custom_feature_code_block", "settings": {"ID": "<ID>", "TYPE": "code", "RUNTIME": "tios",
+    "LOCATION": "block_trigger", "CODE_ID": "", "CONDITION": "", "CODE": "...Tibbo BASIC...\n{{block.output}}"}}],
+ "VARIABLES": [{"id": "custom_feature_variable", "settings": {"ID": "<ID>", "NAME": "result", "DATA_TYPE": "string"}}]}}
+```
+- `TYPE`: `service` | `peripheral` | `block` | `array_item`; у block `FEATURE_ID` начинается с `node_custom_`.
+  `RUNTIMES` - через запятую из tios, zephyr, micropython; `REQUIREMENTS` - tios, network.
+- Настройка: `DATA_TYPE` string, byte, float, integer, boolean, dword, long; `STATE` enabled, disabled, hidden;
+  `OPTIONS` - список `custom_feature_setting_option {LABEL, VALUE}` для выпадающего списка; `REFID` - ссылка на тип
+  элемента (например, Tibbit для выбора сокета); `PIN_REQUIREMENT` - GPIO, INT, PWM, ADC, TX, RX, RTS, CTS, DTR, DSR.
+- Код-блок: `LOCATION` - место вставки (`boot`, `block_trigger` для Block, или маркер сгенерированного кода, в т.ч.
+  с подстановкой: `{{feature.settings.ID}}_done`); `TYPE` code или file; `CONDITION` - когда вставлять.
+  В коде: `{{feature.settings.<SETTING_ID>}}` - значение настройки, `{{feature.settings.<Tibbit>}}_CS` и т.п. - имена,
+  которые генератор даёт выбранному Tibbit; `{{block.output}}` - переход к следующему блоку.
+- `VARIABLES` блока - его выходные параметры (видны следующему блоку как `{{$result}}`).
+- Узел плагина на холсте - feature с `id` = FEATURE_ID; его порты задаёт плагин, поэтому `check` их не сверяет.
+

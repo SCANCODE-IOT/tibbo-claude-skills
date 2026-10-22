@@ -14,7 +14,7 @@ Tibbo libraries, Tibbit selection, TPS socket layout and power supply checks.
 | **Write firmware** | States the assumptions (platform, Tibbits, power, language, library version), checks every object, constant and library procedure name against the reference data, produces a TIDE project as files (`global.tbh`, `main.tbs`, `device.tbs`, `settings.txt`, `.tpr`) plus a resource table (sockets, UARTs, I/O lines, buffer pages). |
 | **Review firmware** | Runs a 34-item checklist - language and memory, event model, resources, network, libraries, hardware, power, storage and reliability - and reports findings as *critical / important / note* with file, procedure and a corrected fragment. |
 | **Debug by symptom** | Device hangs, library does nothing, socket refuses connections, data is cut, board resets when a relay switches, ADC reads zero, TLS fails - each with the usual causes. |
-| **Choose Tibbits** | Searches the 81-Tibbit catalog, follows a placement procedure (tiles and M/C/H shapes, UART/INT/ADC/PoE sockets) and validates the result with `tps_check.py`. |
+| **Choose Tibbits** | Searches the 84-Tibbit catalog, follows a placement procedure (tiles and M/C/H shapes, UART/INT/ADC/PoE sockets) and validates the result with `tps_check.py`. |
 | **Check power** | Supply Tibbits #09/#10/#25/#33/#23/#12, input ranges, ±15 V, PoE, board consumption, load limits with a modem and at temperature. Numbers in answers come from the script, not from memory. |
 | **Draw** | The TPS board as in the Tibbo configurator, and state diagrams of firmware built as a state machine. |
 
@@ -31,7 +31,8 @@ so they survive the next generation.
 | `references/platforms.md` | 46 platforms: available objects, ROM/RAM, TiOS version, exact `PL_IO_NUM_*` and line-to-socket mapping, `PLATFORM_ID` symbols. |
 | `references/libraries.md` | Tibbo libraries (STG, sock, DHCP, DNS, Wi-Fi, MQTT, HTTP, Modbus, SNTP, cellular, `tbtNN` Tibbit drivers…): `#define` options, API, required `callback_*`. |
 | `references/project-and-libs.md` | `.tpr` format, project skeleton, "library → event" hook table, `settings.txt`, Wi-Fi and TLS patterns. |
-| `references/tibbits.md` | Catalog of 81 Tibbits: purpose, lines used, serial/interrupt requirements, power. |
+| `references/tibbits.md` | Catalog of 84 Tibbits (checked against docs.tibbo.com, Oct 2026): purpose, lines used, serial/interrupt requirements, power, mating connectors. |
+| `references/docs-map.md` | Topic → docs.tibbo.com page and its Russian translation on tibbo.ru/kb. |
 | `references/tibbit-selection.md` | Tibbit selection procedure, tiles and shapes, socket capabilities, placement order. |
 | `references/power.md` | Power supply rules and common mistakes. |
 | `references/github-map.md` | Which `tibbotech` repository to look at for a task (CA-* examples, Modbus, MQTT, TLS, Linux LTPP3). |

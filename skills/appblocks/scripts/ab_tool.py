@@ -2,11 +2,12 @@
 """AppBlocks project (exported JSON) tool.
 
   python3 ab_tool.py summary  project.json            # what is in the project: board, Tibbits, services, data, flows
-  python3 ab_tool.py check    project.json            # structural checks (links, references, IDs, sockets) -> exit 1 on errors
+  python3 ab_tool.py check    project.json            # structural + editor-registry checks (links, ports, refs, options, features) -> exit 1 on errors
   python3 ab_tool.py tps      project.json [--vin 24] [--out cfg.json]  # hardware -> cfg for tibbo-firmware tps_check.py
   python3 ab_tool.py flow     project.json out.svg    # flow (logic) diagram from node_* positions, links and groups
   python3 ab_tool.py ids      [N]                     # new IDs in AppBlocks style
   python3 ab_tool.py nodes    project.json            # catalogue of node types/ports used in this project
+  python3 ab_tool.py lookup   <block|feature|text>    # ports and settings of a block / feature from the editor registry
 
 The format is documented in references/format.md (derived from projects exported by AppBlocks).
 """
@@ -262,6 +263,77 @@ def check_panels_and_refs(d, ids, errs, warns):
             errs.append(f"global_vars INTERVAL={gv.get('INTERVAL')!r} не число")
 
 
+# ------------------------------------------------------------------ registry checks (data/registry.json, from the editor)
+REGISTRY = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "registry.json")
+LEGIT_HIDDEN = {"node_group", "node_group_input", "node_group_output", "node_label", "node_link"}
+
+
+def load_registry():
+    try:
+        return json.load(open(REGISTRY, encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def check_registry(d, errs, warns, reg=None):
+    """Node types, ports, option values, linked features, hidden blocks, board limits - against the editor registry."""
+    reg = reg or load_registry()
+    if not reg:
+        warns.append("data/registry.json не найден - проверка по реестру редактора пропущена")
+        return
+    N = reg["nodes"]
+    F = d["features"]
+    feats = {f["settings"].get("ID"): f for f in F}
+    present = {f["id"]: f for f in F}
+    device = str(d.get("device") or "")
+    for f in F:
+        k, s = f["id"], f["settings"]
+        if not k.startswith(NODE_PREFIX) or k == "node_link":
+            if device and s.get("ENABLED", "1") != "0":
+                for kind in ("features", "peripherals", "libraries"):
+                    v = (reg.get(kind) or {}).get(k)
+                    if v and v.get("devices") and device not in v["devices"]:
+                        warns.append(f"{k}: в редакторе доступен только для {', '.join(v['devices'])}, а плата проекта {device}")
+            continue
+        v = N.get(k)
+        if v is None:
+            errs.append(f"узел {s.get('ID')}: неизвестный тип блока {k} (нет в реестре редактора, см. blocks.md)")
+            continue
+        if v.get("cat") == "Hidden" and k not in LEGIT_HIDDEN:
+            warns.append(f"узел {k} {s.get('ID')} ({v.get('name')}): блока нет в палитре редактора (устаревший/служебный) - "
+                         "в новых проектах замени блоком из blocks.md")
+        if device and (v.get("unsupportedDevices") and device in v["unsupportedDevices"]
+                       or v.get("devices") and device not in v["devices"]):
+            errs.append(f"узел {k} {s.get('ID')}: блок недоступен на плате {device}")
+        ft = v.get("feat")
+        if ft and ft != "general" and ft in reg.get("features", {}):
+            if ft not in present:
+                errs.append(f"узел {k} {s.get('ID')}: нужна feature {ft}, её нет в проекте")
+            elif present[ft]["settings"].get("ENABLED", "1") == "0":
+                warns.append(f"узел {k} {s.get('ID')}: feature {ft} выключена (ENABLED=0) - блок не заработает")
+        for sk, sv in s.items():
+            st = v["set"].get(sk)
+            if not st or not st.get("o") or not isinstance(sv, (str, int)) or str(sv) == "" or REF.search(str(sv)):
+                continue
+            opts = {str(o) for o in st["o"]}
+            for x in (str(sv).split(",") if st.get("t") == "multi_option" else [str(sv)]):
+                if x not in opts:
+                    errs.append(f"узел {k} {s.get('ID')}: {sk}={x!r} - недопустимое значение "
+                                f"(варианты: {', '.join(sorted(opts)[:12])})")
+    for f in F:
+        if f["id"] != "node_link":
+            continue
+        s = f["settings"]
+        for side, port_side, fld in (("SOURCE", "out", "SOURCE_PORT"), ("TARGET", "in", "TARGET_PORT")):
+            node = feats.get(s.get(f"{side}_FEATURE"))
+            if not node or node["id"] not in N or N[node["id"]].get("dynamic_ports"):
+                continue
+            ports = N[node["id"]].get(port_side) or {}
+            if s.get(fld) not in ports:
+                errs.append(f"link {s.get('ID')}: у {node['id']} нет {'выхода' if port_side == 'out' else 'входа'} "
+                            f"{s.get(fld)!r} (есть: {', '.join(ports) or '-'})")
+
+
 def check(d):
     F = d["features"]
     ids = all_ids(d)
@@ -324,6 +396,7 @@ def check(d):
         if c > 1:
             errs.append(f"в сокет S{sck} поставлено {c} Tibbit")
     check_panels_and_refs(d, ids, errs, warns)
+    check_registry(d, errs, warns)
     for fl in d.get("featureFlags", []):
         for x in d.get("featureFlagMap", {}).get(fl["id"], []):
             if x not in ids:
@@ -482,11 +555,50 @@ def nodes_catalog(d):
         print(f"{k:<28} in: {', '.join(sorted(ports[k]['in'])) or '—':<30} out: {', '.join(sorted(ports[k]['out'])) or '—'}")
 
 
+def lookup(q):
+    """Print registry entries whose id equals q, or whose id/name contains q (case-insensitive)."""
+    reg = load_registry()
+    if not reg:
+        raise SystemExit("data/registry.json не найден")
+    ql = q.lower()
+    hits = []
+    for kind in ("nodes", "features", "libraries", "items", "tibbits", "peripherals", "widgets"):
+        for k, v in reg.get(kind, {}).items():
+            if k.lower() == ql:
+                hits.insert(0, (kind, k, v))
+            elif ql in k.lower() or ql in str(v.get("name", "")).lower():
+                hits.append((kind, k, v))
+    if not hits:
+        print("ничего не найдено"); return 1
+    for kind, k, v in hits[:12]:
+        print(f"[{kind}] {k} - {v.get('name')}" + (f"  (палитра: {v['cat']})" if v.get("cat") else ""))
+        if v.get("cat") == "Hidden" and k not in LEGIT_HIDDEN:
+            print("  нет в палитре редактора (устаревший/служебный): в новых проектах не использовать, замену ищи в blocks.md")
+        for side in ("in", "out"):
+            if side in v:
+                print(f"  {'входы ' if side == 'in' else 'выходы'}: " + (", ".join(
+                    p + (f"({', '.join(a)})" if a else "") for p, a in v[side].items()) or "-"))
+        extra = [x for x in ("feat", "async", "dynamic_ports", "devices", "unsupportedDevices") if v.get(x)]
+        if extra:
+            print("  " + "; ".join(f"{x}={v[x]}" for x in extra))
+        for sk, st in v.get("set", {}).items():
+            if st.get("t") in ("hidden", "group"):
+                continue
+            o = f" [{' | '.join(str(x) + ('=' + str(st['on'][str(x)]) if str(x) in st.get('on', {}) else '') for x in st['o'][:30])}]" if st.get("o") else ""
+            dflt = f" ={st['d']}" if "d" in st and not isinstance(st["d"], (list, dict)) else ""
+            print(f"  {sk}: {st.get('t')}{' →' + st['ref'] if st.get('ref') else ''}{o}{dflt}")
+    if len(hits) > 12:
+        print(f"... ещё {len(hits) - 12}, уточни запрос")
+    return 0
+
+
 def main():
     a = sys.argv[1:]
     if not a:
         print(__doc__); sys.exit(2)
     cmd = a[0]
+    if cmd == "lookup":
+        sys.exit(lookup(" ".join(a[1:])))
     if cmd == "ids":
         print("\n".join(new_id(int(a[1]) if len(a) > 1 else 1))); return
     d = load(a[1])

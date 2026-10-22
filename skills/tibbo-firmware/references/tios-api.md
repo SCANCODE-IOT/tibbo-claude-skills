@@ -24,12 +24,12 @@ Properties:
 - `sys.version` R/O (STRING). [read-only] — Returns firmware (TiOS) version string.
 - `sys.timercount` R/O (WORD). [read-only] — Returns the time (in half-second intervals) elapsed since the device powered up.
 - `sys.timercount32` R/O (DWORD). [read-only] — Returns the time (in half-second intervals) elapsed since the device powered up.
-- `sys.timercountms` (DWORD) — Returns the amount of time (in milliseconds) elapsed since the device powered up.
+- `sys.timercountms` (DWORD) - Returns the amount of time (in milliseconds) elapsed since the device powered up. **[docs.tibbo.com: не R/O, можно перезаписать; диапазон 0–4294967295, затем переход через 0; R/O-вариант - `sys.timercountmse` (object_sys_timercountms)]**
 - `sys.onsystimerperiod` (ENUM, BYTE), default= 50 (0.5 seconds) — Defines, in 10ms increments, the period at which the on_sys_timer event will be generated.
 - `sys.serialnum` R/O (STRING). [read-only] — Returns the 12-byte or 128-byte string containing the serial number of the device.
-- `sys.wdenabled`  — Enables or disables the watchdog timer.
-- `sys.wdautoreset`  — Enables or disables the automatic reloading of the watchdog by TiOS Value Range -- 0- DISABLED 1- ENABLED (default) By default, sys.wdautoreset is ENABLED, allowing TiOS…
-- `sys.wdperiod`  — Sets the timeout period for the watchdog timer.
+- `sys.wdenabled`  - Enables or disables the watchdog timer. **[docs.tibbo.com: enum no_yes, по умолчанию 0 - NO (выключен) (object_wdenabled)]**
+- `sys.wdautoreset`  - Enables or disables the automatic reloading of the watchdog by TiOS Value Range -- 0- DISABLED 1- ENABLED (default) By default, sys.wdautoreset is ENABLED, allowing TiOS… **[docs.tibbo.com: по умолчанию 1 - ENABLED (object_wdautoreset)]**
+- `sys.wdperiod`  - Sets the timeout period for the watchdog timer. **[docs.tibbo.com: 0–3000 шагов ≈10 мс, по умолчанию 3000 (≈30 с) (object_wdperiod)]**
 - `sys.hsclock`  — Enables or disables the HSE (High-Speed External) oscillator and the PLL (Phase-Locked Loop).
 - `sys.monversion` R/O (STRING). [read-only] — Returns the version of the Monitor/Loader.
 - `sys.timercountmse` R/O . [read-only] — Returns the amount of time (in milliseconds) elapsed since the device powered up.
@@ -103,7 +103,7 @@ Properties:
 - `sys.version` R/O (STRING). [read-only] — Returns firmware (TiOS) version string.
 - `sys.timercount` R/O (WORD). [read-only] — Returns the time (in half-second intervals) elapsed since the device powered up.
 - `sys.timercount32` R/O (DWORD). [read-only] — Returns the time (in half-second intervals) elapsed since the device powered up.
-- `sys.timercountms` (DWORD) — 
+- `sys.timercountms` (DWORD) - **[docs.tibbo.com: не R/O, можно перезаписать; диапазон 0–4294967295, затем переход через 0; R/O-вариант - `sys.timercountmse` (object_sys_timercountms)]**
 - `sys.onsystimerperiod` (ENUM, BYTE), default= 50 (0.5 seconds) — Defines, in 10ms increments, the period at which the on_sys_timer event will be generated.
 - `sys.serialnum` R/O (STRING). [read-only] — Returns the 12-byte or 128-byte string containing the serial number of the device.
 
@@ -160,7 +160,7 @@ Properties:
 - `net.mac` R/O (STRING), default= "as preset during device production". [read-only] — Returns current MAC (hardware Ethernet) address of the device.
 - `net.ip` (STRING), default= "1.0.0.1" — Sets/returns the IP address of the Ethernet interface of your device.
 - `net.netmask` (STRING), default= "0.0.0.0" — Sets/returns the netmask of the Ethernet interface of your device.
-- `net.gatewayip` (STRING), default= "0.0.0.0" — Sets/returns the IP address of the default gateway for the Ethernet interface of your device.
+- `net.gatewayip` (STRING), default= "0.0.0.0" - Sets/returns the IP address of the default gateway for the Ethernet interface of your device. **[docs.tibbo.com: default = "127.0.0.1"; записывать можно, только когда ни один сокет не работает через Ethernet (object_net_gatewayip)]**
 - `net.failure` R/O (ENUM, BYTE), default= 0- NO (no failure). [read-only] — Reports whether the Network Interface Controller (NIC) IC has failed: 0- NO (no failure), 1- YES (NIC failure).
 - `net.linkstate` R/O (ENUM, BYTE), default= 0- PL_NET_LINKSTAT_NOLINK (no link). [read-only] — Returns current link status of the Ethernet port of the device: 0- PL_NET_LINKSTAT_NOLINK (no link), 1- PL_NET_LINKSTAT_10BASET (linked at 10Mbit/s), 2-…
 
@@ -361,11 +361,11 @@ Methods / functions:
 **object stor** — The stor object provides access to the non-volatile (EEPROM) memory in which your application can store data that must not be lost when the device is switched off. Using this object you can also access and change the MAC address of the device (be careful with that!).
 
 Properties:
-- `stor.base` (WORD), default= 8 — Returns the base address of the EEPROM from which the area available to your application starts.
-- `stor.size` R/O (WORD), default= "actual_EEPROM_capacity-8" [read-only] — Returns total EEPROM memory capacity (in bytes) for the current device.
+- `stor.base` (WORD), default= 8 - Returns the base address of the EEPROM from which the area available to your application starts. **[docs.tibbo.com: по умолчанию = размер специальной конфигурационной области + 1. На большинстве платформ область 28 байт (8 байт MAC + 20 байт пароль) → stor.base = 29; у DS1101/DS1102 область 8 байт → 9, у DS1100 EEPROM 208 байт. Физический адрес = startaddr + stor.base − 1 (object_stor_base, ref_platforms_eeprom_conf_section, dsws110x_flash_eeprom)]**
+- `stor.size` R/O (WORD), default= "actual_EEPROM_capacity-8" [read-only] - Returns total EEPROM memory capacity (in bytes) for the current device. **[docs.tibbo.com: размер области приложения = ёмкость − (stor.base − 1), т.е. обычно ёмкость − 28 (object_stor_size)]**
 
 Methods / functions:
-- `stor.getdata(startaddr as word, len as byte) as string` — Reads up to len number of bytes from the EEPROM starting from address startaddr (addresses are counted from 1).
+- `stor.getdata(startaddr as word, len as byte) as string` - Reads up to len number of bytes from the EEPROM starting from address startaddr (addresses are counted from 1). **[docs.tibbo.com: см. также `stor.setdata(byref datatoset as string, startaddr as word) as byte` - пишет данные, возвращает число реально записанных байт; успех, только если оно равно len(datatoset); startaddr=0 трактуется как 1 (object_stor_setdata)]**
 
 ## fd.tph
 
@@ -395,9 +395,9 @@ Methods / functions:
 - `fd.copyfirmware(numsectors as word)` — Copies the specified number of sectors (starting from the logical sector 0) from the data area into the TiOS/application area of the flash memory, then reboots the…
 - `fd.copyfirmwarefromfile() as pl_fd_status_codes` — Copies the data from an opened and currently selected file of the flash disk (selection is made through fd.filenum) into the TiOS/application area of the flash memory,…
 - `fd.copyfirmwarelzo(app_present as no_yes, source_sector as word) as byte` — 
-- `fd.copyfirmwarelzo(app_present as no_yes)` — Assumes that there is a block of data containing the TiOS firmware, optionally followed by an LZO-compressed application binary stored beginning from the logical sector…
+- `fd.copyfirmwarelzo(app_present as no_yes)` - Assumes that there is a block of data containing the TiOS firmware, optionally followed by an LZO-compressed application binary stored beginning from the logical sector… **[docs.tibbo.com: 32-битная версия, нужен Monitor V2.00+ (object_fd_copyfirmwarelzo_32)]**
 - `fd.copyfirmwarelzo(source_sector as word, byref length as dword, dest_sector as word, byref output_len as dword, displ_x as word, displ_y as word, display_w as word, display_h as byte, reported_cs as word) as byte` — 
-- `fd.copyfirmwarelzo(byref length as dword)` — Assumes that there is LZO-compressed firmware/application file of length bytes stored at logical sector 0 of the flash memory.
+- `fd.copyfirmwarelzo(byref length as dword)` - Assumes that there is LZO-compressed firmware/application file of length bytes stored at logical sector 0 of the flash memory. **[docs.tibbo.com: 16-битная версия для отдельных платформ (object_fd_copyfirmwarelzo)]**
 - `fd.copyfirmwarefromfilelzo() as pl_fd_status_codes` — Copies the data from an opened and currently selected file of the flash disk (selection is made through fd.filenum) into the TiOS/application area of the flash memory.
 - `fd.cutfromtop(numsectors as dword) as pl_fd_status_codes` — Removed a specified number of sectors from the beginning of a file opened "on" a currently selected file number (selection is made through fd.filenum).
 - `fd.create(byref name_attr as string) as pl_fd_status_codes` — Creates a new file with the specified name and attributes.
@@ -444,7 +444,7 @@ Properties:
 - `wln.clkmap` (ENUM, BYTE), default= PL_IO_NULL (NULL line) — Sets/returns the number of the GPIO line acting as the clock (CLK) line of the Wi-Fi module's SPI interface.
 - `wln.csmap` (ENUM, BYTE), default= PL_IO_NULL (NULL line) — Sets/returns the number of the GPIO line acting as the chip select (CS) line of the Wi-Fi module's SPI interface.
 - `wln.dimap` (ENUM, BYTE), default= PL_IO_NULL (NULL line) — Sets/returns the number of the GPIO line acting as the data in (DI) line of the Wi-Fi module's SPI interface.
-- `wln.domain` (ENUM, BYTE), default= 0 - PL_WLN_DOMAIN_FCC — Sets or returns the domain (area of the world) in which this device is operating.
+- `wln.domain` (ENUM, BYTE), default= 0 - PL_WLN_DOMAIN_FCC - Sets or returns the domain (area of the world) in which this device is operating. **[docs.tibbo.com: GA1000: FCC - каналы 1–11, EU - 1–13, JAPAN - 1–14 (2,4 ГГц); на WM2000 доступны коды стран 3–76 (PL_WLN_DOMAIN_AG … _VE, список в object_wln_domain и ml_dcb_domains); на WS1102 с TiOS 4.02 свойство устарело - домен задаётся в DCB и требует перезагрузки]**
 - `wln.domap` (ENUM, BYTE), default= PL_IO_NULL (NULL line) — Sets/returns the number of the GPIO line acting as the data out (DO) line of the Wi-Fi module's SPI interface.
 - `wln.enabled` R/O (ENUM, BYTE), default= 0- NO. [read-only] — Indicates whether the Wi-Fi interface is operational.
 - `wln.gatewayip` (STRING), default= "0.0.0.0" — Sets/returns the IP address of the default gateway for the Wi-Fi interface of your device.
@@ -467,8 +467,8 @@ Properties:
 - `wln.scanresultwpainfo` R/O (STRING), default= "". [read-only] — On GA1000, after a successful scan for a particular network (wln.scan or wln.activescan with the SSID specified) this property will contain binary data required for…
 - `wln.task` R/O (ENUM, BYTE), default= 0- PL_WLN_TASK_IDLE. [read-only] — Indicates the current wln. task being executed.
 - `wln.autodhcp`  — Indicates whether wln.dhcp is enabled at boot: 0 - NO (wln.dhcp is not enabled at boot), 1 - YES (wln.dhcp is enabled at boot) As this is a Device Configuration Block…
-- `wln.dhcp` (ENUM, BYTE), default= 1 - YES (TiOS will handle DHCP negotiation and triggers event handlers) — Indicates whether DHCP is enabled.
-- `wln.autoconnect`  — Indicates whether the device will automatically initialize all connectivity hardware and attempt to associate with a designated Wi-Fi network, maintain the connection,…
+- `wln.dhcp` (ENUM, BYTE), default= 1 - YES (TiOS will handle DHCP negotiation and triggers event handlers) - Indicates whether DHCP is enabled. **[docs.tibbo.com: по умолчанию 0 - NO; начальное значение берётся из параметра dhcp в DCB; только WM2000/WS1102; при выключенном wln.autoconnect ставить до wln.boot; с DHCP-библиотекой wln.dhcp и wln.autodhcp должны быть выключены (object_wln_dhcp, ml_dcb)]**
+- `wln.autoconnect`  - Indicates whether the device will automatically initialize all connectivity hardware and attempt to associate with a designated Wi-Fi network, maintain the connection,… **[docs.tibbo.com: по умолчанию 0 - NO; только WM2000/WS1102; читается при загрузке, нужен для отладки по Wi-Fi (object_wln_autoconnect)]**
 - `wln.autoconnectssid`  — Sets or returns the SSID of the network with which the device will attempt to connect when wln.autoconnect is called.
 - `wln.autoconnectpassword`  — Sets or returns the password of the network with which the device will attempt to connect when wln.autoconnect is called.
 
@@ -483,7 +483,7 @@ Methods / functions:
 - `wln.setupgraderegion(region as pl_wln_upgrade_regions)` — For the WA2000 Wi-Fi/BLE add-on, specifies what region (portion) of the WA2000's firmware is going to be upgraded -- the main firmware or the Monitor/Loader.
 - `wln.writeflashpage(byref page as string) as accepted_rejected` — For the WA2000 Wi-Fi/BLE add-on, sends a 128-byte page (block) of firmware data into the module.
 - `wln.upgrade(region as pl_wln_upgrade_regions, fwlength_l as word, fwlength_h as word , checksum_l as word, checksum_h as word)` — For the WA2000 Wi-Fi/BLE add-on, initiates copying of the firmware "file" (that was uploaded onto the WA2000 using wln.writeflashpage) from the spare area into the…
-- `wln.upgrade(region as pl_wln_upgrade_regions, fwlength as dword, checksum as dword)` — For the WA2000 Wi-Fi/BLE add-on, initiates copying of the firmware "file" (that was uploaded onto the WA2000 using wln.writeflashpage) from the spare area into the…
+- `wln.upgrade(region as pl_wln_upgrade_regions, fwlength as dword, checksum as dword)` - For the WA2000 Wi-Fi/BLE add-on, initiates copying of the firmware "file" (that was uploaded onto the WA2000 using wln.writeflashpage) from the spare area into the… **[docs.tibbo.com: в docs: `wln.upgrade()` без аргументов, область задаётся заранее `wln.setupgraderegion` (object_wln_upgrade)]**
 - `wln.waitforupgradecompletion() as ok_ng` — For the WA2000 Wi-Fi/BLE add-on, waits for the firmware copying to complete and returns the result of the copying process.
 - `wln.getmoduletype() as pl_wln_module_types` — Detects and returns the Wi-Fi module type, or just returns the module type if it has already been detected earlier.
 - `wln.getmoduletype() as pl_wln_module_types` — Detects and returns the Wi-Fi module type, or just returns the module type if it has already been detected earlier.
@@ -495,7 +495,7 @@ Methods / functions:
 - `wln.networkstart(byref ssid as string,channel as byte) as accepted_rejected` — Causes the Wi-Fi interface to commence creating its own network.
 - `wln.networkstop() as accepted_rejected` — Causes the Wi-Fi interface to commence the termination of its own network.
 - `wln.scan(byref ssid as string) as accepted_rejected` — Causes the Wi-Fi interface to commence either the passive detection of available wireless networks or obtainment of an additional information about a particular network…
-- `wln.settxpower(level as byte) as accepted_rejected` — Causes the Wi-Fi interface to commence the adjustment of the TX power to the specified level.
+- `wln.settxpower(level as byte) as accepted_rejected` - Causes the Wi-Fi interface to commence the adjustment of the TX power to the specified level. **[docs.tibbo.com: на WS1102 с TiOS 4.02 устарел (object_wln_settxpower)]**
 - `wln.setwep(byref wepkey as string, wepmode as pl_wln_wep_modes) as accepted_rejected` — Causes the Wi-Fi interface to set new WEP mode and key.
 - `wln.setwpa(wpamode as pl_wln_wpa_modes, algorithm as pl_wln_wpa_algorithms, byref wpakey as string, cast as pl_wln_wpa_unicast_multicast) as accepted_rejected` — Causes the Wi-Fi interface to commence setting new WPA mode and key.
 - `wln.seteaptls(byref ca_cert as string, byref client_cert as string, byref private_key as string, byref private_key_passwd as string, byref identify as string) as accepted_rejected` — Causes the Wi-Fi interface to commence setting the new data for EAP TLS Enterprise ciphering.
@@ -542,7 +542,7 @@ Properties:
 - `bt.newtxlen` R/O (WORD | DWORD), default=0 (0 bytes). [read-only] — Returns the total number of uncommitted bytes in the TX buffer of the BLE interface.
 - `bt.advertise` (ENUM, BYTE), default= 0- NO — Setting this property to 1 -YES will start the advertising service on the BLE interface.
 - `bt.connected` R/O (ENUM, BYTE), default= 0- NO. [read-only] — Indicates whether the BLE interface is engaged in a connection.
-- `bt.mac` (STRING), default= "0.0.0.0.0.0" — Sets and returns the MAC address of the BLE interface.
+- `bt.mac` (STRING), default= "0.0.0.0.0.0" - Sets and returns the MAC address of the BLE interface. **[docs.tibbo.com: до wln.boot возвращает "0.0.0.0.0.0", после - MAC модуля WA2000; задавать новый MAC только до wln.boot. На WM2000/WS1102 bt.mac только для чтения (object_bt_mac, wm2000_platform_objects)]**
 - `bt.mac` R/O (STRING), default= mac address of the bluetooth module. [read-only] — Returns the MAC address of the BLE interface.
 - `bt.flowcontrol` (ENUM, BYTE), default= 0- DISABLED — Sets/returns flow control mode for bluetooth object.
 
@@ -575,7 +575,7 @@ Enums:
 
 
 Events:
-- `on_sys_dhcp_ok(renew as no_yes, interface as pl_sock_interfaces, ip as string(16), gateway_ip as string(16), netmask as string(16), lease_time as dword)` — Informs of the successful procurement of configuration parameters from the DHCP server.
+- `on_sys_dhcp_ok(renew as no_yes, interface as pl_sock_interfaces, ip as string(16), gateway_ip as string(16), netmask as string(16), lease_time as dword)` - Informs of the successful procurement of configuration parameters from the DHCP server. **[docs.tibbo.com: имена параметров: dhcp_obtained_ip, dhcp_obtained_gateway, dhcp_obtained_netmask, dhcp_obtained_lease_time; renew=YES - продление аренды, IP мог смениться]**
 - `on_sys_dhcp_failure(interface as pl_sock_interfaces)` — Informs of the failure to procure configuration parameters from the DHCP server.
 
 ## tls.tph
@@ -615,9 +615,9 @@ Methods / functions:
 **object pppoe** — The pppoe object represents the PPPoE interface of your device. This object only specifies the interface itself and is not responsible for sending/transmitting network data. The latter is the job of the sock object. The object does not perform PPPoE login and configuration either -- use PPPOE librar
 
 Properties:
-- `pppoe.acmac` (STRING), default= "0.0.0.0.0.0" — Sets/returns the MAC address of the ADSL modem (a.k.a.
-- `pppoe.ip` (STRING), default= "0.0.0.0" — Sets/returns the IP address of the PPPoE interface of your device.
-- `pppoe.sessionid` (STRING), default= 0 — Sets/returns the ID of the current PPPoE session.
+- `pppoe.acmac` (STRING), default= "0.0.0.0.0.0" - Sets/returns the MAC address of the ADSL modem (a.k.a. **[docs.tibbo.com: DEPRECATED с TiOS V4]**
+- `pppoe.ip` (STRING), default= "0.0.0.0" - Sets/returns the IP address of the PPPoE interface of your device. **[docs.tibbo.com: DEPRECATED с TiOS V4]**
+- `pppoe.sessionid` (STRING), default= 0 - Sets/returns the ID of the current PPPoE session. **[docs.tibbo.com: DEPRECATED с TiOS V4]**
 
 ## beep.tph
 
@@ -692,7 +692,7 @@ Properties:
 - `kp.longreleasedelay` (BYTE), default= 100 (1 sec) — Defines (in 10ms increments) the amount of time a key will have to remain released for the key state to transition from _RELEASED into _LONGRELEASED state.
 - `kp.pressdelay` (BYTE), default= 3 (30 ms) — Defines (in 10ms increments) the amount of time a key will have to remain pressed for the key state to transition from _RELEASED into _PRESSED.
 - `kp.releasedelay` (BYTE), default= 3 (30 ms) — Defines (in 10ms increments) the amount of time a key will have to remain released for the key state to transition from _PRESSED or _LONGPRESSED into _RELEASED.
-- `kp.repeatdelay` (BYTE), default= 50 (0.5 sec.) — Defines (in 10ms increments) the time period at which the on_kp event with 4- PL_KP_EVENT_REPEATPRESSED event code will be generated once the key reaches the…
+- `kp.repeatdelay` (BYTE), default= 50 (0.5 sec.) - Defines (in 10ms increments) the time period at which the on_kp event with 4- PL_KP_EVENT_REPEATPRESSED event code will be generated once the key reaches the… **[docs.tibbo.com: default = 3 (30 мс), 0–254; 0 - автоповтора нет; менять только при kp.enabled = NO (object_kp_repeatdelay)]**
 - `kp.lockupdelay` (WORD), default= 1000 (10sec) — Defines (in 10ms increments) the amount of time any key will have to stay pressed for the keypad to enter the "lockup" state.
 - `kp.returnlinesmapping` (STRING), default= "" — Defines the list of up to 8 I/O lines that will serve as return lines of the keypad.
 - `kp.scanlinesmapping` (STRING), default= "" — Defines the list of up to 8 I/O lines that will serve as scan lines of the matrix keypad.
@@ -771,18 +771,18 @@ Enums:
 **object ssi** — The ssi. object implements up to four serial synchronous interfaces (SSI) on the general-purpose I/O lines of your device. Examples of such interfaces are SPI, I2C, clock/data, and numerous variations on these interfaces.
 
 Properties:
-- `ssi.baudrate` R/O (BYTE), default= 1 (the fastest clock rate possible) — For the currently selected SSI channel (see ssi.channel) sets the clock rate on the CLK line (1-255).
+- `ssi.baudrate` (BYTE), default= 1 (the fastest clock rate possible) - For the currently selected SSI channel (see ssi.channel) sets the clock rate on the CLK line (1-255). **[docs.tibbo.com: свойство чтения/записи (в прежней версии справочника было ошибочно помечено R/O); менять при ssi.enabled = NO]**
 - `ssi.channel` (BYTE), default= 0 (channel #0 selected) — Sets/returns the number of the currently selected SSI channel (channels are enumerated from 0).
 - `ssi.clkmap` (ENUM, BYTE), default= PL_IO_NULL (NULL line) — For the currently selected SSI channel (see ssi.channel) sets/returns the number of the general-purpose I/O line to serve as the clock (CLK) line of this channel.
 - `ssi.dimap` (ENUM, BYTE), default= PL_IO_NULL (NULL line) — For the currently selected SSI channel (see ssi.channel) sets/returns the number of the general-purpose I/O line to serve as the data in (DI) line of this channel.
-- `ssi.direction` R/O (BYTE), default= 0- PL_SSI_DIRECTION_RIGHT — For the currently selected SSI channel (see ssi.channel) sets/returns the direction of data input and output: PL_SSI_DIRECTION_RIGHT means "least significant bit first",…
+- `ssi.direction` (BYTE), default= 0- PL_SSI_DIRECTION_RIGHT - For the currently selected SSI channel (see ssi.channel) sets/returns the direction of data input and output: PL_SSI_DIRECTION_RIGHT means "least significant bit first",… **[docs.tibbo.com: свойство чтения/записи (в прежней версии справочника было ошибочно помечено R/O); менять при ssi.enabled = NO]**
 - `ssi.domap` (ENUM, BYTE), default= PL_IO_NULL (NULL line) — For the currently selected SSI channel (see ssi.channel) sets/returns the number of the general-purpose I/O line to serve as the data out (DO) line of this channel.
 - `ssi.enabled` (ENUM, BYTE), default= 0- NO (disabled) — Enables/disables the currently selected SSI channel (see ssi.channel).
-- `ssi.mode` R/O (BYTE), default= 0- PL_SSI_MODE_0 — For the currently selected SSI channel (see ssi.channel) sets/returns the clock mode.
-- `ssi.zmode` R/O (BYTE), default= 0- PL_SSI_ZMODE_ALWAYS_ENABLED — For the currently selected SSI channel (see ssi.channel) sets/returns the mode of the data out (DO) line: PL_SSI_ZMODE_ALWAYS_ENABLED-- the DO line toggles normally by…
+- `ssi.mode` (BYTE), default= 0- PL_SSI_MODE_0 - For the currently selected SSI channel (see ssi.channel) sets/returns the clock mode. **[docs.tibbo.com: свойство чтения/записи (в прежней версии справочника было ошибочно помечено R/O); менять при ssi.enabled = NO]**
+- `ssi.zmode` (BYTE), default= 0- PL_SSI_ZMODE_ALWAYS_ENABLED - For the currently selected SSI channel (see ssi.channel) sets/returns the mode of the data out (DO) line: PL_SSI_ZMODE_ALWAYS_ENABLED-- the DO line toggles normally by… **[docs.tibbo.com: свойство чтения/записи (в прежней версии справочника было ошибочно помечено R/O); менять при ssi.enabled = NO]**
 
 Methods / functions:
-- `ssi.str(byref txdata as string, ack_bit as pl_ssi_ack_modes) as string` — For the currently selected SSI channel (see ssi.channel) outputs a string of byte data to the slave device and simultaneously inputs the same amount of data from the…
+- `ssi.str(byref txdata as string, ack_bit as pl_ssi_ack_modes) as string` - For the currently selected SSI channel (see ssi.channel) outputs a string of byte data to the slave device and simultaneously inputs the same amount of data from the… **[docs.tibbo.com: в docs: `ssi.str(byref txdata as string, ack_bit as no_yes) as string` - NO: 8-битные слова, YES: 9 бит с битом подтверждения; вызывать только при ssi.enabled = YES]**
 - `ssi.value(txdata as word, len as byte) as word` — For the currently selected SSI channel (see ssi.channel) outputs a data word of up to 16 bits and simultaneously inputs a data word of the same length.
 
 Enums:
@@ -799,7 +799,7 @@ Enums:
 **object i2c** — 
 
 Properties:
-- `i2c.num` (BYTE). default= 0 — Sets/returns the number of the currently selected I2C channel (channels are enumerated from 0).
+- `i2c.num` (BYTE). default= 0 - Sets/returns the number of the currently selected I2C channel (channels are enumerated from 0). **[docs.tibbo.com: в docs свойство называется `i2c.channel` (object_i2c_channel); остальные свойства ссылаются на i2c.channel - сверяй с .tph своей платформы]**
 - `i2c.sdamap` (ENUM, BYTE), default= 0 — Sets/returns the number of the I/O line that will act as the SDA line of the currently selected I2C channel (selection is made through i2c.channel).
 - `i2c.sclmap` (ENUM, BYTE), default= 0 — Sets/returns the number of the I/O line that will act as the SCL line of the currently selected I2C channel (selection is made through i2c.channel).
 - `i2c.enabled` (ENUM, BYTE). default= 0- NO — Enables/disables the currently selected I2C channel (selection is made through i2c.channel).
@@ -972,15 +972,15 @@ Methods / functions:
 
 
 Methods / functions:
-- `val(byref sourcestr as string) as word` — Converts string representation of a value into 16-bit value (word or short).
+- `val(byref sourcestr as string) as word` - Converts string representation of a value into 16-bit value (word or short). **[docs.tibbo.com: понимает префиксы &b и &h; с TiOS 2.0 заменяет удалённую `vali` (знаковый результат - присвоить в short)]**
 - `lval(byref sourcestr as string) as dword` — Converts string representation of a value into 32-bit value (dword or long).
-- `str(num as integer) as string` — Converts unsigned 16-bit numeric value (word) into its decimal string representation.Can be invoked implicitly, through the string_var=word_var expression.
+- `str(num as integer) as string` - Converts unsigned 16-bit numeric value (word) into its decimal string representation.Can be invoked implicitly, through the string_var=word_var expression. **[docs.tibbo.com: в docs: `str(num as word) as string`]**
 - `lstr(byref num as dword) as string` — Converts unsigned 32-bit numeric value (dword) into its decimal string representation.
 - `stri(num as integer) as string` — Converts signed 16-bit numeric value (short) into its decimal string representation.
 - `lstri(byref num as long) as string` — Converts signed 32-bit numeric value (long) into its decimal string representation.
-- `hex(num as word) as string` — Converts unsigned 16-bit numeric value (word) into its HEX string representation.
+- `hex(num as word) as string` - Converts unsigned 16-bit numeric value (word) into its HEX string representation. **[docs.tibbo.com: в docs: `hex(num as integer)`]**
 - `lhex(byref num as dword) as string` — Converts unsigned 32-bit numeric value (dword) into its HEX string representation.
-- `bin(num as word) as string` — Converts unsigned 16-bit numeric value (word) into its binary string representation.
+- `bin(num as word) as string` - Converts unsigned 16-bit numeric value (word) into its binary string representation. **[docs.tibbo.com: в docs: `bin(num as integer)`]**
 - `lbin(byref num as dword) as string` — Converts unsigned 32-bit numeric value (dword) into its binary string representation.
 - `left(byref sourcestr as string, len as byte) as string` — Returns len leftmost characters of a string sourcestring.
 - `right(byref sourcestr as string, len as byte) as string` — Returns len rightmost characters of a string sourcestr.
@@ -996,13 +996,13 @@ Methods / functions:
 - `weekday(daycount as word) as pl_days_of_week` — Returns the day of the week for a given day number.
 - `year(daycount as word) as byte` — Returns the year for a given day number.
 - `month(daycount as word) as pl_months` — Returns the month for a given day number.
-- `date(daycount as integer) as byte` — Returns the date for a given day number.
+- `date(daycount as integer) as byte` - Returns the date for a given day number. **[docs.tibbo.com: в docs: `date(daycount as word)`]**
 - `daycount(year as byte, month as byte, date as byte) as word` — Returns the day number for a given year, month, and date.
 - `hours(mincount as word) as byte` — Returns the hours value (in 24-hour format) for a given minutes number.
 - `minutes(mincount as word) as byte` — Returns the minutes value for given minutes number.
 - `mincount(hours as byte, minutes as byte) as word` — Returns the minutes number for a given hours and minutes.
 - `cfloat(byref num as real) as valid_invalid` — Floating-point calculations can lead to invalid result (#INF, -#INF errors, as per IEEE specification).
-- `fstr(byref num as real) as string` — 
+- `fstr(byref num as real) as string` - **[docs.tibbo.com: отдельной страницы в docs нет; упоминается как упрощённый аналог ftostr]**
 - `ftostr(byref num as real, mode as ftostr_mode, rnd as byte) as string` — Converts real value into its string representation.
 - `strtof(byref str as string) as real` — Converts string representation of a real value into a real value.
 - `md5(byref str as string,byref input_hash as string,md5_mode as md5_modes,total_len as word) as string` — Generates MD5 hash on the str string.
@@ -1141,3 +1141,75 @@ Below: only members that are new or re-declared there. If a generic member is mi
 - method `wln.gettlscert(byref cert, len as word)`  — This method retrieves the certificate as an array from dcb. len -- length of the certificate
 - method `wln.settlscert(byref cert, len as word)`  — This method stores the certificate as an array in dcb. len -- length of the certificate
 - method `wln.disablewifiradio()`  — turn wifi radio off
+
+
+# Сверка с docs.tibbo.com (октябрь 2026)
+
+Сверено автоматически: 461 страница свойств, методов и событий `object_*` и `linux_object_*`, 47 страниц `syscall_*`, константы enum на страницах объектов. Выше в строках пометки **[docs.tibbo.com: …]** - расхождения со справочником Tibbo. Правило: имена и сигнатуры из .tph (выше) соответствуют компилятору конкретной версии TiOS; docs местами старее (синтаксис без `()`, `{byte | word}` вместо `BUFF_PAGE_TYPE`). При конфликте проверяй .tph своей платформы в TIDE.
+
+## Есть в docs, не было в справочнике
+- `stor.setdata(byref datatoset as string, startaddr as word) as byte` - запись в EEPROM (раньше называлась `stor.set`). Возвращает число записанных байт; запись удалась, только если оно равно `len(datatoset)`. Каждый байт строки - отдельный цикл записи (износ, см. eeprom_life).
+- `i2c.channel` (byte, по умолчанию 0) - в docs так называется выбор канала I²C; в .tph - `i2c.num`.
+- `sock.event`, `sock.eventsimple` - **удалены (DEPRECATED)**: состояние сокета приходит аргументами `newstate`/`newstatesimple` события `on_sock_event`.
+- `vali` - **удалена** в TiOS 2.0: для знаковых значений `val()` с присвоением в `short`.
+- Объекты `io.` и `pat.` в Linux-среде LTPP3(G2) (раздел docs «Development (Linux)», страницы `linux_object_io_*`, `linux_object_pat_*`) - см. ниже.
+
+## Есть в справочнике, нет отдельной страницы в docs
+`bt.flowcontrol`, `fd.copymonitor`, `io.intcount/intedge/intmode/intstate` (io-2xxx), `kp.setlabel`, `lcd.bmpfromfile/datawidth/getpixel`, `rtc.calibration/clock512`, `ser.xonchar/xoffchar`, `ser.baudratex`, `sock.gendataarrivalevent/peekinband/targetmac/tlsinitfromarray/httppassword/retxtime`, `sys.trace/exec`, математика `sin…atan2, sqrt`, `wln.seteappeap/seteaptls/seteapttls/autodhcpip/autodhcphn/gettlscert/settlscert/disablewifiradio`, `fstr`, объекты `dhcp`(события), `tls`, `tpram`, `lsock`, `lfd`, `sled`. Это не ошибка: они есть в .tph новых TiOS, но документацией не покрыты - бери сигнатуру только из .tph.
+
+## Значения по умолчанию и R/O по docs
+| Член | docs.tibbo.com | Было в справочнике |
+|---|---|---|
+| `kp.repeatdelay` | 3 (30 мс), 0–254 | 50 (0,5 с) |
+| `net.gatewayip` | "127.0.0.1" | "0.0.0.0" |
+| `wln.dhcp` | 0 - NO (или значение параметра dhcp из DCB) | 1 - YES |
+| `wln.autodhcp`, `wln.autoconnect` | 0 - NO | не указано |
+| `sys.wdenabled` / `sys.wdautoreset` / `sys.wdperiod` | NO / ENABLED / 3000 (≈30 с, 0–3000) | не указано |
+| `sys.debugmode` | 0 - PL_SYS_DBG_SERIAL | не указано |
+| `sys.defaultapp` | 1 - PL_APP_NUM_1 | не указано |
+| `stor.base` | размер служебной области + 1 (обычно 29) | 8 |
+| `sock.remotemac` | "0.0.0.0" (в docs, вероятно опечатка) | "0.0.0.0.0.0" |
+| `ssi.baudrate/direction/mode/zmode` | чтение/запись | было ошибочно R/O (исправлено) |
+| `sys.timercountms` | чтение/запись (R/O - `timercountmse`) | без пометки |
+| `sys.extresettype`, `sys.boardtemp`, `sys.readaccelx/y/z` | в заголовке страницы без R/O, по смыслу только чтение | R/O |
+
+## Сигнатуры, где docs и .tph расходятся
+| docs.tibbo.com | .tph (выше) | Комментарий |
+|---|---|---|
+| `ssi.str(…, ack_bit as no_yes)` | `ack_bit as pl_ssi_ack_modes` | в новых TiOS режимы ACK расширены (PL_SSI_ACK_OFF/RX/TX_ALL/ALL_BUT_LAST) |
+| `wln.upgrade()` | `wln.upgrade(region, fwlength, checksum)` | в docs область задаётся `wln.setupgraderegion`, затем `wln.writeflashpage`, `wln.waitforupgradecompletion` |
+| `fd.copyfirmwarelzo(app_present as no_yes)` (32 бит) / `(byref length as dword)` (16 бит) | + ещё 2 варианта | на 32-битных платформах все `fd.copyfirmware*` требуют Monitor V2.00+ |
+| `fd.copyfirmwarefromfile()` без результата | `as pl_fd_status_codes` | |
+| `i2c.write(b as byte)`, `i2c.read(ack_bit)` | `… as i2c_ack_nack`, `… as byte` | |
+| `on_sys_dhcp_ok(…, dhcp_obtained_ip …)` | `ip, gateway_ip, netmask, lease_time` | только имена параметров |
+| `str(num as word)`, `hex/bin(num as integer)`, `date(daycount as word)` | `str(num as integer)`, `hex/bin(num as word)`, `date(daycount as integer)` | |
+| `sock.tlsinit/tlshandshake … as enum` | `as pl_tls_result` | |
+
+Страницы docs с явными опечатками в синтаксисе (не доверять): `fd.flush` (показан `fd.close`), `fd.mount` (`fd.format`), `fd.rename` (`fd.create`), `fd.getnumfiles` (`fd.getfreespace`), `fd.setsector` (`fd.getsector`), `fd.formatj` (`fd.format`), `sock.rplbuffrq` (`sock.cmdbuffrq`), `romfile.find32` (`romfile.find`), `callback_mqtt_sub_ok` (`callback_mqtt_connect_ok`), `dhcp_start` (`dhcp_get_info`).
+
+## Ограничения по платформам (из страниц членов)
+- `ser.baud` (enum pl_ser_baud, 50…4 000 000, по умолчанию PL_SER_BAUD_9600) - пока только LTPP3. На TiOS-платформах - `ser.baudrate` (делитель) и `ser.div9600`; на WM2000/WS1102 ещё `ser.baudratex` в бодах.
+- WM2000/WS1102: `ser` поддерживает только скорости 110, 300, 1200, 2400, 4800, 9600, 19 200, 38 400, 57 600, 115 200, 230 400, 460 800, 921 600 (неподдерживаемая → 9600). `beep.frequency` (30 Гц–20 кГц) заменяет `beep.divider`. `bt.mac` только чтение, есть `bt.disconnect`; при `wln.autoconnect` не нужен `wln.boot` для BLE. `wln.networkstart/networkstop` недоступны при `wln.autoconnect = YES`; `wln.domain` - настройка DCB с перезагрузкой; `wln.mac` только чтение. `sys.sleep` - только WM2000 (страница), в .tph также WS1101/WS1102; пробуждение = полная перезагрузка. (wm2000_platform_objects, dsws110x_platform_ws1102_objects)
+- `ser.ctsmap`, `ser.rtsmap`, `io.enabled` - «Selected Platforms Only»; на платформах с двунаправленными GPIO (EM500, DS1100) `io.enabled` ничего не делает и всегда читается как YES.
+- `sock.cmdbuffsize`, `sock.rplbuffsize`, `sock.tx2buffsize`, `sock.varbuffsize` - только 32-битные платформы.
+- Служебные байты каждого буфера: 17 на 16-битных и 33 на 32-битных платформах (буфер из N страниц вмещает N×256 − 17 или N×256 − 33 байт; в примере docs округлено до 16/32). Запрос может быть урезан, если памяти не хватает: проверяй возвращаемое `*buffrq` число страниц. `sys.buffalloc` занимает до 100 мс; изменение размеров буферов открытого сокета закрывает его.
+- `sys.boardtemp` (real, °C; 255 - отказ датчика), `sys.configaccel/captureaccel/readaccelx/y/z` (мg) - только TPP Gen.3.
+- `sys.defaultapp`, `sys.reboottoapp`, `sys.debugmode` - платформы с двумя приложениями (WM2000, WS1102).
+- `wln.autoconnect/autoconnectssid/autoconnectpassword/autodhcp/dhcp` - только WM2000 и WS1102 (параметры DCB; после изменения нужна перезагрузка).
+- `pppoe.acmac/ip/sessionid` - устарели с TiOS V4.
+- `sys.onsystimerperiod`, `on_sys_timer` - с TiOS V1.2; на платформах без свойства период фиксирован 0,5 с; период не зависит от PLL.
+- `wln.domain`, `wln.settxpower` - на WS1102 устарели с TiOS v4.02.
+
+## Конфликт событий на одном прерывании (`ser` и `io`)
+`ser` использует линии прерываний в режиме UART с RTS/CTS, а также в Wiegand и clock/data. На одних платформах (EM1000) это независимо от `io.intenabled`, на других (EM2000, TPP2/TPP3) - взаимозависимо: занятая портом линия показывает `io.intenabled = 1`, выключить её нельзя, пока порт открыт (ref_platforms_ser_port_int).
+
+## Объекты io. и pat. в Linux-среде (LTPP3(G2), Tibbo BASIC/C поверх Ubuntu)
+Справочник docs: `linux_object_io`, `linux_object_pat`. Отличия от TiOS:
+- `io.num` (pl_io_num), `io.enabled` (no_yes, по умолчанию NO - вход), `io.state` (low_high), `io.portnum` (pl_io_port_num), `io.portenabled` (byte, по умолчанию 0 - все входы), `io.portstate` (byte), `io.intnum` (pl_int_num), `io.intenabled` (no_yes, NO), **`io.intedge` (pl_int_edge: PL_INT_EDGE_LOW=1 спад, _HIGH=2 фронт, _BOTH=3)**.
+- Методы без предвыбора: `io.lineget(num as pl_io_num) as low_high`, `io.lineset(num as pl_io_num, state as low_high)`, `io.invert(num as pl_io_num)`, `io.portget(num as pl_io_port_num) as byte`, `io.portset(num as pl_io_port_num, state as byte)`.
+- Прерывание можно назначить почти на любую линию (PinMux): `io.num=…; io.enabled=NO; io.intnum=PL_INT_NUM_x; io.intedge=…; io.intenabled=YES`.
+- События: `on_io_int(linestate as byte)` - битовая маска линий, в очереди не более одного; `on_io_int_line(ionum as byte, intnum as byte, edge as byte)` - по событию на каждое прерывание. Используй одно из двух, иначе в очередь попадёт оба.
+- «Прерывания» - это события в конце очереди, без гарантированного времени реакции (удобная замена опросу).
+- 8-битные порты виртуальные: линии порта читаются/пишутся по одной слева направо (небольшая «бегущая» задержка).
+- `pat.channel` 0–4 (0 - штатные зелёный/красный LED), `pat.greenmap`/`pat.redmap` (для каналов 1–4 - любые линии, канал 0 - фиксирован, −1), `pat.play(pattern, patint)` до 16 шагов (`-`,`R`,`G`,`B`, `~` - цикл, `*` - двойная скорость), `pat.playlb(pattern, patint)` - пять синих LED (`L1`…`L5`, комбинации `L135`), события `on_pat`, `on_pat_led_bar` (в примере docs обработчик назван `on_pat_ledbar` - сверяй с платформой).
+- Исключения: в Linux-среде приложение может бросать исключения (linux_guide_exceptions).

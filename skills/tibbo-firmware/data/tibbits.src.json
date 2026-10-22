@@ -254,7 +254,8 @@
             "form": "M2S",
             "category": "io",
             "requires": [
-                "serial"
+                "serial",
+                "interrupt"
             ],
             "lines": [
                 {
@@ -1127,7 +1128,10 @@
     {
         "main": {
             "mates": [
-                "18"
+                "18",
+                "19",
+                "20",
+                "21"
             ],
             "power": [
                 {
@@ -1181,7 +1185,10 @@
     {
         "main": {
             "mates": [
-                "18"
+                "18",
+                "19",
+                "20",
+                "21"
             ],
             "power": [
                 {
@@ -1361,7 +1368,7 @@
                 {
                     "voltage": "5V",
                     "supply": false,
-                    "value": "66"
+                    "value": "10"
                 },
                 {
                     "voltage": "+15V",
@@ -1427,7 +1434,7 @@
                 {
                     "voltage": "5V",
                     "supply": false,
-                    "value": "56"
+                    "value": "20"
                 },
                 {
                     "voltage": "+15V",
@@ -1538,7 +1545,8 @@
         "main": {
             "mates": [
                 "20",
-                "21"
+                "21",
+                "19"
             ],
             "power": [
                 {
@@ -1593,7 +1601,8 @@
         "main": {
             "mates": [
                 "20",
-                "21"
+                "21",
+                "19"
             ],
             "power": [
                 {
@@ -1926,7 +1935,12 @@
     },
     {
         "main": {
-            "mates": [],
+            "mates": [
+                "19",
+                "20",
+                "21",
+                "37"
+            ],
             "power": [
                 {
                     "voltage": "5V",
@@ -2000,7 +2014,10 @@
     {
         "main": {
             "mates": [
-                "18"
+                "18",
+                "19",
+                "20",
+                "21"
             ],
             "power": [
                 {
@@ -2313,7 +2330,10 @@
     {
         "main": {
             "mates": [
-                "18"
+                "18",
+                "19",
+                "20",
+                "21"
             ],
             "power": [
                 {
@@ -3039,7 +3059,8 @@
             "form": "H2",
             "category": "connector",
             "requires": [
-                "serial"
+                "serial",
+                "interrupt"
             ],
             "lines": [
                 {
@@ -3115,7 +3136,8 @@
             "form": "H2",
             "category": "connector",
             "requires": [
-                "serial"
+                "serial",
+                "interrupt"
             ],
             "lines": [
                 {
@@ -3508,6 +3530,79 @@
                 {
                     "voltage": "5V",
                     "supply": false,
+                    "value": "300"
+                }
+            ],
+            "form": "H2",
+            "category": "io",
+            "requires": [
+                "serial"
+            ],
+            "lines": [
+                {
+                    "id": "TX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RX",
+                    "requirement": 2,
+                    "message": ""
+                },
+                {
+                    "id": "RTS",
+                    "requirement": 1,
+                    "message": " No control of the RTS line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "CTS",
+                    "requirement": 1,
+                    "message": " No control of the CTS line.",
+                    "direction": "right"
+                },
+                {
+                    "id": "-SDWN",
+                    "requirement": 1,
+                    "message": " No control of the SHUTDOWN line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "PWRKEY",
+                    "requirement": 2,
+                    "message": "",
+                    "direction": "left"
+                },
+                {
+                    "id": "RESET",
+                    "requirement": 1,
+                    "message": " No control of the RESET line.",
+                    "direction": "left"
+                },
+                {
+                    "id": "STATUS",
+                    "requirement": 1,
+                    "message": " No sensing of the STATUS line.",
+                    "direction": "right"
+                }
+            ]
+        },
+        "good": {
+            "model": "47",
+            "name": "GPRS modem",
+            "description": "GPRS modem (SIM900), deprecated: use #45 or #46. Average 300mA, peaks 1.5A. Data from docs.tibbo.com/tibbit_47.",
+            "id": "tibbit_47",
+            "for_sale": 0
+        },
+        "spec": {}
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
                     "value": "50"
                 }
             ],
@@ -3568,8 +3663,7 @@
                 "IN/OUT"
             ]
         },
-        "spec": {
-        }
+        "spec": {}
     },
     {
         "main": {
@@ -3628,6 +3722,34 @@
         "spec": {
             "special": 1
         }
+    },
+    {
+        "main": {
+            "mates": [
+                "19",
+                "20",
+                "21"
+            ],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "60"
+                }
+            ],
+            "form": "M1S",
+            "category": "io",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "51",
+            "name": "CAN bus",
+            "description": "CAN bus transceiver with isolated power (up to 200mA to CAN devices). Deprecated; LTPP3 (Gen.1) only, not compatible with LTPP3(G2). Data from docs.tibbo.com/tibbit_51.",
+            "id": "tibbit_51",
+            "for_sale": 0
+        },
+        "spec": {}
     },
     {
         "main": {
@@ -3834,6 +3956,30 @@
         "spec": {
             "input": 4
         }
+    },
+    {
+        "main": {
+            "mates": [],
+            "power": [
+                {
+                    "voltage": "5V",
+                    "supply": false,
+                    "value": "10"
+                }
+            ],
+            "form": "C1",
+            "category": "connector",
+            "requires": [],
+            "lines": []
+        },
+        "good": {
+            "model": "56",
+            "name": "USB Type-A port",
+            "description": "USB Type-A port; attached device may draw up to 500mA more. Deprecated; LTPP3 (Gen.1) only. Data from docs.tibbo.com/tibbit_56.",
+            "id": "tibbit_56",
+            "for_sale": 0
+        },
+        "spec": {}
     },
     {
         "main": {
