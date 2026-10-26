@@ -24,6 +24,12 @@ Exit code: 0 = no errors, 1 = errors found, 2 = bad input.
 """
 import json, os, sys, re
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import ab_pairs
+except ImportError:      # the module ships with the skill; keep the checker usable without it
+    ab_pairs = None
+
 
 def utf8_stdio():
     """Print UTF-8 whatever the console code page is (Windows cp1251/cp1252, pipes in Git Bash)."""
@@ -251,7 +257,8 @@ def check(cfg, tib, boards):
             conns = [placed.get(int(c[1:]), (None,))[0] for c in cpairs]
             is_supply = bool(t.get("supply_spec")) and t["model"] not in ("12", "23")
             if is_supply and not any(c in ("18", "19", "20", "21") for c in conns):
-                rep.warn(w, f"#{t['model']}: нет входного разъёма питания в {'/'.join(cpairs)} — поставь #18 (джек+клеммы) или #21/#20")
+                rep.warn(w, f"#{t['model']}: нет входного разъёма питания в {'/'.join(cpairs)} — поставь #18 (джек+клеммы): "
+                            f"его одобряет AppBlocks; #20/#21 допускает документация, но редактор их не принимает")
             elif not is_supply and t["category"] in ("io", "input", "output") and all(c is None for c in conns) and t["mates"]:
                 rep.info(w, f"#{t['model']}: в {'/'.join(cpairs)} нет разъёма — внешние линии не выведены (обычно #{t['mates'][0]})")
         # PoE
@@ -276,13 +283,13 @@ def check(cfg, tib, boards):
             continue
         if t["kind"] == "M" and t["width"] == 2:
             c21 = [c for c in (tile[1], tile[3]) if placed.get(c, (None,))[0] == "21"]
-            if c21:
+            if c21 and ab_ok(t["model"], "20"):
                 rep.info(f"S{u['start']}", f"#{t['model']} занимает два M-сокета: один #20 (9 клемм) в S{tile[1]} вместо #21 "
                                            f"в S{', S'.join(map(str, c21))} выведет все его линии")
     for tile in board.get("tiles", []):
         if len(tile) == 4 and all(placed.get(c) == ("21", c) for c in (tile[1], tile[3])):
             mods = [placed.get(m, (None,))[0] for m in (tile[0], tile[2])]
-            if all(m and m != "21" for m in mods) and placed.get(tile[0], (None, 0))[1] != placed.get(tile[2], (None, 1))[1]:
+            if all(m and m != "21" and ab_ok(m, "20") for m in mods) and placed.get(tile[0], (None, 0))[1] != placed.get(tile[2], (None, 1))[1]:
                 rep.info(f"S{tile[1]}", f"два #21 в S{tile[1]} и S{tile[3]} можно заменить одним #20 (9 клемм) в S{tile[1]} - "
                                         f"он обслужит #{mods[0]} и #{mods[1]}")
     if poe and jumpers == "1-2":
@@ -292,8 +299,71 @@ def check(cfg, tib, boards):
         if poe["m1"] in placed and placed[poe["m1"]][0] != "23":
             rep.warn(f"S{poe['m1']}", f"перемычки 1-2 подают линии питания RJ45 на S{poe['m1']}, а там #{placed[poe['m1']][0]} — проверь, что это допустимо")
 
+    appblocks_rules(bname, board, units, placed, tib, rep)
     power = power_budget(cfg, board, units, ambient, rep)
     return rep, {"board": bname, "units": [{k: u[k] for k in ("model", "start", "sockets")} | {"form": u["t"]["form"], "name": u["t"]["name"], "category": u["t"]["category"]} for u in units], "power": power, "poe_jumpers": jumpers, "wifi": cfg.get("wifi"), "ext5v": bool((cfg.get("power") or {}).get("ext5v_ma"))}
+
+
+_AB = None
+
+
+def ab_data():
+    global _AB
+    if _AB is None and ab_pairs is not None:
+        try:
+            _AB = ab_pairs.load_pairs()
+        except (OSError, ValueError):
+            _AB = {}
+    return _AB or {}
+
+
+def ab_ok(module, connector):
+    """True if the AppBlocks editor accepts connector next to module (or has no data for the module)."""
+    t = ab_data().get("tibbits", {}).get(module)
+    return t is None or not t["mates"] or connector in t["mates"]
+
+
+def appblocks_rules(bname, board, units, placed, tib, rep):
+    """Yellow triangles the AppBlocks editor would draw on the board (see ab_pairs.py). They do not show in Problems."""
+    data = ab_data()
+    if not data or bname not in data.get("boards", {}):
+        return
+    res = ab_pairs.socket_warnings(bname, {u["start"]: u["model"] for u in units}, board["sockets"], data)
+    done = set()
+    for M, C in data["boards"][bname]["mateSockets"]:
+        m_mod, c_mod = placed.get(int(M), (None,))[0], placed.get(int(C), (None,))[0]
+        for sock in (M, C):
+            for msg in res.get(sock, []):
+                if (sock, msg) in done:
+                    continue
+                done.add((sock, msg))
+                if msg == ab_pairs.INCORRECT:
+                    done.add((C if sock == M else M, msg))
+                    docs = c_mod in (tib.get(m_mod, {}).get("mates") or []) or m_mod in (tib.get(c_mod, {}).get("mates") or [])
+                    allowed = data["tibbits"].get(m_mod, {}).get("mates", [])
+                    text = (f"AppBlocks отметит S{M} и S{C} жёлтым треугольником «Incorrect pair»: редактор не принимает #{c_mod} рядом с #{m_mod}"
+                            + (f" (для #{m_mod} разрешено: #{', #'.join(allowed)})" if allowed else ""))
+                    if docs:
+                        text += (". Документация Tibbo эту пару допускает, электрически она работает, но для публичных решений "
+                                 "бери пару, которую одобряет AppBlocks; вариант из документации - для тех, кто берёт риск на себя")
+                    rep.warn(f"S{M}", text)
+                elif msg == "Tibbit required":
+                    need = data["tibbits"].get(c_mod, {}).get("mates", [])
+                    if c_mod and need and set(need) <= {"00_3"}:
+                        rep.warn(f"S{M}", f"#{c_mod} в S{C} без #00-3 в S{M}: C-датчик не получит +5 В, землю и линии I2C; "
+                                          f"AppBlocks отметит S{M} «Tibbit required». Поставь #00-3 в S{M} (как в примере Tibbo tbt29)")
+                    else:
+                        rep.warn(f"S{M}", f"AppBlocks отметит S{M} «Tibbit required»: разъём #{c_mod} в S{C} без модуля")
+                elif msg == "Connector required":
+                    rep.warn(f"S{C}", f"AppBlocks отметит S{C} «Connector required»: у #{m_mod} в S{M} нет разъёма для внешних линий")
+                elif msg.startswith("Tibbit #"):
+                    rep.warn(f"S{sock}", f"AppBlocks отметит S{sock}: «{msg}»")
+                else:
+                    rep.info(f"S{sock}", f"AppBlocks: {msg}")
+    for sock, msgs in res.items():
+        if int(sock) % 2 == 1 and not any(sock in pr for pr in data["boards"][bname]["mateSockets"]):
+            for msg in msgs:
+                rep.info(f"S{sock}", f"AppBlocks: {msg}")
 
 
 def power_budget(cfg, board, units, ambient, rep):

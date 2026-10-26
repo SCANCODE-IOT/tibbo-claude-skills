@@ -385,6 +385,68 @@ def check_codegen(d, errs, warns):
                 (errs if runtime == "tios" else warns).append(msg)
 
 
+def check_event_params(d, ids, warns, reg=None):
+    """{{$param}} in a block must come from a port of a block linked straight into it (editor rule: parameters are seen
+    only by the next block; after an ASYNC block or one block further they are empty)."""
+    reg = reg or load_registry()
+    if not reg:
+        return
+    nodes_reg = reg.get("nodes", {})
+    F = d["features"]
+    nodes = {f["settings"]["ID"]: f for f in F if f["id"].startswith(NODE_PREFIX) and f["id"] not in ("node_link", "node_group")}
+    inc = collections.defaultdict(list)
+    for f in F:
+        if f["id"] == "node_link":
+            inc[f["settings"]["TARGET_FEATURE"]].append(f["settings"])
+    for nid, n in nodes.items():
+        params = {m for m in REF.findall(json.dumps(n["settings"])) if m not in ids}
+        if not params:
+            continue
+        avail, srcs = set(), []
+        for l in inc.get(nid, []):
+            src = nodes.get(l["SOURCE_FEATURE"])
+            if not src:
+                continue
+            srcs.append(f"{src['id']}.{l['SOURCE_PORT']}")
+            outs = nodes_reg.get(src["id"], {}).get("out", {}).get(l["SOURCE_PORT"])
+            if not outs:          # the registry does not list this port's parameters - cannot judge
+                avail.add("*")
+            for o in outs or []:
+                avail.add("*" if o.startswith("<") else o.split(":")[0])
+        miss = sorted(p for p in params if p not in avail and "*" not in avail)
+        if miss:
+            warns.append(f"узел {n['id']} {nid}: параметр(ы) {', '.join('{{$' + m + '}}' for m in miss)} не придут - "
+                         f"входящие связи {', '.join(srcs) or 'нет'} их не дают (параметр виден только следующему блоку, после ASYNC - пусто)")
+
+
+def check_hardware(d, warns):
+    """Yellow triangles on the Hardware canvas (Incorrect pair / Connector required / Tibbit required). Not in Problems."""
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import ab_pairs
+        data = ab_pairs.load_pairs()
+    except (ImportError, OSError, ValueError):
+        return
+    slots = {f["settings"].get("SOCKET"): f["settings"].get("TIBBIT") for f in d["features"]
+             if f["id"].startswith("tibbit_") and f["settings"].get("SOCKET")}
+    res = ab_pairs.socket_warnings(d.get("device", ""), slots, None, data)
+    if not res:
+        return
+    t = data["tibbits"]
+    occ = ab_pairs.occupancy(d["device"], slots, data)
+    for M, C in data["boards"][d["device"]]["mateSockets"]:
+        m_mod, c_mod = occ.get(M), occ.get(C)
+        msgs = set(res.get(M, [])) | set(res.get(C, []))
+        if ab_pairs.INCORRECT in msgs:
+            warns.append(f"плата: S{M}+S{C} - редактор нарисует жёлтый треугольник «Incorrect pair» (#{c_mod} рядом с #{m_mod}; "
+                         f"для #{m_mod} разрешено: #{', #'.join(t.get(m_mod, {}).get('mates', [])) or 'ничего'}). В Problems этого нет")
+        if "Tibbit required" in res.get(M, []):
+            need = t.get(c_mod, {}).get("mates", [])
+            warns.append(f"плата: S{M} пуст, а в S{C} #{c_mod} - «Tibbit required»" + (f" (нужен #{' или #'.join(need)})" if need else ""))
+        if "Connector required" in res.get(C, []):
+            warns.append(f"плата: у #{m_mod} в S{M} нет разъёма в S{C} - «Connector required»")
+
+
 def check(d):
     F = d["features"]
     ids = all_ids(d)
@@ -449,6 +511,8 @@ def check(d):
     check_panels_and_refs(d, ids, errs, warns)
     check_registry(d, errs, warns)
     check_codegen(d, errs, warns)
+    check_event_params(d, ids, warns)
+    check_hardware(d, warns)
     for fl in d.get("featureFlags", []):
         for x in d.get("featureFlagMap", {}).get(fl["id"], []):
             if x not in ids:

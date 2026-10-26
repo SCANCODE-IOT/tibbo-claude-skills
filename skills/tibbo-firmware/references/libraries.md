@@ -7,6 +7,14 @@ on_sys_init, and IMPLEMENT every `callback_*` sub/function the library declares 
 otherwise the project fails to link. Many libs require the timer/event hooks listed in their .tbs (e.g. calls
 from on_sys_timer, on_sock_data_arrival, on_sock_event, on_wln_event) — check the lib .tbs header comments.
 
+Practical notes (checked by building in TIDE with libraries 2_01_05, October 2026):
+- `*_proc_timer()` of dhcp/dns/mqtt/sntp count timeouts in calls and expect the default on_sys_timer period (0.5 s);
+  with a faster `sys.onsystimerperiod` call them through a divider.
+- Tibbit drivers from the latest tibbotech/libraries (tbt13, tbt14, tbt29, cellular) can be copied into the project
+  folder and used with TIDE libraries 2_01_05, but: include `super_i2c.tbh` BEFORE `ssi.tbh` (otherwise
+  `SSI_MAX_SIGNATURE_LEN` is redefined); the latest `cellular` calls `fstr()`, which TIDE 2_01_05 does not have -
+  replace it with an own wrapper over `ftostr`.
+
 
 ## aggregate/aggregate.tbh
 

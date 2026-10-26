@@ -97,4 +97,23 @@ if [ -n "$TPS" ]; then
   "$PY" scripts/ab_tool.py tps examples/ModbusMQTTGateway.json --vin 24 --out "$T/m.json"
   "$PY" "$TPS" check "$T/m.json" >/dev/null && echo "ok   bridge to tps_check" || { echo "FAIL bridge"; fail=1; }
 fi
+# AppBlocks canvas warnings (yellow triangles, not in Problems): #10 with #20 is "Incorrect pair", #29 needs #00-3
+"$PY" - "$T" <<'PY' || fail=1
+import json, sys, subprocess
+T = sys.argv[1]
+def run(mod):
+    p = json.load(open("examples/accesscontrol6.json", encoding="utf-8"))
+    mod(p)
+    json.dump(p, open(T + "/hw.json", "w"))
+    return subprocess.run([sys.executable, "scripts/ab_tool.py", "check", T + "/hw.json"], capture_output=True, text=True, encoding="utf-8").stdout
+def pair20(p):
+    p["features"] = [f for f in p["features"] if f["id"] != "tibbit_18"]
+    p["features"].append({"id": "tibbit_20", "settings": {"ID": "hwtest20", "SOCKET": "10", "TIBBIT": "20", "PLATFORM": ""}})
+def sensor29(p):
+    p["features"].append({"id": "tibbit_29", "settings": {"ID": "hwtest29", "SOCKET": "10", "TIBBIT": "29", "PLATFORM": ""}})
+out = run(pair20) + run(sensor29) + run(lambda p: None)
+ok = "#20 рядом с #10" in out and "нужен #00_3" in out and out.count("плата:") == 2
+print("ok   hardware canvas warnings" if ok else "FAIL hardware canvas warnings\n" + out)
+sys.exit(0 if ok else 1)
+PY
 rm -rf "$T"; exit $fail

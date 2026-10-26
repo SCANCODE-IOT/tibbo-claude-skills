@@ -22,6 +22,7 @@ description: Use when writing, reviewing, debugging or explaining firmware for T
 | `references/power.md` | **Любой вопрос о питании**: источники #09/#10/#25/#33/#23/#12, входные напряжения, ±15 В, PoE, потребление плат, типичные ошибки. |
 | `references/tibbit-selection.md` | Подбор Tibbit под задачу, тайлы и формы M/C/H, UART/INT/ADC/PoE-сокеты, порядок раскладки. |
 | `scripts/tps_check.py` | Проверка конфигурации TPS (сокеты, линии, UART/INT, разъёмы, PoE, бюджет питания) + SVG платы (рисует `scripts/tps_render.py`); `find` — поиск Tibbit; `board` — сокеты и `PL_IO_NUM_*` платы; `tibbit NN` — всё о модуле. Данные: `data/tibbits.json`, `data/boards.json` (пересборка: `scripts/build_data.py`). Тесты: `sh tests/run.sh`. |
+| `scripts/ab_pairs.py` | Жёлтые треугольники редактора AppBlocks на сокетах (Incorrect pair / Connector required / Tibbit required): правила и таблица разъёмов сняты из редактора (`data/appblocks_pairs.json`); `tps_check.py` вызывает его сам. В Problems AppBlocks эти предупреждения не показывает. |
 | `scripts/state_diagram.py` | Диаграмма состояний прошивки-автомата (SVG) из короткого JSON: состояния, выходы, переходы, аварийные пути. |
 
 Файлы большие, поэтому не читай их целиком: используй Grep по имени (`sock.connect`, `pl_io_num`, `## TPP3W(G2)`, `## dhcp/`). Если есть доступ к сети и нужен свежий исходник, бери `https://raw.githubusercontent.com/tibbotech/<repo>/master/<path>` или `git clone --depth 1`.
@@ -47,7 +48,7 @@ description: Use when writing, reviewing, debugging or explaining firmware for T
 
 1. Подбор — по процедуре из `references/tibbit-selection.md` §3 (`tps_check.py find …` для кандидатов, `board …` для сокетов).
 2. Питание — только по `references/power.md`. Главные ловушки: #09/#10 принимают **9–18 В** (не 24 В); на клеммы платы — только **стабилизированные 5 В**; #13/#14 без #12 не работают, а #12 сам ест 230 мА; #23 — только PoE-сокет и перемычки 1-2; модему нужен запас.
-3. Собери `cfg.json` и запусти `python3 scripts/tps_check.py check cfg.json --svg map.svg`. Пока есть строки `[ОШИБКА]`, конфигурацию не выдавай; предупреждения либо исправь, либо объясни. Числа бюджета в ответе бери из вывода скрипта.
+3. Собери `cfg.json` и запусти `python3 scripts/tps_check.py check cfg.json --svg map.svg`. Пока есть строки `[ОШИБКА]`, конфигурацию не выдавай; предупреждения либо исправь, либо объясни. Предупреждение «AppBlocks отметит …» в типовых и публичных решениях исправляй (пара, которую одобряет AppBlocks: источнику питания - #18, C-датчику - #00-3); вариант, который разрешает только документация, давай отдельно, как нишевый, с пометкой о риске. Числа бюджета в ответе бери из вывода скрипта.
 4. Покажи результат по правилам §7 (схема сокетов + бюджет питания + таблица).
 5. Линии для прошивки (`PL_IO_NUM_*`, `ser.num`) бери из `tps_check.py board <плата>`, а не вычисляй в уме.
 
@@ -130,15 +131,16 @@ description: Use when writing, reviewing, debugging or explaining firmware for T
 
 **Библиотеки**
 - [ ] `#define` стоят до `include`; все `callback_*` реализованы; все `*_proc_*` проброшены из нужных событий.
+- [ ] `dhcp_proc_timer`, `dns_proc_timer`, `mqtt_proc_timer`, `sntp_proc_timer` вызываются с периодом `on_sys_timer` по умолчанию (0,5 с): таймауты, повторы и keepalive в них считаются в вызовах (у MQTT - `MQTT_RECONNECT_TIME*2`, у DHCP интерфейсы обрабатываются через вызов). Если `sys.onsystimerperiod` меньше (быстрый опрос входов), вызывай их через отдельный счётчик, а не на каждом тике.
 - [ ] Сигнатуры совпадают с версией библиотеки в проекте.
 - [ ] Результат `*_start()` проверяется.
 
 **Железо, Tibbit, I/O**
-- [ ] Конфигурация прогнана через `tps_check.py check` без ошибок (сокеты, UART/INT, разъёмы, PoE).
+- [ ] Конфигурация прогнана через `tps_check.py check` без ошибок (сокеты, UART/INT, разъёмы, PoE) и без «AppBlocks отметит …» для публичных решений.
 - [ ] Линии `PL_IO_NUM_*` соответствуют слотам и Tibbit (`tps_check.py board`); нет конфликта с UART/SSI/I2C.
 - [ ] Линии -SDWN источников питания (#09/#10/#12/#23/#25/#33) прошивка не переводит в LOW случайно; -PF #33 обрабатывается, если нужен контроль пропадания питания.
 - [ ] `io.enabled = YES` **до** записи `io.state` (иначе запись не действует); при старте и при ошибке выходы переводятся в безопасное состояние; полярность нагрузки сверена с docs (реле #03: LOW = включено).
-- [ ] Параметры UART: `ser.baudrate` — это делитель (для 9600 используй `ser.div9600`; на WM2000 есть `ser.baudratex` в бодах), а также `ser.interface` (full/half-duplex для RS485), `ser.flowcontrol`, `ser.enabled`.
+- [ ] Параметры UART: `ser.baudrate` — это делитель (для 9600 используй `ser.div9600`; на WM2000 есть `ser.baudratex` в бодах). Не пиши `ser.div9600 * 9600 / baud`: на 16-битных платформах (DS110x, EM1000, TPP Gen1) произведение не помещается в word и скорость получается неверной; считай `ser.div9600 / (baud / 9600)` для baud ≥ 9600 и `ser.div9600 * (9600 / baud)` для меньших. А также `ser.interface` (full/half-duplex для RS485), `ser.flowcontrol`, `ser.enabled`.
 - [ ] Для разных платформ есть блоки `#if PLATFORM_ID=<символ> ... #else #error` (символы — platforms.md, раздел «Символы PLATFORM_ID»).
 - [ ] UART-сокеты не заняты без нужды не-последовательными Tibbit, если проекту может понадобиться порт.
 

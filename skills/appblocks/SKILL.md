@@ -21,6 +21,7 @@ OTA, переменные/таблицы/команды, облачные workfl
 | `references/generated-code.md` | Что генерирует AppBlocks для `tios`: файлы TIDE-проекта, переменные → процедуры `var_X_*`, маркеры вставки кода, замеченные особенности. |
 | `references/catalog-examples.md` | Как блоки и Tibbit реально используются в **78 проектах appblocks.io** (59 типов узлов, 28 Tibbit): типичные связки, аргументы, сокеты. |
 | `references/api.md` | AppBlocks Cloud API: авторизация, проекты (код, сборка, версии, OTA, бандлы), устройства, группы, workspaces, workflow, дашборды. |
+| `scripts/ab_pairs.py`, `data/appblocks_pairs.json` | Правила жёлтых треугольников на холсте Hardware (снято из кода редактора); вызывается из `ab_tool.py check`. |
 | `scripts/ab_tool.py` | Офлайн-разбор проекта: `summary`, `check` (связи, ссылки, порты и значения по реестру редактора), `lookup <блок\|feature\|слово>`, `flow` (схема логики SVG), `tps` (железо → tps_check), `nodes`, `ids`. |
 | `data/registry.json`, `scripts/build_registry.py`, `scripts/extract_registry.js` | Реестр редактора (блоки, feature, элементы, Tibbit, периферия, виджеты) и как его обновить: JS в браузере на app.appblocks.io → `build_registry.py` пересобирает registry.json, blocks.md, features.md. |
 | `scripts/ab_api.py` | Клиент API: `me`, `projects`, `project <id> --out`, `versions`, `workspaces`, `devices`, `device`, `get`, `code`, `examples`/`example <имя>` (с запасным путём через appblocks.io), запись — только `create`/`update … --yes`. |
@@ -66,6 +67,12 @@ python3 scripts/ab_api.py code p.json --outdir gen   # что сгенериру
   пароли открытым текстом (MQTT_PASSWORD, PASSWORD, WPW) вместо настроек, выключенные feature, нужные узлам,
   блоки, которых нет в палитре (`node_math`, `node_modbus_register` - устаревшие: предложи замену из blocks.md).
 - Ревью железа — `tps_check.py` (предупреждения AppBlocks про -SDWN, ±15 В, serial-сокеты, питание он повторяет).
+  **Жёлтые треугольники на холсте** («Incorrect pair», «Connector required», «Tibbit required») не видны в Problems:
+  `ab_tool.py check` пишет их строками «плата: …» (editor.md §9). Таблица разъёмов редактора строже документации:
+  источнику питания #09/#10/#25/#33 - только #18. Для публичных решений - пара, которую одобряет редактор; вариант
+  «по документации» - отдельно, как нишевый, с пометкой о риске. Номера клемм разъёмов - вид **Wiring** (editor.md §9а).
+- `ab_tool.py check` предупреждает, если `{{$param}}` не может прийти в блок: входящие связи не дают такого параметра
+  (параметр виден только следующему блоку). Порты, у которых реестр не знает параметров, не проверяются.
 
 ## 3. Правка и генерация
 Порядок: format.md §4 → правка **копии** экспорта скриптом Python (не строками вручную) → `check` = 0 ошибок →

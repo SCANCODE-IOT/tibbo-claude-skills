@@ -18,6 +18,14 @@ T=$(mktemp -d)
 out=$("$PY" scripts/tps_check.py check tests/editor_rules.json)
 echo "$out" | grep -q "RF-разъём #37 в S13" && echo "$out" | grep -q "два #21 в S2 и S4" && echo "$out" | grep -q "#02 занимает два M-сокета" \
   && echo "ok   editor socket rules" || { echo "FAIL editor socket rules"; fail=1; }
+# AppBlocks canvas warnings (yellow triangles): docs-allowed but editor-rejected pairs, C sensors without #00-3
+out=$("$PY" scripts/tps_check.py check tests/ab_incorrect_pair.json)
+echo "$out" | grep -q "Incorrect pair" && echo "$out" | grep -q "разрешено: #18" && echo "ok   appblocks incorrect pair" || { echo "FAIL appblocks incorrect pair"; fail=1; }
+out=$("$PY" scripts/tps_check.py check tests/ab_approved.json)
+echo "$out" | grep -q "AppBlocks отметит" && { echo "FAIL appblocks approved layout flagged"; fail=1; } || echo "ok   appblocks approved layout"
+out=$("$PY" scripts/tps_check.py check tests/ab_c_sensor.json)
+echo "$out" | grep -q "без #00-3 в S11" && echo "ok   appblocks C sensor" || { echo "FAIL appblocks C sensor"; fail=1; }
+"$PY" scripts/ab_pairs.py "TPP2W(G2)" S1=13 S2=20 S3=12 S11=09 S12=18 | grep -q "S3: Incorrect pair" && echo "ok   ab_pairs cli" || { echo "FAIL ab_pairs cli"; fail=1; }
 # a cp1251 console (Windows) must not break the output: run without PYTHONUTF8
 encfail=0
 for cmd in "check tests/gallery_tpp3.json" "board TPP3W(G2)" "find реле" "tibbit 12"; do

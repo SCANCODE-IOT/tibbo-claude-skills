@@ -93,6 +93,15 @@
 11. **Значения настроек с вариантами** (Format, Operator, CANINT…) - только из списка в blocks.md; `check` сверяет их
    с реестром редактора. Значения feature, которые зависят от runtime (BAUD у zephyr - `PL_SER_BAUD_*`), реестр
    tios не описывает: бери по образцу проекта того же runtime.
+12. **Настройка в логике - по ID её автопеременной.** У каждой `stg_setting` есть переменная в `global_vars.AUTOVARS`
+   (поля FEATURE/FEATURE_SETTING указывают на настройку). В `{{$ID}}` и `VARIABLE` блоков ставь **ID автопеременной**,
+   а не ID `stg_setting`: иначе Problems «Invalid Variable» / ошибка var_undefined при генерации. То же с линиями Tibbit:
+   у `tibbit_54` с `L1NAME='door'` есть автопеременная `door` (её ID - в AUTOVARS).
+13. **Входы #54 и прерывания.** `L*MODE`: 0 - Standard Input (переменная), 1 - Button Input (событие On Button Pressed,
+   `node_keypad` с `BUTTON = "<имя линии>_kp"`). Режима прерывания у #54 нет, `node_interrupt` к нему не подключить:
+   короткие сигналы ловят On Variable Changed по переменной линии или Button Input.
+14. **Жёлтые треугольники на холсте** (неподходящий разъём, нет разъёма, пустой M-сокет) - не ошибки Problems; проверяй
+   `ab_tool.py check` (строки «плата: …», editor.md §9). Источнику питания #09/#10 ставь #18, а не #20/#21.
 
 ## 5. Плагины (custom_feature) - формат
 Плагин живёт в проекте внутри `custom_features.FEATURES` и выглядит так (сокращённо, по плагинам маркетплейса):

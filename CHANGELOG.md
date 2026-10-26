@@ -3,6 +3,41 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-10-26
+
+Lessons from building ten turnkey recipes (github.com/SCANCODE-IOT/tibbo-recipes): the AppBlocks editor's hardware-canvas
+rules, connector pinouts, and two firmware mistakes that only show on 16-bit platforms or with fast system timers.
+
+### Both skills
+- **AppBlocks canvas warnings.** The editor draws yellow triangles on Tibbit sockets ("Incorrect pair", "Connector
+  required", "Tibbit required", missing-line messages). They are not listed in Problems and do not stop the build, so a
+  project with "0 errors, 0 warnings" can still be flagged. The rule (`getTppProjectWarnings`) and the editor's own
+  connector table were taken from app.appblocks.io into `data/appblocks_pairs.json`; `scripts/ab_pairs.py` repeats the
+  check and matches the editor on 60 random TPP2/TPP3 layouts.
+- **Docs vs editor.** The editor accepts only #18 next to power Tibbits #09, #10, #25, #33 (docs.tibbo.com also lists
+  #19/#20/#21), has no allowed connectors for #12 and #23, and needs #00-3 next to C sensors #28-#41.
+
+### tibbo-firmware
+- `tps_check.py check` warns "AppBlocks отметит …" for such layouts, says when the documentation allows the pair, and
+  recommends the editor-approved pair for public solutions (the documentation-only variant stays a niche option at the
+  user's risk). The "#20 instead of two #21" hints are no longer given when the editor would reject #20. New
+  `ab_pairs.py` command line. Regression configs `tests/ab_*.json`.
+- `tibbit-selection.md` §4: M1/C1/C2 pinouts, terminal maps of #18, #20, #21, #54 inputs (on TPP2(G2) S10+S12: #20
+  terminals 1-4 → module in S9, 5 → ground, 6-9 → module in S11); §5: the editor rules and the docs/editor differences.
+  `power.md`: power input connectors per editor, #09/#18 input and ground pins.
+- Checklist: UART divider `ser.div9600 * 9600 / baud` overflows a word on 16-bit platforms (wrong baud rate on DS110x) -
+  divide first; `dhcp/dns/mqtt/sntp_proc_timer` must keep the 0.5 s period when `sys.onsystimerperiod` is faster.
+- `libraries.md`: using latest tibbotech Tibbit drivers with TIDE libraries 2_01_05 (`super_i2c.tbh` before `ssi.tbh`,
+  `fstr()` missing for `cellular`).
+
+### appblocks
+- `ab_tool.py check`: hardware-canvas warnings ("плата: …") and a check that `{{$param}}` can reach the block
+  (parameters are seen only by the next block; ports whose parameters the registry does not list are skipped - no false
+  positives on the bundled examples).
+- `editor.md` §9 rewritten from the editor code; §9а: the **Wiring** view (Tibbit schematics with pin and terminal
+  numbers). `format.md`: settings are referenced by their autovariable ID; #54 has no interrupt mode (Button Input gives
+  `<line>_kp` for On Button Pressed); canvas warnings.
+
 ## [1.1.2] - 2026-10-22
 
 ### Fixed
@@ -83,6 +118,7 @@ First public release.
 - Upload-ready packages for Claude apps and the API (`tools/package.sh`, attached to releases).
 - Offline tests on every push.
 
+[1.2.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.2.0
 [1.1.2]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.2
 [1.1.1]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.1
 [1.1.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.0
