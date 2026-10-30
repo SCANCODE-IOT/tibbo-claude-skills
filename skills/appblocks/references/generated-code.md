@@ -66,3 +66,33 @@
 - Комментарий «Set the timezone to UTC-12:00» стоит при `APP_TIMEZONE="0"` — комментарий шаблонный, верь значению.
 - Debug-сборка (`debug=on`, `_dbg_` в имени); релиз — Run › Deploy Release Version / Download Release Binary (.tpc).
 - Задача сборки (`/api/tasks`) живёт 3 минуты; для просмотра кода сборка не нужна — хватает `/api/projects/code`.
+
+## Компиляция и что показал компилятор TIDE (проект «Умная теплица», TPP3W(G2), октябрь 2026)
+Проверять сгенерированный код компилятором: `ab_api.py build p.json [--out fw]` (POST `/api/projects/code`, затем
+`/api/projects/build` без ключа - тот же компилятор TIDE, что у Tibbo; вывод `output`, при успехе `tpc`). Ошибки ниже
+`check` теперь ловит сам (`check_compile_pitfalls`), но новые случаи находит только компилятор.
+- **Настройка STG в выражении** через `{{$ID stg_setting}}` → генератор оставляет `$<ID>` → `undeclared identifier '$…'`.
+  Нужна авто-переменная настройки (format.md §4 п.12).
+- **Удалены авто-переменные шаблона** (WIFAP/WSEC/WIFPW из примера wifiswitchover) → колбэк STG вызывает
+  `var_WIFAP_update_completed` → `undeclared identifier`. Чистишь AUTOVARS - оставь те, что ссылаются на настройки.
+- **#05 без авто-переменной порта** (byte, FEATURE_SETTING=NAME, DEFAULT 1) → в boot.tbs строка `<NAME>=0` →
+  `undeclared identifier '<NAME>'`. Редактор создаёт её сам при добавлении Tibbit; при генерации JSON - добавляй.
+- **1-Wire (#62, unowiresensors)** без Data Tables → `undeclared identifier 'tbl_select'`: нужны tbl ENABLED=1 и таблица
+  `OWSENS` (структуру копируй из примера `tbt62`).
+- **Custom Function** (`node_math_compound`) - функция объявляется с типом своей переменной (`function f() as float`),
+  встроенный АЦП TPP3(G2) из неё компилируется: `adc.num = PL_ADC_NUM_0 : adc.enabled = YES : v = adc.getdata()`.
+
+## Поведение сгенерированного кода (проверено по коду)
+- **Реле и SSR (#03, #06, #07)**: в boot.tbs `io.enabled=YES`, затем `io.state` = значение по умолчанию переменной
+  (DEFAULT 1 → HIGH, 0 → LOW). Эти Tibbit активны по LOW, поэтому DEFAULT 0 = нагрузка включается при подаче питания.
+  Запись из логики - `io.lineset(<линия>, value)`: 0 = включить, 1 = выключить.
+- **#17 / #16 (ШИМ на PIC)**: `tbt_pic_gra_pwm_config_simple(<tibbit>, PIC_PWMn, <FREQUENCY>, duty)`, duty 0..100,
+  переменная word. Частота берётся из поля FREQUENCY Tibbit.
+- **#61-1/#61-2**: `tbt61_init("…", TBT61_VOLTAGE_FOUR_SINGLE | …, <6 линий>, …)`, чтение
+  `tbt61_read_adc(ch, VIN1P_SINGLE_ENDED, flags)` - переменная float. Режим MODE=SINGLE даёт 4 входа 0–10 В.
+- **Регистры Modbus Master** опрашиваются сами: `var_X_update` ставит запрос в очередь (`modbus_master_enqueue_request`,
+  если такого ещё нет). При таймауте значение **не сбрасывается** - в переменной остаётся последнее.
+  Variable Set на переменную регистра отправляет запись в устройство (PresetMultipleRegisters).
+- **MQTT**: `mqtt_start(current_interface, <host>, "<port>", "<user>", "<password>", "<client id>", MQTT_TLS)`;
+  подписки - в `callback_mqtt_connect_ok`; `MQTT_LARGE_PACKETS 1`; публикация без связи отбрасывается (mqtt.md §4).
+- `sys.onsystimerperiod=50` (0,5 с) при обычных On Time Period: `*_proc_timer` библиотек вызываются с нужным периодом.

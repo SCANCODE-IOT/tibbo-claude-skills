@@ -248,7 +248,8 @@ def check(cfg, tib, boards):
         if t["kind"] == "C" and t["width"] == 1:
             ms = board["sockets"][f"S{start}"].get("m_pair")
             mod = placed.get(int(ms[1:]), (None,))[0] if ms else None
-            if ms and t["mates"] and mod not in t["mates"]:
+            # compatible if either side lists the other (#62 lists #21, while #21 in tibbits.json does not list #62)
+            if ms and t["mates"] and mod not in t["mates"] and t["model"] not in (tib.get(mod, {}).get("mates") or []):
                 rep.warn(w, f"разъём #{t['model']} обслуживает модуль в {ms}"
                             + (f" (сейчас там #{mod})" if mod else " (он пуст)")
                             + f"; совместим с #{', #'.join(t['mates'][:10])}{' …' if len(t['mates']) > 10 else ''}")

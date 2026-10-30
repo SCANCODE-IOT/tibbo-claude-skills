@@ -23,6 +23,16 @@ dashboards, workflows, integrations). При расхождении верь с�
 - `GET /api/projects/examples` и `/examples/categories` отвечали 500 (с ключом и без) — примеры брать с `https://appblocks.io/projects/<имя>.json`.
 - `GET /api/projects/:id` отдаёт проект целиком, `device` строкой (`"TPP2W(G2)"`).
 - `POST /api/projects/code` работает и с ключом; для `tios` возвращает TIDE-проект (см. generated-code.md).
+- `POST /api/projects/build` (без ключа): тело `{command:"build", files:<ответ /api/projects/code>, project:{runtime, device},
+  debug:true}` → компилятор TIDE Tibbo. Успех: HTTP 200, `status:"completed"`, `tpc`/`binary`/`pdb` как `{type:"Buffer", data:[…]}`.
+  Ошибка компиляции: HTTP 500 и `output` с текстом компилятора (`file.tbs(N): error C1013: …`). Обёртка - `ab_api.py build`.
+  Предупреждения `C1006 preprocessor redefinition` идут из шаблона фреймворка и норма.
+- Ключ API бывает **только с read**: `ab_api.py me` покажет `scopes`; на запись сервер отвечает 403
+  «This API key does not have the write scope» - попроси пользователя выпустить ключ с write.
+- Веб-приложение под входом пользователя ходит в тот же API с куки сессии (`/api/me` → `"auth":"session"`); из встроенного
+  браузера можно читать проекты так же, как ключом, но писать - только с подтверждения пользователя на конкретный вызов.
+- После `update` проекта, открытого в редакторе, попроси перезагрузить вкладку без сохранения: иначе редактор
+  перезапишет облачную версию своей.
 
 ## Без авторизации
 `GET /api/projects/examples`, `/examples/categories`, `/examples/:id` (с README и полным `project`) ·

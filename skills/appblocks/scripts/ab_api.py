@@ -18,11 +18,13 @@ Read-only (safe):
   tls                                  which CA store is used for HTTPS and whether api.appblocks.io verifies
 Generate (sends the project to AppBlocks, changes nothing in the account):
   code <project.json> --outdir DIR     POST /api/projects/code -> generated firmware sources
+  build <project.json> [--release] [--out prefix]  code + POST /api/projects/build: Tibbo's TIDE compiler (tios),
+                                       prints errors/warnings, exit 1 if it does not compile; --out saves prefix.tpc
 Write (needs the user's explicit yes for this exact call; add --yes):
   create <project.json> [--workspace W] --yes      POST /api/projects
   update <id> <project.json> --yes                 PUT  /api/projects/:id
 """
-import json, os, ssl, sys, urllib.request, urllib.error, urllib.parse
+import json, os, re, ssl, sys, urllib.request, urllib.error, urllib.parse
 
 
 def utf8_stdio():
@@ -113,6 +115,21 @@ def call(method, path, body=None, auth=True, raw=False):
         return json.loads(b) if b else None
     except ValueError:
         return b.decode("utf-8", "replace")
+
+
+def post_raw(path, body, auth=True):
+    """POST that returns (status, bytes) instead of exiting on HTTP errors: the build endpoint answers 500 with the compiler output."""
+    headers = {"Accept": "application/json", "Content-Type": "application/json"}
+    if auth:
+        headers["x-api-key"] = key()
+    req = urllib.request.Request(BASE + path, data=json.dumps(body).encode(), method="POST", headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=300, context=CTX) as r:
+            return r.status, r.read()
+    except urllib.error.HTTPError as e:
+        return e.code, e.read()
+    except urllib.error.URLError as e:
+        sys.exit(f"{BASE}: " + tls_hint(e))
 
 
 SITE = "https://appblocks.io"
@@ -252,6 +269,29 @@ def main():
         if isinstance(r, dict):
             r.pop("key", None)
         dump(r, opt(a, "--out"))
+    elif c == "build":
+        proj = json.load(open(a[1], encoding="utf-8"))
+        files = call("POST", "/api/projects/code", {"params": {"project": proj, "debug": "--release" not in a}}, auth=bool(key(False)))
+        body = {"command": "build", "files": files, "debug": "--release" not in a,
+                "project": {"runtime": proj.get("runtime") or "tios", "device": proj.get("device")}}
+        st, b = post_raw("/api/projects/build", body, auth=bool(key(False)))
+        try:
+            r = json.loads(b)
+        except ValueError:
+            sys.exit(f"HTTP {st}: {b[:500].decode('utf-8', 'replace')}")
+        out = (r.get("output") or "").replace("\r", "")
+        lines = [l for l in out.split("\n") if ("error" in l or "warning" in l) and "C1006" not in l]
+        for l in lines:
+            print(re.sub(r"^.*?TIDEProjects[\\/]temp[\\/][^\\/]+[\\/]", "", l))
+        ok = 200 <= st < 300 and r.get("status") == "completed"
+        tpc = r.get("tpc") or r.get("binary")
+        if ok and tpc and opt(a, "--out"):
+            data = bytes(tpc["data"]) if isinstance(tpc, dict) else tpc.encode("latin-1")
+            open(opt(a, "--out") + ".tpc", "wb").write(data)
+            print("сохранено:", opt(a, "--out") + ".tpc")
+        size = len(tpc["data"]) if isinstance(tpc, dict) and "data" in tpc else None
+        print(("компиляция: OK" + (f", {size} байт" if size else "")) if ok else "компиляция: ОШИБКА")
+        sys.exit(0 if ok else 1)
     elif c == "code":
         proj = json.load(open(a[1], encoding="utf-8"))
         files = call("POST", "/api/projects/code", {"params": {"project": proj, "debug": True}}, auth=bool(key(False)))

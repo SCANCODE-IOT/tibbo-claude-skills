@@ -34,7 +34,7 @@ working rules and offline checking tools, so its answers can be verified rather 
 | Skill | What Claude can do with it |
 |---|---|
 | [**tibbo-firmware**](skills/tibbo-firmware/) | Write, review and debug Tibbo BASIC / Tibbo C firmware for TiOS (TPP2/TPP3, DS, EM, WM, WS devices); choose Tibbits for a task, lay them out in TPS sockets and check lines, UART/INT, connectors, PoE and the +5 V power budget; draw the board and firmware state machines. |
-| [**appblocks**](skills/appblocks/) | Explain, review, edit and generate [AppBlocks](https://appblocks.io) projects (exported JSON); draw the logic flow; check the hardware through `tibbo-firmware`; work with the AppBlocks Cloud API (projects, devices, OTA, workflows) with confirmation before any write. |
+| [**appblocks**](skills/appblocks/) | Explain, review, edit and generate [AppBlocks](https://appblocks.io) projects (exported JSON); draw the logic flow; check the hardware through `tibbo-firmware`; compile the generated firmware with Tibbo's TIDE compiler; set up MQTT with your own broker; work with the AppBlocks Cloud API (projects, devices, OTA, workflows) with confirmation before any write. |
 
 The two skills are designed to work together: AppBlocks hardware goes through the TPS checker of `tibbo-firmware`,
 and firmware that AppBlocks generates for TiOS is reviewed with the `tibbo-firmware` checklist.
