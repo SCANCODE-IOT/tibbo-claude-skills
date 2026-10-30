@@ -34,7 +34,7 @@
 - Холст: перетаскивание, двойной клик, **Add block**, правый клик → **Insert Block**. Вкладки холста (**Main**, «+»,
   переименование двойным кликом, **Move to Tab**) — только для порядка, на исполнение не влияют.
 - Справа — параметры выбранного блока. Панель блока: **Add Breakpoint**, **Rename**, **Make a Copy**, **Delete Block**.
-- Снизу: **Problems** (валидация: «Invalid Variable», «Value must be set for …», «Recursion not allowed»),
+- Снизу: **Problems** (валидация: «Invalid Variable», «Value must be set for …», «Recursion not allowed», «Name conflict: X. No duplicate names allowed» - format.md §4 п.16),
   в Debug — **Debug Console** и **Variables**; есть просмотр сгенерированного кода; меню Share/Export справа сверху.
 - **Run** (справа сверху): режим **Debug** (по умолчанию: отладочная прошивка, консоль, точки останова, устройство
   останавливается без связи с редактором, мигает зелёный LED) или **Deploy Release Version**. **Download Release

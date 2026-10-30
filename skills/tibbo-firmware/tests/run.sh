@@ -4,7 +4,7 @@ cd "$(dirname "$0")/.." || exit 2
 # python3 on Linux/macOS, python on Windows (Git Bash); override with PY=...
 if [ -z "$PY" ]; then if python3 -c "" >/dev/null 2>&1; then PY=python3; else PY=python; fi; fi
 fail=0
-for pair in "autowater 0" "bad_poe_m2_in_s11 1" "gallery_tpp3 0" "gallery_tpp2 0" "good_tpp2 0" "adc_lte 0" "bad_24v 1" "bad_terminal 1"; do
+for pair in "autowater 0" "bad_poe_m2_in_s11 1" "gallery_tpp3 0" "gallery_tpp2 0" "good_tpp2 0" "adc_lte 0" "bad_24v 1" "bad_terminal 1" "greenhouse_tpp3 0" "onewire_62_21 0"; do
   set -- $pair
   "$PY" scripts/tps_check.py check "tests/$1.json" >/dev/null; rc=$?
   if [ "$rc" != "$2" ]; then echo "FAIL $1: exit $rc, expected $2"; fail=1; else echo "ok   $1"; fi
@@ -32,5 +32,9 @@ for cmd in "check tests/gallery_tpp3.json" "board TPP3W(G2)" "find реле" "ti
   env -u PYTHONUTF8 PYTHONIOENCODING=cp1251 "$PY" scripts/tps_check.py $cmd >/dev/null 2>"$T/err" || { echo "FAIL cp1251 console: tps_check.py $cmd"; cat "$T/err"; encfail=1; }
 done
 [ "$encfail" = 0 ] && echo "ok   non-UTF-8 console" || fail=1
+out=$("$PY" scripts/tps_check.py check tests/onewire_62_21.json)
+echo "$out" | grep -q "обслуживает модуль" && { echo "FAIL #62+#21 pairing"; fail=1; } || echo "ok   #62+#21 pairing"
+out=$("$PY" scripts/tps_check.py check tests/greenhouse_tpp3.json)
+echo "$out" | grep -q "предупреждений 0" && echo "ok   greenhouse clean" || { echo "FAIL greenhouse"; echo "$out"; fail=1; }
 rm -rf "$T"
 exit $fail

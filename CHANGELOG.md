@@ -3,6 +3,48 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow [Semantic Versioning](https://semver.org/).
 
+## [1.3.0] - 2026-10-30
+
+Lessons from the "smart greenhouse" project on a TPP3 (three iterations, each compiled by Tibbo's TIDE compiler and
+uploaded to AppBlocks): what breaks the generated code at compile time, how relays and Modbus behave in the generated
+firmware, and how to run MQTT with your own broker.
+
+### Both skills
+- **Reliability first.** Tibbits and parts are chosen for reliability and efficiency, not for the lowest price: relays
+  with margin for motor loads, isolated inputs where ground loops are possible, an adapter sized for inrush current.
+- **Compile, don't just generate.** A project is ready only after the generated code compiles; a successful
+  `ab_api.py code` is not enough.
+
+### appblocks
+- **New `references/mqtt.md`.** The `mqtt` feature and its blocks; the broker IP as a device setting (`linked_setting`),
+  so a new laptop IP needs no reflash; `TOPICS` are subscriptions only; `{{$data}}` is seen only by the next block;
+  library behaviour: publishing while offline is dropped silently (no buffer), auto-reconnect every 10 s,
+  `MQTT_LARGE_PACKETS`; control logic stays on the controller. Your own Mosquitto broker: configs for a lab and for
+  production, `mosquitto_sub`/`mosquitto_pub` checks, and the usual reasons a device does not connect (firewall,
+  Mosquitto 2.x listening only on localhost, Wi-Fi client isolation, changed IP, duplicate client id).
+- **`ab_api.py build <project.json> [--release] [--out prefix]`** - generates the code and compiles it with Tibbo's
+  TIDE compiler (`POST /api/projects/build`, no key needed), prints errors and warnings, saves the `.tpc`, exits 1 on
+  failure.
+- **`ab_tool.py check` catches compile errors before the build:** a `{{$…}}` reference to a setting instead of its
+  autovariable, variable names that clash with Modbus device names (case-insensitive, "Name conflict" in the editor),
+  #05 RS485 without a port variable, 1-Wire sensors without the `tbl` service and OWSENS table. Warnings: a relay
+  variable whose DEFAULT is not 1 (relays are active LOW, so the default sets the boot state), writing to a read-only
+  Modbus register.
+- **Example `greenhouse_tpp3.json`** - TPP3 with Modbus RTU sensors, #06 relays for pumps and fan, #17 PWM lamps, #54
+  water level float, #61 isolated ADC for a Hall current sensor, MQTT telemetry and commands. **`mqtt_logger.py`** - a
+  receiver for the PC: MQTT → SQLite → charts, commands to the device (paho-mqtt 1.x and 2.x).
+- `generated-code.md`: compile findings and how the generated code drives relays, PWM, the ADC, Modbus polling (a
+  timed-out register keeps its old value), MQTT and the timer. `format.md`, `api.md` (build endpoint, read-only key
+  gives 403, reload the editor after `update`), `editor.md` (Name conflict).
+
+### tibbo-firmware
+- `SKILL.md`: the reliability principle; compile through the AppBlocks build API; relay polarity in the checklist.
+- `tibbit-selection.md`: relay ratings (#03 1 A/30 V, #06 16 A/48 V, #07 1 A; all active LOW), #17 PWM, #54 for float
+  switches (fail-safe wiring), #61 isolation and Hall sensor wiring (the isolated ground must not be tied to board GND).
+- `power.md` §6а: sizing the 230/12 V adapter (pumps' inrush, fan, lamps, controller; ≥ 8 A at 12 V in the example).
+- `tps_check.py`: connector pairing is checked in both directions - no more false "#62 + #21" warning. Regression
+  configs `tests/greenhouse_tpp3.json`, `tests/onewire_62_21.json`.
+
 ## [1.2.0] - 2026-10-26
 
 Lessons from building ten turnkey recipes (github.com/SCANCODE-IOT/tibbo-recipes): the AppBlocks editor's hardware-canvas
@@ -118,6 +160,7 @@ First public release.
 - Upload-ready packages for Claude apps and the API (`tools/package.sh`, attached to releases).
 - Offline tests on every push.
 
+[1.3.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.3.0
 [1.2.0]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.2.0
 [1.1.2]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.2
 [1.1.1]: https://github.com/scancode-iot/tibbo-claude-skills/releases/tag/v1.1.1

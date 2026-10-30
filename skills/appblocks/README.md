@@ -35,11 +35,12 @@ Runtimes covered: **`tios`** (Tibbo BASIC for TPP2, TPP3, DS1101, DS1102, EM510)
 | `references/catalog.md` | Fields of features and nodes in Tibbo's exports with sample values, Tibbit fields, Modbus and LUIS structures. |
 | `references/catalog-examples.md` | How blocks and Tibbits are used in **78 appblocks.io projects** (59 node types, 28 Tibbits): typical wiring, arguments, sockets. |
 | `references/generated-code.md` | What AppBlocks generates for `tios`: TIDE project files, `var_X_*` procedures, code insertion markers. |
+| `references/mqtt.md` | MQTT: the `mqtt` feature and blocks, broker IP as a device setting, library behaviour (no buffering while offline, auto-reconnect), your own Mosquitto broker, a receiver on a PC. |
 | `references/api.md` | AppBlocks Cloud API: authentication, projects (code, build, versions, OTA, bundles), devices, groups, workspaces, workflows, dashboards. |
 | `scripts/ab_tool.py` | Offline project tool (see below). |
 | `data/registry.json` | The editor registry in compact form; refresh with `scripts/extract_registry.js` (run in the browser on app.appblocks.io, read-only) and `scripts/build_registry.py`. |
 | `scripts/ab_api.py` | Cloud API client (see below). |
-| `examples/` | 6 Tibbo projects: Modbus gateway with LCD on 4×RS485 and Modbus→MQTT gateway (Zephyr), sprinkler, access control, hydroponics (TPP3), water level control with cloud. |
+| `examples/` | 6 Tibbo projects: Modbus gateway with LCD on 4×RS485 and Modbus→MQTT gateway (Zephyr), sprinkler, access control, hydroponics (TPP3), water level control with cloud; plus `greenhouse_tpp3.json` (smart greenhouse: Modbus RTU sensors, relays, PWM, isolated ADC, MQTT - compiles in TIDE) and `mqtt_logger.py` (MQTT → SQLite → charts on a PC; needs paho-mqtt and matplotlib). |
 | `tests/run.sh` | Offline tests on the examples, including the bridge to `tps_check.py`. |
 
 ## Tools
@@ -75,6 +76,7 @@ python3 scripts/ab_api.py me                           # account and key scopes
 python3 scripts/ab_api.py projects                     # list projects
 python3 scripts/ab_api.py project <id> --out p.json    # download a project
 python3 scripts/ab_api.py code p.json --outdir gen     # generated firmware sources
+python3 scripts/ab_api.py build p.json --out fw         # compile with Tibbo's TIDE compiler (no key needed)
 python3 scripts/ab_api.py devices                      # devices, connection, firmware
 python3 scripts/ab_api.py example sprinkler5 --out p.json
 ```
@@ -82,7 +84,7 @@ python3 scripts/ab_api.py example sprinkler5 --out p.json
 | Command group | Commands | Changes your account? |
 |---|---|---|
 | Read | `me`, `projects`, `project`, `versions`, `examples`, `example`, `workspaces`, `devices`, `device`, `get` | No |
-| Generate | `code` | No - sends the project to the code generator only |
+| Generate | `code`, `build` | No - sends the project to the code generator / compiler only |
 | Write | `create … --yes`, `update … --yes` | **Yes** - Claude asks first, every time |
 
 Security:

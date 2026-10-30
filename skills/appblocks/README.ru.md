@@ -35,11 +35,12 @@
 | `references/catalog.md` | Поля feature и узлов в экспортах Tibbo с примерами значений, поля Tibbit, структуры Modbus и LUIS. |
 | `references/catalog-examples.md` | Как блоки и Tibbit используются в **78 проектах appblocks.io** (59 типов узлов, 28 Tibbit): типичные связки, аргументы, сокеты. |
 | `references/generated-code.md` | Что генерирует AppBlocks для `tios`: файлы проекта TIDE, процедуры `var_X_*`, маркеры вставки кода. |
+| `references/mqtt.md` | MQTT: feature `mqtt` и блоки, IP брокера как настройка устройства, поведение библиотеки (без связи публикации теряются, переподключение), свой брокер Mosquitto, приёмник на компьютере. |
 | `references/api.md` | AppBlocks Cloud API: авторизация, проекты (код, сборка, версии, OTA, бандлы), устройства, группы, рабочие пространства, workflow, дашборды. |
 | `scripts/ab_tool.py` | Офлайн-инструмент для проектов (см. ниже). |
 | `data/registry.json` | Реестр редактора в компактном виде; обновление - `scripts/extract_registry.js` (в браузере на app.appblocks.io, только чтение) и `scripts/build_registry.py`. |
 | `scripts/ab_api.py` | Клиент облачного API (см. ниже). |
-| `examples/` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и шлюз Modbus→MQTT (Zephyr), полив, контроль доступа, гидропоника (TPP3), контроль уровня воды с облаком. |
+| `examples/` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и шлюз Modbus→MQTT (Zephyr), полив, контроль доступа, гидропоника (TPP3), контроль уровня воды с облаком; а также `greenhouse_tpp3.json` (умная теплица: датчики Modbus RTU, реле, ШИМ, изолированный АЦП, MQTT - компилируется в TIDE) и `mqtt_logger.py` (MQTT → SQLite → графики на компьютере; нужны paho-mqtt и matplotlib). |
 | `tests/run.sh` | Офлайн-тесты на примерах, включая связку с `tps_check.py`. |
 
 ## Инструменты
@@ -76,6 +77,7 @@ python3 scripts/ab_api.py me                           # аккаунт и пр�
 python3 scripts/ab_api.py projects                     # список проектов
 python3 scripts/ab_api.py project <id> --out p.json    # скачать проект
 python3 scripts/ab_api.py code p.json --outdir gen     # сгенерированные исходники прошивки
+python3 scripts/ab_api.py build p.json --out fw         # компиляция компилятором TIDE у Tibbo (ключ не нужен)
 python3 scripts/ab_api.py devices                      # устройства, связь, прошивка
 python3 scripts/ab_api.py example sprinkler5 --out p.json
 ```
@@ -83,7 +85,7 @@ python3 scripts/ab_api.py example sprinkler5 --out p.json
 | Группа команд | Команды | Меняет ваш аккаунт? |
 |---|---|---|
 | Чтение | `me`, `projects`, `project`, `versions`, `examples`, `example`, `workspaces`, `devices`, `device`, `get` | Нет |
-| Генерация | `code` | Нет - проект только отправляется в генератор кода |
+| Генерация | `code`, `build` | Нет - проект только отправляется в генератор кода и компилятор |
 | Запись | `create … --yes`, `update … --yes` | **Да** - Claude каждый раз спрашивает разрешения |
 
 Безопасность:

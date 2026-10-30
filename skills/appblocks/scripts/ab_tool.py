@@ -385,6 +385,87 @@ def check_codegen(d, errs, warns):
                 (errs if runtime == "tios" else warns).append(msg)
 
 
+ACTIVE_LOW_RELAYS = {"03_1", "03_2", "06", "07"}   # LOW = load on (docs.tibbo.com); boot level = variable DEFAULT
+SERIAL_PORT_TIBBITS = {"05"}                      # checked by compilation (Oct 2026); #01/#02 likely the same, not verified
+
+
+def check_compile_pitfalls(d, errs, warns):
+    """Mistakes that pass the structural checks but fail in the editor (Problems) or in the TIDE compiler.
+    Found while building the 'Smart Greenhouse' project (TPP3W(G2), tios, Oct 2026) and checked with POST /api/projects/build."""
+    F = d["features"]
+    ids = all_ids(d)
+    gv = next((f["settings"] for f in F if f["id"] == "global_vars"), {}) or {}
+    allvars = [v.get("settings", {}) for k in ("VARS", "AUTOVARS") for v in (gv.get(k) or [])]
+    by_feature = collections.defaultdict(list)
+    for v in allvars:
+        by_feature[(v.get("FEATURE"), v.get("FEATURE_SETTING"))].append(v)
+    # 1. {{$ID}} of an STG setting: only its autovariable is visible to the logic
+    stg_ids = {i for i, (k, _) in ids.items() if k == "stg_setting"}
+    for f in F:
+        if not f["id"].startswith(NODE_PREFIX):
+            continue
+        for m in REF.findall(json.dumps(f["settings"])):
+            if m in stg_ids:
+                av = by_feature.get((m, "SETTINGID"))
+                hint = f"используй {{{{${av[0]['ID']}}}}} (авто-переменная {av[0].get('VARNAME')})" if av else \
+                    "заведи авто-переменную настройки (FEATURE = ID настройки, FEATURE_SETTING = SETTINGID) и ссылайся на неё"
+                errs.append(f"узел {f['id']} {f['settings'].get('ID')}: {{{{${m}}}}} - это ID настройки STG, генератор оставит "
+                            f"`${m}` и TIDE выдаст «undeclared identifier»; {hint}")
+    for s in (x["settings"] for f in F if f["id"] == "stg" for x in (f["settings"].get("SETTINGS") or [])):
+        if not by_feature.get((s.get("ID"), "SETTINGID")):
+            warns.append(f"настройка STG {s.get('SETTINGID')}: нет авто-переменной - логика её не видит, а колбэки STG шаблона "
+                         f"(var_{s.get('SETTINGID')}_update_completed) могут не скомпилироваться")
+    # 2. duplicate identifiers (Tibbo BASIC is case-insensitive): variables vs Modbus devices
+    names = collections.defaultdict(list)
+    for v in allvars:
+        if v.get("VARNAME"):
+            names[v["VARNAME"].lower()].append("переменная")
+    for f in F:
+        if f["id"] == "modbus_master":
+            for dv in f["settings"].get("MODBUSDEVICES") or []:
+                n = dv.get("settings", {}).get("NAME", "")
+                if n:
+                    names[n.lower()].append("устройство Modbus")
+    for n, kinds in names.items():
+        if len(kinds) > 1:
+            errs.append(f"имя {n!r} занято {len(kinds)} раз ({', '.join(sorted(set(kinds)))}): редактор - «Name conflict: {n}. "
+                        "No duplicate names allowed. Tibbo Basic identifiers are case-insensitive» (устройству Modbus дай префикс, например mb_)")
+    # 3. serial-port Tibbit needs the port autovariable (generator writes `<NAME>=0`)
+    for f in F:
+        t = f["id"][7:] if f["id"].startswith("tibbit_") else None
+        if t in SERIAL_PORT_TIBBITS and not by_feature.get((f["settings"].get("ID"), "NAME")):
+            errs.append(f"{f['id']} S{f['settings'].get('SOCKET')}: нет авто-переменной порта (byte, FEATURE_SETTING = NAME, DEFAULT 1) - "
+                        f"генератор пишет `{f['settings'].get('NAME')}=0` и TIDE выдаст «undeclared identifier»")
+    # 4. 1-Wire sensors need Data Tables with the OWSENS table
+    ow = next((f["settings"] for f in F if f["id"] == "unowiresensors"), {}) or {}
+    if ow.get("SENSORS"):
+        tbl = next((f["settings"] for f in F if f["id"] == "tbl"), {}) or {}
+        tables = {t.get("settings", {}).get("NAME") for t in tbl.get("TABLES") or []}
+        if tbl.get("ENABLED") != "1" or "OWSENS" not in tables:
+            errs.append("1-Wire (unowiresensors) без Data Tables: нужны tbl ENABLED=1 и таблица OWSENS (как в примере tbt62), "
+                        "иначе TIDE: «undeclared identifier 'tbl_select'»")
+    # 5. active-low relays: the variable DEFAULT is the line level at boot
+    for f in F:
+        t = f["id"][7:] if f["id"].startswith("tibbit_") else None
+        if t not in ACTIVE_LOW_RELAYS:
+            continue
+        for key in ("L1NAME", "L2NAME"):
+            for v in by_feature.get((f["settings"].get("ID"), key), []):
+                if str(v.get("DEFAULT", "")).strip() not in ("1", "true", "True"):
+                    warns.append(f"#{t} S{f['settings'].get('SOCKET')} {v.get('VARNAME')}: DEFAULT={v.get('DEFAULT')!r} - реле активно по LOW, "
+                                 "генератор ставит линию при старте в значение по умолчанию: нагрузка включится при подаче питания. "
+                                 "Ставь DEFAULT 1 (выключено) и включай значением 0")
+    # 6. Variable Set on a Modbus register variable writes to the device; input registers / discrete inputs are read-only
+    ro = {i for i, (k, st) in ids.items() if k == "modbus_device_register"
+          and st.get("DATATYPE") in ("ReadInputRegisters", "ReadInputStatus")}
+    ro_vars = {v["ID"]: v.get("VARNAME") for v in allvars if v.get("FEATURE") in ro}
+    for f in F:
+        if f["id"] == "node_variable_set" and f["settings"].get("VARIABLE") in ro_vars:
+            warns.append(f"узел node_variable_set {f['settings'].get('ID')}: {ro_vars[f['settings']['VARIABLE']]} - регистр Modbus только для чтения "
+                         "(Input Register / Discrete Input), а Variable Set на переменную регистра отправляет запись в устройство. "
+                         "Расчёт веди в отдельной переменной")
+
+
 def check_event_params(d, ids, warns, reg=None):
     """{{$param}} in a block must come from a port of a block linked straight into it (editor rule: parameters are seen
     only by the next block; after an ASYNC block or one block further they are empty)."""
@@ -511,6 +592,7 @@ def check(d):
     check_panels_and_refs(d, ids, errs, warns)
     check_registry(d, errs, warns)
     check_codegen(d, errs, warns)
+    check_compile_pitfalls(d, errs, warns)
     check_event_params(d, ids, warns)
     check_hardware(d, warns)
     for fl in d.get("featureFlags", []):

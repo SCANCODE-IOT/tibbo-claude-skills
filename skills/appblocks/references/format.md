@@ -103,6 +103,20 @@
 14. **Жёлтые треугольники на холсте** (неподходящий разъём, нет разъёма, пустой M-сокет) - не ошибки Problems; проверяй
    `ab_tool.py check` (строки «плата: …», editor.md §9). Источнику питания #09/#10 ставь #18, а не #20/#21.
 
+15. **Авто-переменные, которые создаёт редактор** (при генерации JSON добавляй их сами, иначе ошибки компиляции):
+   | Источник | FEATURE / FEATURE_SETTING | Тип, DEFAULT |
+   |---|---|---|
+   | `stg_setting` | ID настройки / `SETTINGID` | float или string, значение настройки |
+   | `tibbit_05` (порт) | ID Tibbit / `NAME` | byte, 1 |
+   | линии #00-x, #03, #06, #07, #54 | ID Tibbit / `L1NAME`… | boolean; у реле DEFAULT 1 = выключено |
+   | каналы #17/#16 | ID Tibbit / `L1NAME`… | word 0..100 |
+   | каналы #13 / #61 | ID Tibbit / `CH1`… / `VIN1P`, `VIN1M`, `VIN2P`, `VIN2M`, `IIN1`, `IIN2` | float |
+   | `modbus_device_register` | ID регистра / `NAME` | float (MULTIPLIER применяется) |
+   | `unowiresensorval` | ID значения / `NAME` | float |
+16. **Имена - идентификаторы Tibbo BASIC и не различают регистр.** Имя устройства Modbus не должно совпадать с именем
+   переменной или регистра: Problems «Name conflict: soil1. No duplicate names allowed. Tibbo Basic identifiers are
+   case-insensitive». Устройствам давай префикс (`mb_soil1`).
+
 ## 5. Плагины (custom_feature) - формат
 Плагин живёт в проекте внутри `custom_features.FEATURES` и выглядит так (сокращённо, по плагинам маркетплейса):
 ```json

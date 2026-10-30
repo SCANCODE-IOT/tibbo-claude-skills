@@ -20,13 +20,14 @@ OTA, переменные/таблицы/команды, облачные workfl
 | `references/catalog.md` | Поля feature и узлов в экспортах Tibbo (ModbusMQTTGateway, bp_modbus_gateway_lcd) с примерами значений, поля Tibbit, структуры Modbus/LUIS. Полный список блоков и полей - blocks.md и features.md. |
 | `references/generated-code.md` | Что генерирует AppBlocks для `tios`: файлы TIDE-проекта, переменные → процедуры `var_X_*`, маркеры вставки кода, замеченные особенности. |
 | `references/catalog-examples.md` | Как блоки и Tibbit реально используются в **78 проектах appblocks.io** (59 типов узлов, 28 Tibbit): типичные связки, аргументы, сокеты. |
+| `references/mqtt.md` | **MQTT**: feature `mqtt` и блоки, IP брокера через настройку, поведение библиотеки (публикация без связи теряется, переподключение), свой брокер Mosquitto (конфиг, проверка `mosquitto_sub/pub`, частые проблемы), приёмник на компьютере. |
 | `references/api.md` | AppBlocks Cloud API: авторизация, проекты (код, сборка, версии, OTA, бандлы), устройства, группы, workspaces, workflow, дашборды. |
 | `scripts/ab_pairs.py`, `data/appblocks_pairs.json` | Правила жёлтых треугольников на холсте Hardware (снято из кода редактора); вызывается из `ab_tool.py check`. |
 | `scripts/ab_tool.py` | Офлайн-разбор проекта: `summary`, `check` (связи, ссылки, порты и значения по реестру редактора), `lookup <блок\|feature\|слово>`, `flow` (схема логики SVG), `tps` (железо → tps_check), `nodes`, `ids`. |
 | `data/registry.json`, `scripts/build_registry.py`, `scripts/extract_registry.js` | Реестр редактора (блоки, feature, элементы, Tibbit, периферия, виджеты) и как его обновить: JS в браузере на app.appblocks.io → `build_registry.py` пересобирает registry.json, blocks.md, features.md. |
-| `scripts/ab_api.py` | Клиент API: `me`, `projects`, `project <id> --out`, `versions`, `workspaces`, `devices`, `device`, `get`, `code`, `examples`/`example <имя>` (с запасным путём через appblocks.io), запись — только `create`/`update … --yes`. |
+| `scripts/ab_api.py` | Клиент API: `me`, `projects`, `project <id> --out`, `versions`, `workspaces`, `devices`, `device`, `get`, `code`, `build` (компилятор TIDE Tibbo, без ключа), `examples`/`example <имя>` (с запасным путём через appblocks.io), запись — только `create`/`update … --yes`. |
 | `tests/run.sh` | Офлайн-тесты инструментов на примерах (и мост в tps_check, если tibbo-firmware лежит рядом). |
-| `examples/*.json` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и Modbus→MQTT (`ModbusMQTTGateway`, он же пример modbusmqtt; zephyr, GitHub), sprinkler5, accesscontrol6, hydroponics (TPP3), water_level_control_cloud (с appblocks.io, в т.ч. tios). |
+| `examples/*.json` | 6 проектов Tibbo: Modbus-шлюз с LCD на 4×RS485 и Modbus→MQTT (`ModbusMQTTGateway`, он же пример modbusmqtt; zephyr, GitHub), sprinkler5, accesscontrol6, hydroponics (TPP3), water_level_control_cloud (с appblocks.io, в т.ч. tios); `greenhouse_tpp3.json` - умная теплица (TPP3W(G2): Modbus RTU, реле #06, #54, ШИМ #17, АЦП #61-2, MQTT; компилируется) и `mqtt_logger.py` - приёмник MQTT → SQLite → графики для неё. |
 
 **Windows:** скрипты запускай через `python` (или `python3`), вывод всегда UTF-8; при `CERTIFICATE_VERIFY_FAILED` в `ab_api.py` проверку не отключай - `pip install truststore` (или `certifi`, или `SSL_CERT_FILE` с бандлом Git), диагностика `ab_api.py tls`.
 
@@ -58,6 +59,7 @@ python3 scripts/ab_tool.py lookup  node_table   # порты и настройк
 python3 scripts/ab_tool.py flow    p.json flow.svg
 python3 scripts/ab_tool.py tps     p.json --vin 24 --out cfg.json && python3 <tps_check.py> check cfg.json --svg board.svg
 python3 scripts/ab_api.py code p.json --outdir gen   # что сгенерирует AppBlocks (для tios — Tibbo BASIC)
+python3 scripts/ab_api.py build p.json --out fw      # компилятор TIDE у Tibbo: ошибки компиляции, fw.tpc (ключ не нужен)
 ```
 - Напряжение питания в проекте не хранится (только `POWERADAPTER`) — спроси или прими 24 В и напиши допущение.
 - Ответ: что делает устройство (по цепочкам, человеческим языком) → картинки платы и логики → проблемы → что проверить.
@@ -90,6 +92,20 @@ python3 scripts/ab_api.py code p.json --outdir gen   # что сгенериру
   ID по всему файлу. Так появились 9 из 11 ошибок первого СКУД-проекта (format.md §4 п.8).
 - **Update Interval** (`global_vars.INTERVAL`) — не меньше 1 с. Короткие сигналы — на линию прерывания (editor.md §7а).
 - `ab_tool.py check` = 0 ошибок обязателен перед записью; `ab_api.py code` без ошибок **не** означает, что Problems пуст.
+- **Компиляция перед загрузкой - обязательно**: `ab_api.py build p.json` (сборщик Tibbo, тот же компилятор TIDE).
+  Ошибки, которые нашёл компилятор и которые теперь ловит `check` (generated-code.md, format.md §4 п.15-16):
+  настройка STG в выражении - только через её авто-переменную; у #05 нужна авто-переменная порта (NAME, byte);
+  1-Wire (#62) требует Data Tables с таблицей OWSENS; не удаляй авто-переменные настроек шаблона.
+- **Имена не различают регистр и не повторяются**: устройство Modbus и его регистр с одним именем - Problems
+  «Name conflict». Устройствам - префикс `mb_`.
+- **Реле и SSR (#03, #06, #07) активны по LOW**: уровень линии при старте = значение по умолчанию переменной.
+  DEFAULT 1 (выключено), включать значением 0 - иначе насос включится при подаче питания.
+- **Регистры Modbus Master** - авто-переменные, опрашиваются сами (`POLL_INTERVAL`); при потере связи значение не
+  сбрасывается - ставь в логике пределы (суточный лимит полива и т.п.). Variable Set на такую переменную пишет в устройство.
+- **MQTT** - mqtt.md: IP брокера через `linked_setting`, команды из MQTT проверяют условия безопасности, логика
+  управления остаётся на контроллере (публикация без связи теряется).
+- **Надёжность важнее минимальной цены** (tibbo-firmware §0.1): реле с запасом по току, защищённые входы #54,
+  отказобезопасное подключение датчиков, безопасное состояние выходов при старте; самый дешёвый вариант - отдельно, со списком рисков.
 - После создания/обновления проекта через API попроси пользователя открыть его и прислать вкладку Problems;
   каждую новую ошибку оттуда добавляй в `check` и в эти правила.
 
@@ -98,7 +114,8 @@ python3 scripts/ab_api.py code p.json --outdir gen   # что сгенериру
 С явным «да» пользователя на **конкретный** вызов (покажи метод, путь, что изменится): создание/изменение/удаление
 проектов и версий, запись переменных и таблиц устройств, команды устройствам, **OTA-прошивка** устройств и групп,
 workflow (создаются выключенными; включение — отдельное подтверждение), workspaces (DELETE удаляет всё).
-`ab_api.py create|update … --yes` — флаг ставь только после подтверждения.
+`ab_api.py create|update … --yes` — флаг ставь только после подтверждения. Сначала `ab_api.py me`: ключ бывает только с read
+(тогда 403 на запись - попроси ключ с write). После `update` открытого в редакторе проекта попроси перезагрузить вкладку без сохранения.
 
 ## 5. Редактор в браузере
 Браузер, выбранный пользователем (встроенный в приложение Claude или Chrome), под его входом. Сначала читай.

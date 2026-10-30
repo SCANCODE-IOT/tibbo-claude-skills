@@ -116,4 +116,43 @@ ok = "#20 рядом с #10" in out and "нужен #00_3" in out and out.count(
 print("ok   hardware canvas warnings" if ok else "FAIL hardware canvas warnings\n" + out)
 sys.exit(0 if ok else 1)
 PY
+# compile pitfalls (Smart Greenhouse, Oct 2026): STG setting ref, Modbus name conflict, #05 port autovar, 1-Wire tables, relay boot level
+"$PY" - "$T" <<'PY' || fail=1
+import json, sys, subprocess
+T = sys.argv[1]
+base = json.load(open("examples/greenhouse_tpp3.json", encoding="utf-8"))
+def run(mod):
+    p = json.loads(json.dumps(base)); mod(p)
+    json.dump(p, open(T + "/gh.json", "w", encoding="utf-8"))
+    r = subprocess.run([sys.executable, "scripts/ab_tool.py", "check", T + "/gh.json"], capture_output=True, text=True, encoding="utf-8")
+    return r.returncode, r.stdout
+F = lambda p, k: next(f for f in p["features"] if f["id"] == k)
+gv = lambda p: F(p, "global_vars")["settings"]
+def stg_ref(p):
+    st = next(x["settings"] for x in F(p, "stg")["settings"]["SETTINGS"] if x["settings"]["SETTINGID"] == "pump_sec")
+    av = next(v["settings"]["ID"] for v in gv(p)["AUTOVARS"] if v["settings"]["FEATURE"] == st["ID"])
+    for f in p["features"]:
+        if f["id"] == "node_time_delay" and f["settings"].get("DURATION") == "{{$" + av + "}}":
+            f["settings"]["DURATION"] = "{{$" + st["ID"] + "}}"
+def name_conflict(p):
+    F(p, "modbus_master")["settings"]["MODBUSDEVICES"][0]["settings"]["NAME"] = "SOIL1"
+def no_port_var(p):
+    t = F(p, "tibbit_05")["settings"]["ID"]
+    gv(p)["AUTOVARS"] = [v for v in gv(p)["AUTOVARS"] if v["settings"]["FEATURE"] != t]
+def onewire(p):
+    F(p, "unowiresensors")["settings"]["SENSORS"] = [{"id": "unowiresensor", "settings": {"ID": "ghtestow1", "NAME": "probe",
+        "SENSORTYPE": "DS18B20", "TIBBIT": "", "CHANNEL": "1", "VALUES": []}}]
+def relay0(p):
+    t = F(p, "tibbit_06")["settings"]["ID"]
+    for v in gv(p)["AUTOVARS"]:
+        if v["settings"]["FEATURE"] == t:
+            v["settings"]["DEFAULT"] = "0"
+rc0, out0 = run(lambda p: None)
+cases = [(stg_ref, "это ID настройки STG"), (name_conflict, "Name conflict: soil1"), (no_port_var, "нет авто-переменной порта"),
+         (onewire, "OWSENS"), (relay0, "реле активно по LOW")]
+bad = [m for f, m in cases if m not in run(f)[1]]
+ok = rc0 == 0 and not bad and "ОШИБКА" not in out0
+print("ok   compile pitfalls (greenhouse)" if ok else "FAIL compile pitfalls: " + ", ".join(bad) + "\n" + out0)
+sys.exit(0 if ok else 1)
+PY
 rm -rf "$T"; exit $fail
